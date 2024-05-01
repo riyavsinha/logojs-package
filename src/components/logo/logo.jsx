@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { maxLabelLength, logLikelihood, sortedIndices, loadGlyphComponents, FREQUENCY } from '../../common/utils';
+import { maxLabelLength, logLikelihood, sortedIndices, FREQUENCY } from '../../common/utils';
+import {loadGlyphComponents} from '../../common/alphabet';
 import { parseFASTA, parseSequences } from '../../common/fasta';
 import GlyphStack from './glyphstack';
 import XAxis from './xaxis';

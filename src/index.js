@@ -4,7 +4,8 @@ import ProteinLogo, { ProteinAlphabet } from './components/logo/proteinlogo';
 import DNALogo, { DNAAlphabet } from './components/logo/dnalogo';
 import RNALogo, { RNAAlphabet } from './components/logo/rnalogo';
 import CompleteLogo, { CompleteAlphabet } from './components/logo/completelogo';
-import { xrange, disymbolAlphabet, loadGlyphComponents } from './common/utils';
+import { xrange, disymbolAlphabet } from './common/utils';
+import {loadGlyphComponents} from './common/alphabet';
 import { embedDNALogo, embedRNALogo, embedProteinLogo, embedLogo, embedLogoWithNegatives, embedRawLogo } from './js/embed';
 import { INFORMATION_CONTENT, FREQUENCY } from './common/utils';
 
