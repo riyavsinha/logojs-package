@@ -1,4 +1,5 @@
 module.exports = {
+  mode: "development",
   entry: './src/index.js',
   optimization: { usedExports: true },
   module: {
