@@ -13,17 +13,20 @@ type YAxisProps = {
   width: number;
   /** If set, fraction of the distance from the top where zero should be. */
   zeroPoint?: number;
+  /** The y-axis label. Default is "bits". */
+  label?: string;
 };
 
 /**
  * Renders a y-axis with bit numbers.
  */
-const YAxis = ({
+export const YAxis = ({
   bits,
   transform,
   height,
   width,
   zeroPoint = 1.0,
+  label = "bits",
 }: YAxisProps) => {
   const ticks = xrange(bits + 1);
   return (
@@ -47,7 +50,7 @@ const YAxis = ({
       ))}
       <g transform="rotate(-90)">
         <text y="20" x={-height / 2} textAnchor="middle" fontSize="18">
-          bits
+          {label}
         </text>
       </g>
     </g>
