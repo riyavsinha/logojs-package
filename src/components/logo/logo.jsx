@@ -1,24 +1,40 @@
-import React from 'react';
+import React from "react";
 
-import { maxLabelLength, logLikelihood, sortedIndices, FREQUENCY } from '../../common/utils';
-import {loadGlyphComponents} from '../../common/alphabet';
-import { parseFASTA, parseSequences } from '../../common/fasta';
-import GlyphStack from './glyphstack';
-import XAxis from './xaxis';
-import YAxis from './yaxis';
-import YAxisFrequency from './yaxisfreq';
-import { YGridlines } from './ygridlines';
+import {
+  maxLabelLength,
+  logLikelihood,
+  sortedIndices,
+  FREQUENCY,
+} from "../../common/utils";
+import { loadGlyphComponents } from "../../common/alphabet";
+import { parseFASTA, parseSequences } from "../../common/fasta";
+import GlyphStack from "./glyphstack";
+import XAxis from "./XAxis";
+import YAxis from "./YAxis";
+import YAxisFrequency from "./yaxisfreq";
+import { YGridlines } from "./ygridlines";
 
 const _position = (width, height) => (lv, transform, key, alphabet, events) => {
-    const indices = sortedIndices(lv); // tallest on top
-    const { onSymbolMouseOver, onSymbolMouseOut, onSymbolClick } = events || {};
-    return (
-	    <GlyphStack indices={indices} alphabet={alphabet}
-	                onSymbolMouseOver={onSymbolMouseOver ? s => onSymbolMouseOver(key, s) : null}
-	                onSymbolClick={onSymbolClick ? s => onSymbolClick(key, s) : null}
-	                onSymbolMouseOut={onSymbolMouseOut ? s => onSymbolMouseOut(key, s) : null}
-	                lv={lv} transform={transform} width={width} height={height} key={key} />
-    );
+  const indices = sortedIndices(lv); // tallest on top
+  const { onSymbolMouseOver, onSymbolMouseOut, onSymbolClick } = events || {};
+  return (
+    <GlyphStack
+      indices={indices}
+      alphabet={alphabet}
+      onSymbolMouseOver={
+        onSymbolMouseOver ? (s) => onSymbolMouseOver(key, s) : null
+      }
+      onSymbolClick={onSymbolClick ? (s) => onSymbolClick(key, s) : null}
+      onSymbolMouseOut={
+        onSymbolMouseOut ? (s) => onSymbolMouseOut(key, s) : null
+      }
+      lv={lv}
+      transform={transform}
+      width={width}
+      height={height}
+      key={key}
+    />
+  );
 };
 
 /**
@@ -32,17 +48,29 @@ const _position = (width, height) => (lv, transform, key, alphabet, events) => {
  * @prop onSymbolMousedOut raised when a symbol is moused out; receives information about the moused out symbol.
  * @prop onSymbolClicked raised when a symbol is clicked; receives information about the clicked symbol.
  */
-export const RawLogo = ({ values, glyphWidth, stackHeight, alphabet, onSymbolMouseOver, onSymbolMouseOut, onSymbolClick }) => {
-    const gposition = _position(glyphWidth, stackHeight);
-    for (const symbol in alphabet) {
-        if (!symbol.component) {
-            alphabet = loadGlyphComponents(alphabet);
-            break;
-        }
+export const RawLogo = ({
+  values,
+  glyphWidth,
+  stackHeight,
+  alphabet,
+  onSymbolMouseOver,
+  onSymbolMouseOut,
+  onSymbolClick,
+}) => {
+  const gposition = _position(glyphWidth, stackHeight);
+  for (const symbol in alphabet) {
+    if (!symbol.component) {
+      alphabet = loadGlyphComponents(alphabet);
+      break;
     }
-    return values.map((lv, i) => (
-	    gposition(lv, 'translate(' + glyphWidth * i + ',0)', i, alphabet, { onSymbolMouseOver, onSymbolMouseOut, onSymbolClick })
-    ));
+  }
+  return values.map((lv, i) =>
+    gposition(lv, "translate(" + glyphWidth * i + ",0)", i, alphabet, {
+      onSymbolMouseOver,
+      onSymbolMouseOut,
+      onSymbolClick,
+    })
+  );
 };
 
 /**
@@ -66,75 +94,153 @@ export const RawLogo = ({ values, glyphWidth, stackHeight, alphabet, onSymbolMou
  * @prop yAxisMax if set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode.
  */
 const Logo = React.forwardRef(
-    ({ ppm, pfm, values, fasta, mode, height, width, alphabet, glyphwidth, scale, startpos, showGridLines, backgroundFrequencies, constantPseudocount, smallSampleCorrectionOff,
-       yAxisMax, onSymbolMouseOver, onSymbolMouseOut, onSymbolClick, noFastaNames, countUnaligned }, ref
-) => {
-
+  (
+    {
+      ppm,
+      pfm,
+      values,
+      fasta,
+      mode,
+      height,
+      width,
+      alphabet,
+      glyphwidth,
+      scale,
+      startpos,
+      showGridLines,
+      backgroundFrequencies,
+      constantPseudocount,
+      smallSampleCorrectionOff,
+      yAxisMax,
+      onSymbolMouseOver,
+      onSymbolMouseOut,
+      onSymbolClick,
+      noFastaNames,
+      countUnaligned,
+    },
+    ref
+  ) => {
     /* compute likelihood; need at least one entry to continue */
     let count = null;
-    const relativePseudocount = (pfm || fasta) && !constantPseudocount && !countUnaligned ? !smallSampleCorrectionOff : false;
-    const pseudocount = relativePseudocount ? 0 : (constantPseudocount || 0) / alphabet.length;
+    const relativePseudocount =
+      (pfm || fasta) && !constantPseudocount && !countUnaligned
+        ? !smallSampleCorrectionOff
+        : false;
+    const pseudocount = relativePseudocount
+      ? 0
+      : (constantPseudocount || 0) / alphabet.length;
     if (!ppm && !pfm && fasta) {
-        const r = (noFastaNames ? parseSequences : parseFASTA)(alphabet, fasta.toUpperCase());
-        pfm = r.pfm;
-        count = r.count || 1;
+      const r = (noFastaNames ? parseSequences : parseFASTA)(
+        alphabet,
+        fasta.toUpperCase()
+      );
+      pfm = r.pfm;
+      count = r.count || 1;
     }
-    const sums = relativePseudocount && pfm && pfm.map && pfm.map( x => x.reduce( (t, v, i) => i === undefined ? t : v + t, 0.0 )).map( x => x === 0 ? 0 : (alphabet.length - 1) / (2 * Math.log(2) * x));
+    const sums =
+      relativePseudocount &&
+      pfm &&
+      pfm.map &&
+      pfm
+        .map((x) => x.reduce((t, v, i) => (i === undefined ? t : v + t), 0.0))
+        .map((x) =>
+          x === 0 ? 0 : (alphabet.length - 1) / (2 * Math.log(2) * x)
+        );
     if (!ppm && pfm && pfm.map)
-        ppm = pfm.map( (column, i) => {
-            const sum = (count && countUnaligned ? count : column.reduce( (a, c) => a + c, 0.0 ) + pseudocount * alphabet.length) || 1;
-            return column.map( x => (x + pseudocount) / sum );
-        });
-    if (ppm.length === 0 || ppm[0].length === 0)
-	return <div />;
+      ppm = pfm.map((column, i) => {
+        const sum =
+          (count && countUnaligned
+            ? count
+            : column.reduce((a, c) => a + c, 0.0) +
+              pseudocount * alphabet.length) || 1;
+        return column.map((x) => (x + pseudocount) / sum);
+      });
+    if (ppm.length === 0 || ppm[0].length === 0) return <div />;
     let alphabetSize = ppm[0].length;
     if (!backgroundFrequencies)
-        backgroundFrequencies = ppm[0].map( _ => 1.0 / alphabetSize );
-    let likelihood = values || ( mode !== FREQUENCY
-		                 ? ppm.map((x, i) => logLikelihood(backgroundFrequencies)(x, sums[i]))
-		       : ppm.map(x => x.map(v => v * Math.log2(alphabetSize))) );
-    const theights = mode === FREQUENCY ? [ Math.log2(alphabetSize) ] : backgroundFrequencies.map( x => Math.log2(1.0 / (x || 0.01)) );
-    const max = yAxisMax || Math.max(...theights), min = Math.min(...theights);
+      backgroundFrequencies = ppm[0].map((_) => 1.0 / alphabetSize);
+    let likelihood =
+      values ||
+      (mode !== FREQUENCY
+        ? ppm.map((x, i) => logLikelihood(backgroundFrequencies)(x, sums[i]))
+        : ppm.map((x) => x.map((v) => v * Math.log2(alphabetSize))));
+    const theights =
+      mode === FREQUENCY
+        ? [Math.log2(alphabetSize)]
+        : backgroundFrequencies.map((x) => Math.log2(1.0 / (x || 0.01)));
+    const max = yAxisMax || Math.max(...theights),
+      min = Math.min(...theights);
     const zeroPoint = min < 0 ? max / (max - min) : 1.0;
-    
+
     /* misc options */
-    startpos = !isNaN(parseFloat(startpos)) && isFinite(startpos) ? startpos : 1;
+    startpos =
+      !isNaN(parseFloat(startpos)) && isFinite(startpos) ? startpos : 1;
 
     /* compute scaling factors */
     let maxHeight = 100.0 * max;
-    let glyphWidth = maxHeight / 6.0 * (glyphwidth || 1.0);
-    
+    let glyphWidth = (maxHeight / 6.0) * (glyphwidth || 1.0);
+
     /* compute viewBox and padding for the x-axis labels */
     let viewBoxW = likelihood.length * glyphWidth + 80;
-    let viewBoxH = maxHeight + 18 * (maxLabelLength(startpos, likelihood.length) + 1);
-    if (scale)
-	viewBoxW > viewBoxH ? width = scale : height = scale;
+    let viewBoxH =
+      maxHeight + 18 * (maxLabelLength(startpos, likelihood.length) + 1);
+    if (scale) viewBoxW > viewBoxH ? (width = scale) : (height = scale);
 
     return (
-	<svg width={width} height={height} viewBox={'0 0 ' + viewBoxW + ' ' + viewBoxH} ref={ref}>
-          {showGridLines && (
-              <YGridlines
-                {...{
-                    minrange: startpos,
-                    maxrange: startpos + ppm.length,
-                    xstart: 70,
-                    width: viewBoxW,
-                    height: maxHeight,
-                    xaxis_y: 10,
-                    numberofgridlines: 10 * likelihood.length //10 grid lines per glyph
-                }} />
-          )}
-          <XAxis transform={'translate(80,' + (maxHeight + 20) + ')'} n={likelihood.length}
-	         glyphWidth={glyphWidth} startpos={startpos} />
-	  { mode === FREQUENCY
-	    ? <YAxisFrequency transform="translate(0,10)" width={65} height={maxHeight} ticks={2} />
-            : <YAxis transform="translate(0,10)" width={65} height={maxHeight} bits={max} zeroPoint={zeroPoint} /> }
-          <g transform="translate(80,10)">
-            <RawLogo values={likelihood} glyphWidth={glyphWidth} stackHeight={maxHeight} alphabet={alphabet}
-                     onSymbolMouseOver={onSymbolMouseOver} onSymbolMouseOut={onSymbolMouseOut} onSymbolClick={onSymbolClick} />
-          </g>
-        </svg>
+      <svg
+        width={width}
+        height={height}
+        viewBox={"0 0 " + viewBoxW + " " + viewBoxH}
+        ref={ref}
+      >
+        {showGridLines && (
+          <YGridlines
+            {...{
+              minrange: startpos,
+              maxrange: startpos + ppm.length,
+              xstart: 70,
+              width: viewBoxW,
+              height: maxHeight,
+              xaxis_y: 10,
+              numberofgridlines: 10 * likelihood.length, //10 grid lines per glyph
+            }}
+          />
+        )}
+        <XAxis
+          transform={"translate(80," + (maxHeight + 20) + ")"}
+          n={likelihood.length}
+          glyphWidth={glyphWidth}
+          startpos={startpos}
+        />
+        {mode === FREQUENCY ? (
+          <YAxisFrequency
+            transform="translate(0,10)"
+            width={65}
+            height={maxHeight}
+            ticks={2}
+          />
+        ) : (
+          <YAxis
+            transform="translate(0,10)"
+            width={65}
+            height={maxHeight}
+            bits={max}
+            zeroPoint={zeroPoint}
+          />
+        )}
+        <g transform="translate(80,10)">
+          <RawLogo
+            values={likelihood}
+            glyphWidth={glyphWidth}
+            stackHeight={maxHeight}
+            alphabet={alphabet}
+            onSymbolMouseOver={onSymbolMouseOver}
+            onSymbolMouseOut={onSymbolMouseOut}
+            onSymbolClick={onSymbolClick}
+          />
+        </g>
+      </svg>
     );
-	
-});
+  }
+);
 export default Logo;

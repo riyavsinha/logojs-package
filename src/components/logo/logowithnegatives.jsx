@@ -9,8 +9,8 @@ import {
 } from "../../common/utils";
 import { loadGlyphComponents } from "../../common/alphabet";
 import GlyphStack from "./glyphstack";
-import XAxis from "./xaxis";
-import YAxis from "./yaxis";
+import XAxis from "./XAxis";
+import YAxis from "./YAxis";
 import YAxisWithNegatives from "./yaxisneg";
 import { YGridlines } from "./ygridlines";
 

@@ -2,18 +2,30 @@ import React from "react";
 
 import { xrange } from "../../common/utils";
 
+type YAxisProps = {
+  /** The maximum number of bits possible in the logo. */
+  bits: number;
+  /** SVG transform to apply to the y-axis. */
+  transform: string;
+  /** The height of the logo relative to the containing SVG. */
+  height: number;
+  /** The width of the logo relative to the containing SVG. */
+  width: number;
+  /** If set, fraction of the distance from the top where zero should be. */
+  zeroPoint?: number;
+};
+
 /**
- * Renders a y-axis for a logo scaled by information content.
- *
- * @prop bits the maximum number of bits possible in the logo.
- * @prop transform SVG transform to apply to the y-axis.
- * @prop height the height of the logo relative to the containing SVG.
- * @prop width the width of the logo relative to the containing SVG.
- * @prop zeroPoint if set, fraction of the distance from the top where zero should be.
+ * Renders a y-axis with bit numbers.
  */
-const YAxis = ({ bits, transform, height, width, zeroPoint }) => {
+const YAxis = ({
+  bits,
+  transform,
+  height,
+  width,
+  zeroPoint = 1.0,
+}: YAxisProps) => {
   const ticks = xrange(bits + 1);
-  if (zeroPoint === undefined) zeroPoint = 1.0;
   return (
     <g transform={transform}>
       <rect height={height} width={4} x={width + 1} y={0} fill="#000000" />
