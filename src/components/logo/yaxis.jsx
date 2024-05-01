@@ -41,4 +41,5 @@ const YAxis = ({ bits, transform, height, width, zeroPoint }) => {
     </g>
   );
 };
+
 export default YAxis;
