@@ -56,27 +56,6 @@ export const negsum = (x: number[]) => {
   return s;
 };
 
-// type AlphabetEntry = { component: Component; regex: string; color: string };
-// type Alphabet = AlphabetEntry[];
-// export const disymbolAlphabet = (x: Alphabet) =>
-//   x.reduce(
-//     (ci, ix) => [
-//       ...ci,
-//       ...x.reduce(
-//         (cj, jx) => [
-//           ...cj,
-//           {
-//             component: [ix.component, jx.component],
-//             color: [ix.color, jx.color],
-//             regex: ix.regex + jx.regex,
-//           },
-//         ],
-//         []
-//       ),
-//     ],
-//     []
-//   );
-
 const validHex = (color: string) => {
   /* validate color is a hex color */
   color = String(color).replace(/[^0-9a-f]/gi, "");
