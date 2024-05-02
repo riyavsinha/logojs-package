@@ -17,6 +17,6 @@ type GlyphProps = {
 const Glyph = ({ yscale, inverted, xscale, children }: GlyphProps) => {
   const _yscale = yscale * (inverted ? -1 : 1);
   const transform = `scale(${xscale}, ${_yscale})`;
-  return <g transform={transform}>{children}</g>;
+  return <g transform={transform} height={yscale}>{children}</g>;
 };
 export default Glyph;

@@ -75,6 +75,16 @@ export const CompleteAlphabet = [
     { component: N9, regex: "9", color: "firebrick" }
 ];
 
+export const regexMap = (() => {
+    let r = {};
+    console.log(CompleteAlphabet);
+    CompleteAlphabet.forEach((glyph) => {
+      r[glyph.regex] = glyph;
+    });
+    return r;
+  })();
+  
+
 const CompleteLogo = React.forwardRef( ({ ppm, pfm, scale, startpos, mode }, ref) => (
     <Logo ppm={ppm} alphabet={CompleteAlphabet} scale={scale}
           mode={mode} startpos={startpos} pfm={pfm} ref={ref} />

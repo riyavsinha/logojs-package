@@ -7,8 +7,8 @@ import {
   negsum,
   maxLabelLength,
 } from "../../common/utils";
-import { loadGlyphComponents } from "../../common/alphabet";
-import GlyphStack from "./glyphstack";
+import { loadGlyphComponents } from "../../common/loadGlyph";
+import GlyphStack from "./GlyphStack";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import YAxisWithNegatives from "./yaxisneg";
@@ -24,7 +24,7 @@ const _position =
         indices={indices}
         alphabet={alphabet}
         alpha={alpha}
-        lv={lv}
+        values={lv}
         transform={transform}
         width={width}
         height={height}
