@@ -5,6 +5,7 @@ import React from "react";
 import { RawLogo } from "../components/logo/logo";
 import DynamicSVGComponent from "../components/logo/DynamicSvg";
 import { CompleteAlphabet } from "../components/logo/completelogo";
+import { DNAAlphabet } from "..";
 
 const meta = {
   title: "RawLogo",
@@ -33,9 +34,10 @@ export const Basic: Story = {
     ],
     glyphWidth: 10,
     stackHeights: [30, 20],
-    alphabet: CompleteAlphabet,
+    alphabet: DNAAlphabet,
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
     onSymbolMouseOver: fn(),
+    height: 200
   },
 };

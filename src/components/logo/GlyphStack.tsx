@@ -4,22 +4,32 @@ import Glyph from "../glyphs/glyph";
 import { Alphabet } from "../../types";
 
 type GlyphStackProps = {
+  /** The total height of the glyph stack */
   height: number;
+  /** The total width of the glyph stack */
   width: number;
+  /** The indices corresponding to `Alphabet` entries to render in order, starting from the bottom */
   indices: number[];
+  /** The alphabet containing entries to render in the stack */
   alphabet: Alphabet;
+  /** A list of values corresponding to the `Alphabet` order of `indices`. The relative values determines the glyph heights within the stack. */
   values: number[];
+  /** An SVG Transform string to apply to the stack. */
   transform: string;
   /** Opacity of the glyphs. Defaults to 1 (opaque). */
   alpha?: number;
+  /** Whether to invert the stack */
   inverted: boolean;
+  /** Callback for when a symbol is moused over. */
   onSymbolMouseOver?: (symbol: any) => void;
+  /** Callback for when a symbol is moused out. */
   onSymbolMouseOut?: (symbol: any) => void;
+  /** Callback for when a symbol is clicked. */
   onSymbolClick?: (symbol: any) => void;
 };
 
 /**
- *
+ * Renders glyphs from an `Alphabet` in a vertical stack.
  */
 export const GlyphStack = ({
   height,
@@ -34,6 +44,12 @@ export const GlyphStack = ({
   onSymbolMouseOut,
   onSymbolClick,
 }: GlyphStackProps) => {
+  if (values.length !== indices.length || values.length !== alphabet.length) {
+    throw new Error(
+      "GlyphStack: `values`, `indices`, and `alphabet` must have the same length."
+    );
+  }
+
   // move up from bottom
   const valuesSum = values.reduce((a, b) => a + b, 0);
   let cy = height; // start from bottom with smallest letter

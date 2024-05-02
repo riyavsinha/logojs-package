@@ -30,7 +30,7 @@ export const Basic: Story = {
   args: {
     height: 100,
     width: 100,
-    indices: [0, 1, 2, 3, 4, 5],
+    indices: [0, 1, 2, 3],
     alphabet: DNAAlphabet,
     values: [0.1, 0.2, 0.3, 0.4],
     transform: "",
