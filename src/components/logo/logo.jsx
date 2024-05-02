@@ -172,7 +172,6 @@ export const Logo = ({
     mode === FREQUENCY
       ? [Math.log2(alphabetSize)]
       : backgroundFrequencies.map((x) => Math.log2(1.0 / (x || 0.01)));
-  console.log(likelihood);
   const max = yAxisMax || Math.max(...theights),
     min = Math.min(...theights);
   const zeroPoint = min < 0 ? max / (max - min) : 1.0;
@@ -189,7 +188,6 @@ export const Logo = ({
   let viewBoxH =
     maxHeight + 18 * (maxLabelLength(startpos, likelihood.length) + 1);
   if (scale) viewBoxW > viewBoxH ? (width = scale) : (height = scale);
-  console.log("viewBoxW: " + viewBoxW + " viewBoxH: " + viewBoxH);
   return (
     <svg
       width={width}

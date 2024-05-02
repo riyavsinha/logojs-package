@@ -22,7 +22,6 @@ const DynamicSVGComponent = ({ children }: DynamicSVGComponentProps) => {
   const updateViewBox = () => {
     if (svgRef.current) {
       const bbox = svgRef.current.getBBox();
-      console.log("Computed BBox:", bbox);
       setViewBox(`${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`);
       setSvgWidth(bbox.width);
       setSvgHeight(bbox.height);

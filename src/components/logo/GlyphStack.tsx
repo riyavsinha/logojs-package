@@ -62,7 +62,6 @@ export const GlyphStack = ({
       "GlyphStack: `values`, `indices`, and `alphabet` must have the same length."
     );
   }
-  console.log(alphabet);
 
   const valuesSum = values.reduce((a, b) => a + b, 0);
 

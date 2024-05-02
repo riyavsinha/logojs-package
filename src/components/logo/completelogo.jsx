@@ -77,7 +77,6 @@ export const CompleteAlphabet = [
 
 export const regexMap = (() => {
     let r = {};
-    console.log(CompleteAlphabet);
     CompleteAlphabet.forEach((glyph) => {
       r[glyph.regex] = glyph;
     });
