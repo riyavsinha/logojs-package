@@ -4,6 +4,7 @@ import { fn } from "@storybook/test";
 
 import { Logo } from "../components/logo/logo";
 import { CompleteAlphabet } from "../components/logo/completelogo";
+import { DNAAlphabet, disymbolAlphabet } from "..";
 
 const meta = {
   title: "Logo",
@@ -46,7 +47,27 @@ export const Basic: Story = {
     mode: "INFORMATION_CONTENT",
     width: 100,
     height: 100,
-    alphabet: CompleteAlphabet,
+    alphabet: DNAAlphabet,
+    onSymbolClick: fn(),
+    onSymbolMouseOut: fn(),
+    onSymbolMouseOver: fn(),
+  },
+};
+
+export const Dinucleotide: Story = {
+  args: {
+    ppm: [
+      [0, 0, 0.25, 0, 0, 0, 0, 0.25, 0.25, 0, 0, 0, 0, 0, 0.25, 0],
+      [0, 0, 0, 0.4, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0.2, 0],
+      [0, 0, 0, 0.3, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0.5, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0.5, 0],
+      [0, 0, 0.5, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0.25, 0, 0.25, 0, 0.2, 0, 0, 0.1, 0, 0, 0.1, 0.1, 0, 0],
+    ],
+    mode: "INFORMATION_CONTENT",
+    width: 100,
+    height: 100,
+    alphabet: disymbolAlphabet(DNAAlphabet),
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
     onSymbolMouseOver: fn(),
