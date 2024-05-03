@@ -1,85 +1,12 @@
 import React from "react";
 
-import {
-  maxLabelLength,
-  logLikelihood,
-  sortedIndices,
-  FREQUENCY,
-} from "../../common/utils";
-import { loadGlyphComponents } from "../../common/loadGlyph";
+import { maxLabelLength, logLikelihood, FREQUENCY } from "../../common/utils";
 import { parseFASTA, parseSequences } from "../../common/fasta";
-import { GlyphStack } from "./GlyphStack";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import YAxisFrequency from "./yaxisfreq";
 import { YGridlines } from "./ygridlines";
-
-const _position = (width, height) => (lv, transform, key, alphabet, events) => {
-  const indices = sortedIndices(lv); // tallest on top
-  const { onSymbolMouseOver, onSymbolMouseOut, onSymbolClick } = events || {};
-  return (
-    <GlyphStack
-      indices={indices}
-      alphabet={alphabet}
-      onSymbolMouseOver={
-        onSymbolMouseOver ? (s) => onSymbolMouseOver(key, s) : null
-      }
-      onSymbolClick={onSymbolClick ? (s) => onSymbolClick(key, s) : null}
-      onSymbolMouseOut={
-        onSymbolMouseOut ? (s) => onSymbolMouseOut(key, s) : null
-      }
-      values={lv}
-      transform={transform}
-      width={width}
-      height={height}
-      key={key}
-    />
-  );
-};
-
-/**
- * Renders a logo without axes.
- *
- * @prop values matrix containing symbol values.
- * @prop glyphWidth the width of a single glyph, relative to the containing SVG.
- * @prop stackHeights the height of each position, relative to the containing SVG; corresponds to a matrix value of 1.
- * @prop alphabet symbol list mapping columns to colored glyphs.
- * @prop onSymbolMouseOver raised when a symbol is moused over; receives information about the moused over symbol.
- * @prop onSymbolMousedOut raised when a symbol is moused out; receives information about the moused out symbol.
- * @prop onSymbolClicked raised when a symbol is clicked; receives information about the clicked symbol.
- */
-export const RawLogo = ({
-  values,
-  glyphWidth,
-  height,
-  stackHeights,
-  alphabet,
-  onSymbolMouseOver,
-  onSymbolMouseOut,
-  onSymbolClick,
-}) => {
-  // const gposition = _position(glyphWidth, stackHeight);
-  for (const symbol in alphabet) {
-    if (!symbol.component) {
-      alphabet = loadGlyphComponents(alphabet);
-      break;
-    }
-  }
-  return values.map((lv, i) => {
-    const translateTransform = `translate(${glyphWidth * i},${height - stackHeights[i]})`;
-    return _position(glyphWidth, stackHeights[i])(
-      lv,
-      translateTransform,
-      i,
-      alphabet,
-      {
-        onSymbolMouseOver,
-        onSymbolMouseOut,
-        onSymbolClick,
-      }
-    );
-  });
-};
+import { RawLogo } from "./RawLogo";
 
 /**
  * Renders a logo with x- and y-axes.

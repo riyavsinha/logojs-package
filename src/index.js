@@ -1,4 +1,5 @@
-import { Logo, RawLogo } from "./components/logo/logo";
+import { Logo } from "./components/logo/logo";
+import { RawLogo } from "./components/logo/RawLogo";
 import LogoWithNegatives from "./components/logo/logowithnegatives";
 import ProteinLogo, { ProteinAlphabet } from "./components/logo/proteinlogo";
 import DNALogo, { DNAAlphabet } from "./components/logo/DNALogo";

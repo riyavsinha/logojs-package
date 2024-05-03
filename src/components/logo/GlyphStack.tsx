@@ -1,13 +1,7 @@
 import React from "react";
 
 import Glyph from "../glyphs/glyph";
-import { Alphabet } from "../../types";
-
-type GlyphEventInfo = {
-  color: string | string[];
-  regex: string;
-  value: number;
-};
+import { Alphabet, GlyphEventInfo } from "../../types";
 
 type GlyphStackProps = {
   /** The total height of the glyph stack */
@@ -40,8 +34,6 @@ type GlyphStackProps = {
  * Renders glyphs from an `Alphabet` in a vertical stack.
  *
  * For rendering, single-character glyphs are rendered at full width, while multi-character glyphs are scaled down by `multiGlyphBufferRatio` in order to help distinguish them when placed next to other `GlyphStack`s.
- *
- * Events are emitted
  */
 export const GlyphStack = ({
   height,

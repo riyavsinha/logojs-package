@@ -3,7 +3,6 @@ import { fn } from "@storybook/test";
 // import React from "react";
 
 import { Logo } from "../components/logo/logo";
-import { CompleteAlphabet } from "../components/logo/completelogo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
 
 const meta = {
