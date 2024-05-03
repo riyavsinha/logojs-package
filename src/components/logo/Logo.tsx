@@ -51,6 +51,8 @@ type LogoProps = {
   noFastaNames?: boolean;
   /** If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
   countUnaligned?: boolean;
+  /** Degrees to rotate the x-axis. Default is -90. */
+  xAxisRotation?: number;
 };
 
 /**
@@ -78,6 +80,7 @@ export const Logo = ({
   onSymbolClick,
   noFastaNames,
   countUnaligned,
+  xAxisRotation
 }: LogoProps) => {
   /* compute likelihood; need at least one entry to continue */
   let count = null;
@@ -167,6 +170,7 @@ export const Logo = ({
         n={likelihood.length}
         glyphWidth={glyphWidth}
         startpos={startpos}
+        rotation={xAxisRotation}
       />
       {mode === FREQUENCY ? (
         <YAxisFrequency
