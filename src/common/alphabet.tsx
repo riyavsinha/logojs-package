@@ -48,11 +48,12 @@ import {
   y,
 } from "../components/glyphs";
 import { N1, N2, N3, N4, N5, N6, N7, N8, N9 } from "../components/glyphs";
+import { AlphabetLetter, MonoglyphAlphbetLetter } from "../types";
 
 /**
  * A alphabet making use of all available symbols and a variety of colors.
  */
-export const CompleteAlphabet = [
+export const CompleteAlphabet: MonoglyphAlphbetLetter[] = [
   { component: A, regex: "A", color: "red" },
   { component: B, regex: "B", color: "maroon" },
   { component: C, regex: "C", color: "blue" },
@@ -117,10 +118,8 @@ export const CompleteAlphabet = [
   { component: N9, regex: "9", color: "firebrick" },
 ];
 
-export const regexMap = (() => {
-  let r = {};
-  CompleteAlphabet.forEach((glyph) => {
-    r[glyph.regex] = glyph;
-  });
-  return r;
-})();
+type GlyphMap = { [key: string]: MonoglyphAlphbetLetter };
+export const regexMap: GlyphMap = CompleteAlphabet.reduce((acc, glyph) => {
+  acc[glyph.regex] = glyph;
+  return acc;
+}, {} as GlyphMap);
