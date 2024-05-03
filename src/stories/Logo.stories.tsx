@@ -53,6 +53,13 @@ export const Basic: Story = {
   },
 };
 
+export const Frequency: Story = {
+  args: {
+    ...Basic.args,
+    mode: "FREQUENCY",
+  },
+};
+
 export const Dinucleotide: Story = {
   args: {
     ppm: [
