@@ -19,16 +19,26 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
+export const DNABits: Story = {
   render: (args) => (
     <DynamicSVGComponent>
       <YAxis {...args} />
     </DynamicSVGComponent>
   ),
   args: {
-    bits: 2,
-    transform: "translate(50, 50)",
+    max: 2,
     height: 100,
-    width: 20,
+    width: 75,
+  },
+};
+
+export const Frequency: Story = {
+  render: DNABits.render,
+  args: {
+    max: 1,
+    numTicks: 2,
+    height: 100,
+    width: 75,
+    label: "frequency",
   },
 };

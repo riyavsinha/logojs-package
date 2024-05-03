@@ -4,7 +4,6 @@ import { maxLabelLength, logLikelihood, FREQUENCY } from "../../common/utils";
 import { parseFASTA, parseSequences } from "../../common/fasta";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
-import YAxisFrequency from "./yaxisfreq";
 import { YGridlines } from "./YGridlines";
 import { RawLogo } from "./RawLogo";
 
@@ -168,22 +167,15 @@ export const Logo = ({
         startPos={startpos}
         rotation={xAxisRotation}
       />
-      {mode === FREQUENCY ? (
-        <YAxisFrequency
-          transform="translate(0,10)"
-          width={65}
-          height={maxHeight}
-          ticks={2}
-        />
-      ) : (
-        <YAxis
-          transform="translate(0,10)"
-          width={65}
-          height={maxHeight}
-          bits={max}
-          zeroPoint={zeroPoint}
-        />
-      )}
+      <YAxis
+        transform="translate(0,10)"
+        width={65}
+        height={maxHeight}
+        max={mode === FREQUENCY ? 1 : max}
+        zeroPoint={zeroPoint}
+        numTicks={2}
+        label={mode === FREQUENCY ? "frequency" : "bits"}
+      />
       <g transform="translate(80,10)">
         <RawLogo
           values={likelihood}
