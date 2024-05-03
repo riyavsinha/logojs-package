@@ -31,7 +31,7 @@ export const YAxis = ({
   height,
   numTicks,
   width,
-  zeroPoint = 1.0,
+  // zeroPoint = 1.0,
   label = "bits",
 }: YAxisProps) => {
   // const ticks = xrange(max + 1);
@@ -39,12 +39,15 @@ export const YAxis = ({
   const ticks = xrange(_numTicks + 1).map(
     (x) => (x / _numTicks) * (max - min) + min
   );
+  const zeroPoint = min < 0 ? 1 - -min / (max - min) : 1.0;
+  console.log("zeroPoint", zeroPoint);
   return (
     <g transform={transform}>
       <rect height={height} width={4} x={width + 1} y={0} fill="#000000" />
       {ticks.map((i) => {
         const yTranslate =
-          height * zeroPoint - Math.floor((i * (height * zeroPoint)) / max);
+          // height * zeroPoint - Math.floor((i * (height * zeroPoint)) / max);
+          (height - (i / max) * height) * zeroPoint;
         const tranlateTransform = `translate(0,${yTranslate})`;
         return (
           <g key={i} transform={tranlateTransform}>

@@ -32,6 +32,23 @@ export const DNABits: Story = {
   },
 };
 
+// export const ZeroPoint: Story = {
+//   render: DNABits.render,
+//   args: {
+//     ...DNABits.args,
+//     zeroPoint: 0.5,
+//   },
+// };
+
+export const WithNegatives: Story = {
+  render: DNABits.render,
+  args: {
+    ...DNABits.args,
+    min: -2,
+    label: "value",
+  },
+};
+
 export const Frequency: Story = {
   render: DNABits.render,
   args: {
