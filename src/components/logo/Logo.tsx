@@ -8,25 +8,53 @@ import YAxisFrequency from "./yaxisfreq";
 import { YGridlines } from "./ygridlines";
 import { RawLogo } from "./RawLogo";
 
+type LogoProps = {
+  /** Position probability matrix. Rows are positions and should sum to 1; columns are symbols. If this is provided, it takes precedence over PFM in computing symbol heights. */
+  ppm?: number[][];
+  /** Position frequency matrix. Rows are positions and columns are nucleotides, alphabetically. */
+  pfm?: number[][];
+  /** Direct values to plot. Overrides PPM and PFM. */
+  values?: number[][];
+  /** If provided, renders the logo from the given FASTA sequence. Only used if both ppm and pfm are not set. */
+  fasta?: string;
+  /** Determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT. */
+  mode?: "INFORMATION_CONTENT" | "FREQUENCY";
+  /** The height of the logo relative to the containing SVG. */
+  height: number;
+  /** The width of the logo relative to the containing SVG. */
+  width: number;
+  /** Symbol list mapping columns to colored glyphs. */
+  alphabet: any;
+  /** The width of a single glyph, relative to the containing SVG. Defaults to 100. */
+  glyphwidth?: number;
+  /** Number clipping width or height(?) */
+  scale?: number;
+  /** Number to assign the first position in the logo; defaults to 1. */
+  startpos?: number;
+  /** If set, shows vertical grid lines. */
+  showGridLines?: boolean;
+  /** Background frequencies for the alphabet. */
+  backgroundFrequencies?: number[];
+  /** If set and if FASTA is used to compute letter heights, adds this value divided by the alphabet length to the resulting PFM. */
+  constantPseudocount?: number;
+  /** If set, no small sample correction is performed. */
+  smallSampleCorrectionOff?: boolean;
+  /** If set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode. */
+  yAxisMax?: number;
+  /** Callback for handling events when a glyph is moused over */
+  onSymbolMouseOver?: (symbol: any) => void;
+  /** Callback for handling events when a glyph is moused out from */
+  onSymbolMouseOut?: (symbol: any) => void;
+  /** Callback for handling click events on a glyph */
+  onSymbolClick?: (symbol: any) => void;
+  /** If set and if FASTA is used to compute letter heights, specifies that the FASTA data contains one sequence per line without sequence names. */
+  noFastaNames?: boolean;
+  /** If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
+  countUnaligned?: boolean;
+};
+
 /**
  * Renders a logo with x- and y-axes.
- *
- * @prop ppm position probability matrix. Rows are positions and should sum to 1; columns are symbols. If this is provided, it takes precedence over PFM in computing symbol heights.
- * @prop pfm position frequency matrix. Rows are positions and columns are nucleotides, alphabetically.
- * @prop fasta if provided, renders the logo from the given FASTA sequence. Only used if both ppm and pfm are not set.
- * @prop noFastaNames if set and if FASTA is used to compute letter heights, specifies that the FASTA data contains one sequence per line without sequence names.
- * @prop countUnaligned if set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content.
- * @prop constantPseudocount if set and if FASTA is used to compute letter heights, adds this value divided by the alphabet length to the resulting PFM.
- * @prop smallSampleCorrectionOff if set, no small sample correction is performed.
- * @prop mode determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT.
- * @prop height the height of the logo relative to the containing SVG.
- * @prop width the width of the logo relative to the containing SVG.
- * @prop alphabet symbol list mapping columns to colored glyphs.
- * @prop startpos number of the first position in the logo; defaults to 1.
- * @prop negativealpha if set, gives negative symbols a lighter shade than positive symbols.
- * @prop showGridLines if set, shows vertical grid lines.
- * @prop inverted if set, renders negative letters upright rather than upside down.
- * @prop yAxisMax if set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode.
  */
 export const Logo = ({
   ppm,
@@ -50,7 +78,7 @@ export const Logo = ({
   onSymbolClick,
   noFastaNames,
   countUnaligned,
-}) => {
+}: LogoProps) => {
   /* compute likelihood; need at least one entry to continue */
   let count = null;
   const relativePseudocount =

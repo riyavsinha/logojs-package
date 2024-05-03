@@ -5,7 +5,7 @@ import DNALogo from "../components/logo/DNALogo";
 import RNALogo from "../components/logo/rnalogo";
 import ProteinLogo from "../components/logo/proteinlogo";
 import LogoWithNegatives from "../components/logo/logowithnegatives";
-import { Logo } from "../components/logo/logo";
+import { Logo } from "../components/logo/Logo";
 import { RawLogo } from "../components/logo/RawLogo";
 
 /**

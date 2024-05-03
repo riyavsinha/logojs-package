@@ -5,7 +5,7 @@ import { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P,
 import { a, b, d, e, f, g, h, i, j, k, l, m, n, p,
 	 q, r, t, u, y } from '../glyphs';
 import { N1, N2, N3, N4, N5, N6, N7, N8, N9 } from '../glyphs';
-import Logo from './logo';
+import Logo from './Logo';
 
 /**
  * A alphabet making use of all available symbols and a variety of colors.

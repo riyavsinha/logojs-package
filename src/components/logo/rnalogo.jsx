@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { A, C, G, U } from '../glyphs';
-import Logo from './logo';
+import { A, C, G, U } from "../glyphs";
+import Logo from "./Logo";
 
 /**
  * Represents the RNA alphabet, with the four nucleotides colored
  * in a similar scheme to the MEME default.
  */
 export const RNAAlphabet = [
-    { component: A, regex: "A", color: "red" },
-    { component: C, regex: "C", color: "blue" },
-    { component: G, regex: "G", color: "orange" },
-    { component: U, regex: "U", color: "seagreen" }
+  { component: A, regex: "A", color: "red" },
+  { component: C, regex: "C", color: "blue" },
+  { component: G, regex: "G", color: "orange" },
+  { component: U, regex: "U", color: "seagreen" },
 ];
 
 /**
@@ -24,7 +24,7 @@ export const RNAAlphabet = [
  * @prop startpos number to assign the first position in the logo; defaults to 1.
  * @prop yAxisMax if set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode.
  */
-const RNALogo = React.forwardRef( (props, ref) => (
-    <Logo alphabet={RNAAlphabet} {...props} ref={ref} />
+const RNALogo = React.forwardRef((props, ref) => (
+  <Logo alphabet={RNAAlphabet} {...props} ref={ref} />
 ));
 export default RNALogo;

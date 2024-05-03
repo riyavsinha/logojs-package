@@ -2,7 +2,7 @@ import React from 'react';
 
 import { A, B, C, D, E, F, G, H, I, K, L, M, N, P,
 	 Q, R, S, T, V, W, X, Y, Z } from '../glyphs';
-import Logo from './logo';
+import Logo from './Logo';
 
 /**
  * Represents the protein alphabet, with 22 amino acids plus B and Z

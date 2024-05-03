@@ -1,7 +1,7 @@
 import React from "react";
 
 import { A, C, G, T } from "../glyphs";
-import { Logo } from "./logo";
+import { Logo } from "./Logo";
 
 /**
  * Represents the DNA alphabet, with the four nucleotides colored
