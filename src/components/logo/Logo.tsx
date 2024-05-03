@@ -165,7 +165,7 @@ export const Logo = ({
         transform={"translate(80," + (maxHeight + 20) + ")"}
         n={likelihood.length}
         glyphWidth={glyphWidth}
-        startpos={startpos}
+        startPos={startpos}
         rotation={xAxisRotation}
       />
       {mode === FREQUENCY ? (

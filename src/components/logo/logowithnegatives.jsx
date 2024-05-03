@@ -134,7 +134,7 @@ const LogoWithNegatives = React.forwardRef(
           transform={"translate(80," + (maxHeight + 20) + ")"}
           n={values.length}
           glyphWidth={glyphWidth}
-          startpos={startpos}
+          startPos={startpos}
         />
         {
           <YAxisWithNegatives

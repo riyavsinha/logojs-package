@@ -6,11 +6,11 @@ type XAxisProps = {
   /** The total number of positions in the logo. */
   n: number;
   /** SVG transform to apply to the axis. */
-  transform: string;
+  transform?: string;
   /** The width of each glyph in the containing logo. */
   glyphWidth: number;
-  /** The number of the first position in the logo. */
-  startpos: number;
+  /** The number of the first position in the logo. Defaults to 1. */
+  startPos?: number;
   /** The rotation of the axis. */
   rotation?: number;
 };
@@ -22,7 +22,7 @@ export const XAxis = ({
   n,
   transform,
   glyphWidth,
-  startpos,
+  startPos = 1,
   rotation = -90,
 }: XAxisProps) => {
   const numbers = xrange(n);
@@ -39,7 +39,7 @@ export const XAxis = ({
           transform={rotationTransform}
           style={{ transformBox: "fill-box", transformOrigin: "right" }}
         >
-          {n + startpos}
+          {n + startPos}
         </text>
       ))}
     </g>
