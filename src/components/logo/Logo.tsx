@@ -80,7 +80,7 @@ export const Logo = ({
   onSymbolClick,
   noFastaNames,
   countUnaligned,
-  xAxisRotation
+  xAxisRotation,
 }: LogoProps) => {
   /* compute likelihood; need at least one entry to continue */
   let count = null;
@@ -146,6 +146,7 @@ export const Logo = ({
   let viewBoxH =
     maxHeight + 18 * (maxLabelLength(startpos, likelihood.length) + 1);
   if (scale) viewBoxW > viewBoxH ? (width = scale) : (height = scale);
+  console.log(showGridLines);
   return (
     <svg
       width={width}
@@ -154,15 +155,10 @@ export const Logo = ({
     >
       {showGridLines && (
         <YGridlines
-          {...{
-            minrange: startpos,
-            maxrange: startpos + ppm.length,
-            xstart: 70,
-            width: viewBoxW,
-            height: maxHeight,
-            xaxis_y: 10,
-            numberofgridlines: 10 * likelihood.length, //10 grid lines per glyph
-          }}
+          xEnd={glyphWidth * likelihood.length}
+          yEnd={maxHeight}
+          numGridlines={5 * likelihood.length} // 5 grid lines per glyph
+          transform={"translate(80,10)"}
         />
       )}
       <XAxis
