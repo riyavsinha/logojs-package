@@ -17,6 +17,8 @@ type RawLogoProps = {
   height: number;
   /** The height of each position. These are normalized such that the tallest value will be the same height as the total logo, and others are smaller based on that reference. If not provided, these are calculated by summing over the values in each position. */
   stackHeights?: number[];
+  /** The maximum height value a stack could have. If provided, `stackHeights` will be normalized relative to this value. */
+  stackMaxHeight?: number;
   /** The width of a single glyph, relative to the containing SVG. Defaults to 100. */
   glyphWidth?: number;
   /** Value between 0 and 1 indicating how much to scale down multi-character glyphs in the x-dimension. Defaults to 0.8. */
@@ -31,7 +33,7 @@ type RawLogoProps = {
 
 /**
  * Renders a logo without axes.
- * 
+ *
  * This component can be used composably with other components to create a logo with axes, or other decorations.
  *
  * This assumes that your matrix values are already prepared for plotting, representing relative heights of each symbol at each position.  Please consult the utility functions for help in preparing your data if no premade components fit your needs.
@@ -42,6 +44,7 @@ export const RawLogo = ({
   glyphWidth = 100,
   height,
   stackHeights,
+  stackMaxHeight,
   multiGlyphBufferRatio = 0.8,
   onSymbolMouseOver,
   onSymbolMouseOut,
@@ -64,7 +67,7 @@ export const RawLogo = ({
 
   const _stackHeights =
     stackHeights || values.map((v) => v.reduce((a, b) => a + b, 0));
-  const maxStackHeight = Math.max(..._stackHeights);
+  const maxStackHeight = stackMaxHeight || Math.max(..._stackHeights);
   const heights = _stackHeights.map((h) => (h / maxStackHeight) * height);
   const stacks = values.map((lv, i) => {
     const translateTransform = `translate(${glyphWidth * i},${height - heights[i]})`;

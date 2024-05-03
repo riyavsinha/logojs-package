@@ -145,7 +145,9 @@ export const Logo = ({
   let viewBoxH =
     maxHeight + 18 * (maxLabelLength(startpos, likelihood.length) + 1);
   if (scale) viewBoxW > viewBoxH ? (width = scale) : (height = scale);
-  console.log(showGridLines);
+  console.log(likelihood);
+  console.log(likelihood.map((x) => x.reduce((a, c) => a + c, 0.0)));
+  console.log(likelihood.map((x) => x.reduce((a, c) => a + c, 0.0) / max));
   return (
     <svg
       width={width}
@@ -181,9 +183,8 @@ export const Logo = ({
           values={likelihood}
           glyphWidth={glyphWidth}
           // sum subarrays
-          stackHeights={likelihood.map(
-            (x) => (x.reduce((a, c) => a + c, 0.0) * maxHeight) / max
-          )}
+          stackHeights={likelihood.map((x) => x.reduce((a, c) => a + c, 0.0))}
+          stackMaxHeight={max}
           height={maxHeight}
           alphabet={alphabet}
           onSymbolMouseOver={onSymbolMouseOver}
