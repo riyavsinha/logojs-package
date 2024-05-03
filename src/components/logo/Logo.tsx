@@ -5,7 +5,7 @@ import { parseFASTA, parseSequences } from "../../common/fasta";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import YAxisFrequency from "./yaxisfreq";
-import { YGridlines } from "./ygridlines";
+import { YGridlines } from "./YGridlines";
 import { RawLogo } from "./RawLogo";
 
 type LogoProps = {

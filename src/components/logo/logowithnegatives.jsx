@@ -12,7 +12,7 @@ import GlyphStack from "./GlyphStack";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import YAxisWithNegatives from "./yaxisneg";
-import { YGridlines } from "./ygridlines";
+import { YGridlines } from "./YGridlines";
 
 const _position =
   (width, height, alpha, inverted) =>
