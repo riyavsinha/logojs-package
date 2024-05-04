@@ -1,8 +1,8 @@
 import React from "react";
 
 import { A, C, G, T } from "../glyphs";
-import { Logo } from "./Logo";
-import { Alphabet, UserDefinedAlphabet } from "../../types";
+import { Logo, Logov2 } from "./Logo";
+import { Alphabet, DataType, UserDefinedAlphabet } from "../../types";
 
 /**
  * Represents the DNA alphabet, with the four nucleotides colored
@@ -16,13 +16,12 @@ export const DNAAlphabet: Alphabet = [
 ];
 
 type DNALogoProps = {
-  /** Position probability matrix. Rows are positions and should sum to 1.0; columns are nucleotides,
-   *           alphabetically. If this is provided, it takes precedence over PFM in computing symbol heights. */
-  ppm?: number[][];
-  /** Position frequency matrix. Rows are positions and columns are nucleotides, alphabetically. */
-  pfm?: number[][];
+  /** Data matrix to render. The type of data should be specified using `dataType`. */
+  data: number[][];
+  /** The type of data provided. Either a PPM, PFM, FASTA or already-processed values.  Defaults to `DataType.PPM` */
+  dataType?: DataType;
   /** The mode to use when computing letter heights; either information content or frequency. */
-  mode?: "INFORMATION" | "FREQUENCY";
+  mode?: "INFORMATION_CONTENT" | "FREQUENCY";
   /** Number to assign the first position in the logo; defaults to 1. */
   startpos?: number;
   /** If set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode. */
@@ -39,5 +38,12 @@ type DNALogoProps = {
  * Renders a logo with the DNA alphabet, with nucleotides colored similarly to the MEME default.
  */
 export const DNALogo = (props: DNALogoProps) => (
-  <Logo alphabet={DNAAlphabet} width="auto" height="auto" {...props} />
+  // <Logo alphabet={DNAAlphabet} width="auto" height="auto" {...props} />
+  <Logov2
+    alphabet={DNAAlphabet}
+    width="auto"
+    height="auto"
+    dataType={DataType.PPM}
+    {...props}
+  />
 );

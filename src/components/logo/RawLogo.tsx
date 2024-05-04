@@ -5,6 +5,7 @@ import {
   Alphabet,
   GlyphEventInfo,
   PositionalGlyphEventInfo,
+  UserDefinedAlphabet,
 } from "../../types";
 import { GlyphStack } from "./GlyphStack";
 
@@ -12,7 +13,7 @@ type RawLogoProps = {
   /** A matrix containing symbol values. For a logo of length `N` with `D` letters in the alphabet, this should be shape `(N, D)`. */
   values: number[][];
   /** The alphabet containing entries to render */
-  alphabet: Alphabet;
+  alphabet: UserDefinedAlphabet;
   /** The total height of the Logo. */
   height: number;
   /** The height of each position. These are normalized such that the tallest value will be the same height as the total logo, and others are smaller based on that reference. If not provided, these are calculated by summing over the values in each position. */
@@ -76,7 +77,7 @@ export const RawLogo = ({
     return (
       <GlyphStack
         indices={indices}
-        alphabet={alphabet}
+        alphabet={alphabet as Alphabet}
         onSymbolMouseOver={
           onSymbolMouseOver
             ? (s) => onSymbolMouseOver(constructEventInfo(i, s))

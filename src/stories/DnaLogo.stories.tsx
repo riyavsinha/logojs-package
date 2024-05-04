@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 export const CAPMotifIC: Story = {
   args: {
-    ppm: [
+    data: [
       [0.37, 0.08, 0.18, 0.37],
       [0, 0.16, 0.04, 0.8],
       [0.04, 0.02, 0.82, 0.12],
@@ -46,14 +46,14 @@ export const CAPMotifIC: Story = {
 
 export const CTCFMotifFrequency: Story = {
   args: {
-    ppm: CTCF_MOTIF,
+    data: CTCF_MOTIF,
     mode: "FREQUENCY",
   },
 };
 
 export const CustomStartingBase: Story = {
   args: {
-    ppm: [
+    data: [
       [0.06, 0.46, 0.11, 0.37],
       [0.16, 0.22, 0.22, 0.4],
       [0.1, 0.26, 0.16, 0.48],
@@ -86,6 +86,6 @@ export const CustomGlyphs: Story = {
       { color: "#000088", regex: "g" },
       { color: "#880088", regex: "t" },
     ],
-    ppm: CTCF_MOTIF,
+    data: CTCF_MOTIF,
   },
 };

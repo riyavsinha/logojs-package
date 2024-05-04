@@ -1,4 +1,3 @@
-
 export const INFORMATION_CONTENT = "INFORMATION_CONTENT";
 export const FREQUENCY = "FREQUENCY";
 
@@ -10,18 +9,20 @@ export const maxLabelLength = (startpos: number, length: number) => {
 };
 
 export const logLikelihood =
-  (backgroundFrequencies: number[]) => (r: number[], e: number) => {
-    let sum = 0.0,
-      es = e || 0.0;
-    r.map(
-      (x, i) =>
-        (sum +=
-          x === 0 ? 0 : x * Math.log2(x / (backgroundFrequencies[i] || 0.01)))
-    );
-    return r.map((x) => {
-      const v = x * (sum - es);
-      return v <= 0.0 ? 0.0 : v;
+  (backgroundFrequencies: number[]) =>
+  (r: number[], e: number = 0.0) => {
+    if (backgroundFrequencies.length !== r.length)
+      throw new Error(
+        "Background frequencies and input vector must be the same length"
+      );
+    let sum = 0.0;
+    r.forEach((x, i) => {
+      if (x !== 0) {
+        const frequency = backgroundFrequencies[i] || 0.01;
+        sum += x * Math.log2(x / frequency);
+      }
     });
+    return r.map((x) => Math.max(0.0, x * (sum - e)));
   };
 
 /**

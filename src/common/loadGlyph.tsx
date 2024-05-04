@@ -2,6 +2,7 @@ import {
   Alphabet,
   AlphabetLetter,
   MonoglyphAlphbetLetter,
+  UserDefinedAlphabet,
   WithRequired,
 } from "../types";
 import { regexMap } from "./alphabet";
@@ -14,7 +15,7 @@ import { regexMap } from "./alphabet";
  * @param alphabet the symbol list to populate; array of objects with regex and color fields.
  */
 export const loadGlyphComponents = (
-  alphabet: WithRequired<AlphabetLetter, "regex">[],
+  alphabet: UserDefinedAlphabet,
   overwrite: boolean = false
 ): Alphabet =>
   alphabet.map((glyph) => {
