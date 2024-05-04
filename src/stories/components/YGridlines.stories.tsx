@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { YGridlines } from "../components/logo/YGridlines";
-import DynamicSVGComponent from "../components/logo/DynamicSvg";
-import { Logo } from "../components/logo/Logo";
-import { DNAAlphabet } from "../components/logo/DNALogo";
-import { RawLogo } from "..";
+import { YGridlines } from "../../components/logo/YGridlines";
+import DynamicSVGComponent from "../../components/logo/DynamicSvg";
+import { DNAAlphabet } from "../../components/logo/DNALogo";
+import { RawLogo } from "../..";
 
 const meta = {
-  title: "YGridlines",
+  title: "Components/YGridlines",
   component: YGridlines,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

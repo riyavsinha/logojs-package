@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import React from "react";
 
-import { RawLogo } from "../components/logo/RawLogo";
-import DynamicSVGComponent from "../components/logo/DynamicSvg";
-import { DNAAlphabet, disymbolAlphabet } from "..";
-import { CTCF_MOTIF } from "./motifs";
+import { RawLogo } from "../../components/logo/RawLogo";
+import DynamicSVGComponent from "../../components/logo/DynamicSvg";
+import { DNAAlphabet, disymbolAlphabet } from "../..";
+import { CTCF_MOTIF } from "../motifs";
 
 const meta = {
-  title: "RawLogo",
+  title: "Components/RawLogo",
   component: RawLogo,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

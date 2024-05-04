@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import React from "react";
 
-import { GlyphStack } from "../components/logo/GlyphStack";
-import DynamicSVGComponent from "../components/logo/DynamicSvg";
-import { CompleteAlphabet } from "../components/logo/completelogo";
-import { DNAAlphabet, disymbolAlphabet } from "..";
+import { GlyphStack } from "../../components/logo/GlyphStack";
+import DynamicSVGComponent from "../../components/logo/DynamicSvg";
+import { CompleteAlphabet } from "../../components/logo/completelogo";
+import { DNAAlphabet, disymbolAlphabet } from "../..";
 
 const meta = {
-  title: "GlyphStack",
+  title: "Components/GlyphStack",
   component: GlyphStack,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

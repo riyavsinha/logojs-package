@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import React from "react";
 
-import { XAxis } from "../components/logo/XAxis";
-import DynamicSVGComponent from "../components/logo/DynamicSvg";
-import { RawLogo } from "../components/logo/RawLogo";
-import { DNAAlphabet } from "../components/logo/DNALogo";
+import { XAxis } from "../../components/logo/XAxis";
+import DynamicSVGComponent from "../../components/logo/DynamicSvg";
+import { RawLogo } from "../../components/logo/RawLogo";
+import { DNAAlphabet } from "../../components/logo/DNALogo";
 
 const meta = {
-  title: "XAxis",
+  title: "Components/XAxis",
   component: XAxis,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
