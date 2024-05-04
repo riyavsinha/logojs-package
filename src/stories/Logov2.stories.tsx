@@ -5,6 +5,7 @@ import { fn } from "@storybook/test";
 import { Logov2 } from "../components/logo/Logo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
 import { DataType } from "../types";
+import { SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
   title: "Logov2",
@@ -46,8 +47,8 @@ export const Basic: Story = {
     ],
     dataType: DataType.PPM,
     mode: "INFORMATION_CONTENT",
-    width: 900,
-    height: 500,
+    width: 700,
+    height: 400,
     alphabet: DNAAlphabet,
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
@@ -80,5 +81,13 @@ export const Dinucleotide: Story = {
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
     onSymbolMouseOver: fn(),
+  },
+};
+
+export const UsingPFM: Story = {
+  args: {
+    ...Basic.args,
+    data: SPI1_MOTIF_PFM,
+    dataType: DataType.PFM,
   },
 };

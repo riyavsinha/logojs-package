@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
 import { DNALogo } from "../components/logo/DNALogo";
-import { CTCF_MOTIF } from "./motifs";
+import { CTCF_MOTIF_PPM, SPI1_MOTIF_PFM } from "./motifs";
+import { DataType } from "../types";
 
 const meta = {
   title: "DNALogo",
@@ -46,7 +47,7 @@ export const CAPMotifIC: Story = {
 
 export const CTCFMotifFrequency: Story = {
   args: {
-    data: CTCF_MOTIF,
+    data: CTCF_MOTIF_PPM,
     mode: "FREQUENCY",
   },
 };
@@ -86,6 +87,14 @@ export const CustomGlyphs: Story = {
       { color: "#000088", regex: "g" },
       { color: "#880088", regex: "t" },
     ],
-    data: CTCF_MOTIF,
+    data: CTCF_MOTIF_PPM,
+  },
+};
+
+export const SPI1MotifPFM: Story = {
+  args: {
+    data: SPI1_MOTIF_PFM,
+    dataType: DataType.PFM,
+    mode: "INFORMATION_CONTENT",
   },
 };

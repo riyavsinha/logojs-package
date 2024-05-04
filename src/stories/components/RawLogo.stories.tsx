@@ -5,7 +5,7 @@ import React from "react";
 import { RawLogo } from "../../components/logo/RawLogo";
 import DynamicSVGComponent from "../../components/logo/DynamicSvg";
 import { DNAAlphabet, disymbolAlphabet } from "../..";
-import { CTCF_MOTIF } from "../motifs";
+import { CTCF_MOTIF_PPM } from "../motifs";
 
 const meta = {
   title: "Components/RawLogo",
@@ -77,7 +77,7 @@ export const CTCF: Story = {
   // render: Basic.render,
   args: {
     ...Basic.args,
-    values: CTCF_MOTIF,
+    values: CTCF_MOTIF_PPM,
     glyphWidth: 100,
     height: 100,
   },

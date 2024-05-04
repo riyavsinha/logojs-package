@@ -4,6 +4,7 @@ import { fn } from "@storybook/test";
 
 import { Logo } from "../components/logo/Logo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
+import { SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
   title: "Logo",
@@ -77,5 +78,13 @@ export const Dinucleotide: Story = {
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
     onSymbolMouseOver: fn(),
+  },
+};
+
+export const UsingPFM: Story = {
+  args: {
+    ...Basic.args,
+    ppm: undefined,
+    pfm: SPI1_MOTIF_PFM,
   },
 };

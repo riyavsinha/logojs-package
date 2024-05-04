@@ -8,6 +8,7 @@ import { YGridlines } from "./YGridlines";
 import { RawLogo } from "./RawLogo";
 import {
   generateDefaultBackgroundFrequencies,
+  pfmToPpm,
   ppmToLikelihood,
 } from "../../common/valueConversions";
 import { DataType, UserDefinedAlphabet } from "../../types";
@@ -112,7 +113,6 @@ export const Logo = ({
       .map((x) =>
         x === 0 ? 0 : (alphabet.length - 1) / (2 * Math.log(2) * x)
       );
-  console.log(sums);
   if (!ppm && pfm && pfm.map)
     ppm = pfm.map((column, i) => {
       const sum =
@@ -135,11 +135,7 @@ export const Logo = ({
   if (mode === FREQUENCY) {
     likelihood = ppm.map((x) => x.map((v) => v * Math.log2(alphabetSize)));
   } else {
-    console.log(sums);
-    // console.log(sums[i])
     likelihood = ppm.map((x, i) => {
-      console.log(x, i);
-      console.log(sums[i]);
       return logLikelihood(backgroundFrequencies)(x, sums[i]);
     });
   }
@@ -236,10 +232,10 @@ type Logov2Props = {
   showGridLines?: boolean;
   /** Background frequencies for the alphabet. */
   backgroundFrequencies?: number[];
-  /** If set and if FASTA is used to compute letter heights, adds this value divided by the alphabet length to the resulting PFM. */
+  /** If set, this value is used to adjust PFM/FASTA data types. */
   constantPseudocount?: number;
-  /** If set, no small sample correction is performed. */
-  smallSampleCorrectionOff?: boolean;
+  /** If set, used to adjust PFM/FASTA data matrices */
+  useSmallSampleCorrection?: boolean;
   /** If set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode. */
   yAxisMax?: number;
   /** Callback for handling events when a glyph is moused over */
@@ -272,6 +268,8 @@ export const Logov2 = ({
   onSymbolClick,
   mode = "INFORMATION_CONTENT",
   yAxisMax,
+  useSmallSampleCorrection,
+  constantPseudocount,
 }: Logov2Props) => {
   const alphabetSize = alphabet.length;
   const _backgroundFrequencies =
@@ -281,6 +279,13 @@ export const Logov2 = ({
     values = data;
   } else if (dataType === DataType.PPM) {
     values = ppmToLikelihood(data, mode);
+  } else if (dataType === DataType.PFM) {
+    const [ppm, totalCounts] = pfmToPpm(
+      data,
+      constantPseudocount,
+      useSmallSampleCorrection
+    );
+    values = ppmToLikelihood(ppm, mode, totalCounts);
   } else {
     throw new Error("Invalid data type");
   }
@@ -289,10 +294,8 @@ export const Logov2 = ({
     mode === FREQUENCY
       ? [Math.log2(alphabetSize)]
       : _backgroundFrequencies.map((x) => Math.log2(1.0 / (x || 0.01)));
-  console.log(theights);
   const max = yAxisMax || Math.max(...theights),
     min = Math.min(...theights);
-  console.log(max, min);
   const zeroPoint = min < 0 ? max / (max - min) : 1.0;
 
   /* compute scaling factors */

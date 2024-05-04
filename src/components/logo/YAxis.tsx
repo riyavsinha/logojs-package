@@ -40,7 +40,6 @@ export const YAxis = ({
     (x) => (x / _numTicks) * (max - min) + min
   );
   const zeroPoint = min < 0 ? 1 - -min / (max - min) : 1.0;
-  console.log("zeroPoint", zeroPoint);
   return (
     <g transform={transform}>
       <rect height={height} width={4} x={width + 1} y={0} fill="#000000" />
