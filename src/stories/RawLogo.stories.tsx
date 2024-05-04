@@ -5,6 +5,7 @@ import React from "react";
 import { RawLogo } from "../components/logo/RawLogo";
 import DynamicSVGComponent from "../components/logo/DynamicSvg";
 import { DNAAlphabet, disymbolAlphabet } from "..";
+import { CTCF_MOTIF } from "./motifs";
 
 const meta = {
   title: "RawLogo",
@@ -62,5 +63,22 @@ export const Dinucleotide: Story = {
     alphabet: disymbolAlphabet(DNAAlphabet),
     height: 200,
     glyphWidth: 100,
+  },
+};
+
+export const CTCF: Story = {
+  render: (args) => {
+    return (
+      <svg viewBox="0 0 1900 100" width={400} height={100}>
+        <RawLogo {...args} />
+      </svg>
+    );
+  },
+  // render: Basic.render,
+  args: {
+    ...Basic.args,
+    values: CTCF_MOTIF,
+    glyphWidth: 100,
+    height: 100,
   },
 };

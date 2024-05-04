@@ -2,12 +2,13 @@ import React from "react";
 
 import { A, C, G, T } from "../glyphs";
 import { Logo } from "./Logo";
+import { Alphabet, UserDefinedAlphabet } from "../../types";
 
 /**
  * Represents the DNA alphabet, with the four nucleotides colored
  * in a similar scheme to the MEME default.
  */
-export const DNAAlphabet = [
+export const DNAAlphabet: Alphabet = [
   { component: A, regex: "A", color: "red" },
   { component: C, regex: "C", color: "blue" },
   { component: G, regex: "G", color: "orange" },
@@ -30,6 +31,8 @@ type DNALogoProps = {
   width?: number;
   /** The height of the logo. */
   height?: number;
+  /** The alphabet to use for the logo. */
+  alphabet?: UserDefinedAlphabet;
 };
 
 /**

@@ -1,5 +1,10 @@
 import { ElementType, ReactNode } from "react";
 
+
+export type WithRequired<T, K extends keyof T> = Partial<T> & {
+  [P in K]-?: T[P];
+};
+
 export type MonoglyphAlphbetLetter = {
   component: ElementType;
   regex: string;
@@ -16,6 +21,8 @@ export type AlphabetLetter = MonoglyphAlphbetLetter | MultiglyphAlphabetLetter;
 
 export type Alphabet = AlphabetLetter[];
 
+export type UserDefinedAlphabet = WithRequired<AlphabetLetter, "regex">[];
+
 export type GlyphEventInfo = {
   color: string | string[];
   regex: string;
@@ -26,6 +33,10 @@ export type PositionalGlyphEventInfo = GlyphEventInfo & {
   position: number;
 };
 
-export type WithRequired<T, K extends keyof T> = Partial<T> & {
-  [P in K]-?: T[P];
-};
+
+export enum DataType {
+  PFM = "PFM",
+  PPM = "PPM",
+  VALUES = "VALUES",
+  FASTA = "FASTA",
+}

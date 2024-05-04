@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
 import { DNALogo } from "../components/logo/DNALogo";
+import { CTCF_MOTIF } from "./motifs";
 
 const meta = {
   title: "DNALogo",
@@ -17,8 +18,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = {
-  render: (args) => <DNALogo {...args} />,
+export const CAPMotifIC: Story = {
   args: {
     ppm: [
       [0.37, 0.08, 0.18, 0.37],
@@ -40,6 +40,52 @@ export const Basic: Story = {
       [0.67, 0.08, 0.12, 0.12],
       [0.24, 0.18, 0.14, 0.43],
       [0.37, 0.02, 0, 0.61],
-    ]
+    ],
+  },
+};
+
+export const CTCFMotifFrequency: Story = {
+  args: {
+    ppm: CTCF_MOTIF,
+    mode: "FREQUENCY",
+  },
+};
+
+export const CustomStartingBase: Story = {
+  args: {
+    ppm: [
+      [0.06, 0.46, 0.11, 0.37],
+      [0.16, 0.22, 0.22, 0.4],
+      [0.1, 0.26, 0.16, 0.48],
+      [0.08, 0.31, 0.2, 0.41],
+      [0.16, 0.2, 0.11, 0.53],
+      [0.03, 0.24, 0.11, 0.62],
+      [0.07, 0.24, 0.14, 0.55],
+      [0.02, 0.43, 0.09, 0.46],
+      [0.07, 0.35, 0.2, 0.38],
+      [0.11, 0.34, 0.11, 0.44],
+      [0.04, 0.33, 0.17, 0.46],
+      [0.06, 0.38, 0.15, 0.41],
+      [0.05, 0.29, 0.08, 0.58],
+      [0.05, 0.38, 0.04, 0.53],
+      [0.29, 0.18, 0.17, 0.36],
+      [0.02, 0.71, 0, 0.27],
+      [1, 0, 0, 0],
+      [0, 0, 1, 0],
+      [0.16, 0.23, 0.56, 0.05],
+    ],
+    startpos: -18,
+  },
+};
+
+export const CustomGlyphs: Story = {
+  args: {
+    alphabet: [
+      { color: "#880000", regex: "a" },
+      { color: "#008800", regex: "c" },
+      { color: "#000088", regex: "g" },
+      { color: "#880088", regex: "t" },
+    ],
+    ppm: CTCF_MOTIF,
   },
 };

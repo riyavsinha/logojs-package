@@ -1,0 +1,52 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "./DnaLogo.stories";
+import * as RawLogo from "./RawLogo.stories";
+
+<Meta title="Gallery/DNA Logos" />
+
+# DNA Logos
+
+This gallery illustrates various types of DNA logos which you can create with LogoJS.
+
+Embedding classic DNA logos requires just 1-2 lines of code, but extensive customizations are also possible. Beyond the examples on this page, DNA logos can use negative letter heights, multiple nucleotides per position, and advanced annotations. Click the corresponding links for more examples.
+
+## Information Content
+
+**A DNA logo can use information content to scale its letters.**
+
+This logo shows the consensus DNA binding motif for catabolite activating protein (CAP). By default, a DNA logo scales its letters using information content, such that the most important bases in the logo appear the most important. When rendering the logo, the columns in the matrix are ordered alphabetically (A, C, G, T).
+
+<Canvas of={DNALogos.CAPMotifIC} />
+
+## Frequency
+
+**A DNA logo can use frequency to scale its letters.**
+
+This logo shows the consensus DNA binding motif for CTCF. Here, the letter heights are determined by the frequency of each nucleotide at each position rather than by information content.
+
+<Canvas of={DNALogos.CTCFMotifFrequency} />
+
+## Custom Starting Base
+
+**A DNA logo can use a custom number for the first base.**
+
+This logo shows an intron-exon splice boundary. Base number 0 is the first base in the exon, with bases in the preceding intron labeled -18 to -1.
+
+<Canvas of={DNALogos.CustomStartingBase} />
+
+## Custom Letters and Colors
+
+**A DNA logo can use lowercase letters and custom colors.**
+
+This logo shows the consensus DNA binding motif for CTCF, but uses lower case letters and a custom color scheme.
+
+<Canvas of={DNALogos.CustomGlyphs} />
+
+## Without Axes or Labels
+
+A DNA logo can be rendered without axes or labels.
+
+This logo shows the consensus DNA binding motif for CTCF, rendered without an x-axis or y-axis.
+
+<Canvas of={RawLogo.CTCF} />
