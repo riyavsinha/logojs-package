@@ -1,3 +1,5 @@
+import { SymbolMap, UserDefinedAlphabet } from "../types";
+
 export const INFORMATION_CONTENT = "INFORMATION_CONTENT";
 export const FREQUENCY = "FREQUENCY";
 
@@ -127,3 +129,22 @@ const validHex = (color: string) => {
  * @param color the color as a hex string (e.g. #fff or ABCDEF)
  */
 export const parseHex = (color: string) => parseInt(validHex(color), 16);
+
+export const constructSymbolToAlphabetMap = (
+  alphabet: UserDefinedAlphabet
+): SymbolMap =>
+  alphabet.reduce((map, symbol) => {
+    map[symbol.regex] = symbol;
+    return map;
+  }, {} as SymbolMap);
+
+export const constructSymbolToAlphabetIndexMap = (
+  alphabet: UserDefinedAlphabet
+): { [key: string]: number } =>
+  alphabet.reduce(
+    (map, symbol, index) => {
+      map[symbol.regex] = index;
+      return map;
+    },
+    {} as { [key: string]: number }
+  );

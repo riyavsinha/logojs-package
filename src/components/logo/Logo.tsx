@@ -1,7 +1,7 @@
 import React from "react";
 
 import { maxLabelLength, logLikelihood, FREQUENCY } from "../../common/utils";
-import { parseFASTA, parseSequences } from "../../common/fasta";
+import { sequencesToPFM } from "../../common/fasta";
 import XAxis from "./XAxis";
 import YAxis from "./YAxis";
 import { YGridlines } from "./YGridlines";
@@ -52,8 +52,6 @@ type LogoProps = {
   onSymbolMouseOut?: (symbol: any) => void;
   /** Callback for handling click events on a glyph */
   onSymbolClick?: (symbol: any) => void;
-  /** If set and if FASTA is used to compute letter heights, specifies that the FASTA data contains one sequence per line without sequence names. */
-  noFastaNames?: boolean;
   /** If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
   countUnaligned?: boolean;
   /** Degrees to rotate the x-axis. Default is -90. */
@@ -83,7 +81,6 @@ export const Logo = ({
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
-  noFastaNames,
   countUnaligned,
   xAxisRotation,
 }: LogoProps) => {
@@ -97,10 +94,7 @@ export const Logo = ({
     ? 0
     : (constantPseudocount || 0) / alphabet.length;
   if (!ppm && !pfm && fasta) {
-    const r = (noFastaNames ? parseSequences : parseFASTA)(
-      alphabet,
-      fasta.toUpperCase()
-    );
+    const r = sequencesToPFM(alphabet, fasta);
     pfm = r.pfm;
     count = r.count || 1;
   }

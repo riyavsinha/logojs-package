@@ -1,6 +1,5 @@
 import { ElementType, ReactNode } from "react";
 
-
 export type WithRequired<T, K extends keyof T> = Partial<T> & {
   [P in K]-?: T[P];
 };
@@ -18,10 +17,12 @@ export type MultiglyphAlphabetLetter = {
 };
 
 export type AlphabetLetter = MonoglyphAlphbetLetter | MultiglyphAlphabetLetter;
-
 export type Alphabet = AlphabetLetter[];
 
-export type UserDefinedAlphabet = WithRequired<AlphabetLetter, "regex">[];
+export type UserDefinedAlphabetLetter = WithRequired<AlphabetLetter, "regex">;
+export type UserDefinedAlphabet = UserDefinedAlphabetLetter[];
+
+export type SymbolMap = { [key: string]: UserDefinedAlphabetLetter };
 
 export type GlyphEventInfo = {
   color: string | string[];
@@ -32,7 +33,6 @@ export type GlyphEventInfo = {
 export type PositionalGlyphEventInfo = GlyphEventInfo & {
   position: number;
 };
-
 
 export enum DataType {
   PFM = "PFM",
