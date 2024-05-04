@@ -28,3 +28,23 @@ export const SPI1_MOTIF_PFM = [
   [56.0, 0.0, 0.0, 1.0],
   [3.0, 18.0, 34.0, 2.0],
 ];
+
+export const SPI1_MOTIF_FASTA = `>
+  CGGAAG
+  >
+  GGGAAC
+  >
+  AGGAAG
+  >
+  CGGAAC
+  >
+  CGGAAG
+  >
+  GTGAAG
+  >
+  AAGAAG
+  >
+  CGAAAG
+  >
+  GGGAAG
+`;

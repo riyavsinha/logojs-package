@@ -45,17 +45,20 @@ export const ppmToLikelihood = (
  * @param pfm The Position Frequency Matrix, a 2D array where each inner array represents nucleotide counts at a particular position in the sequence.
  * @param constantPseudocount A fixed number added to each count in the PFM to prevent zero probabilities. Defaults to 0.
  * @param useSmallSampleCorrection Indicates whether to use position counts to create relative pseudocounts.
+ * @param numSequences The total number of sequences used to generate the PFM. If provided, it is used as the denominator while calculating PPM instead of provided constant psuedocounts or calculated relative pseudocounts.
  * @returns A tuple where the first element is the PPM (Position Probability Matrix), a 2D array representing probabilities at each position, and the second element is an array of total counts per position if small sample correction was applied; otherwise, null.
  */
 export const pfmToPpm = (
   pfm: number[][],
-  constantPseudocount: number = 0, // Default pseudocount, can be overridden
-  useSmallSampleCorrection: boolean = true // Assume it controls small sample corrections
+  constantPseudocount: number = 0,
+  useSmallSampleCorrection: boolean = true,
+  numSequences?: number
 ): [number[][], number[] | null] => {
   const alphabetLength = pfm[0].length;
 
   // Use relative pseudocounts if small sample correction is enabled and no constant pseudocount is provided
-  const relativePseudocount = !constantPseudocount && useSmallSampleCorrection;
+  const relativePseudocount =
+    !constantPseudocount && !numSequences && useSmallSampleCorrection;
   const pseudocount = relativePseudocount ? 0 : constantPseudocount;
 
   // Compute the total counts for each position
@@ -65,11 +68,10 @@ export const pfmToPpm = (
 
   // Compute the Position Probability Matrix (PPM) from the Position Frequency Matrix (PFM)
   const ppm = pfm.map((column) => {
-    // const total = column.reduce((acc, value) => acc + value, pseudocount);
-    return column.map(
-      (value, i) =>
-        (value + pseudocount / alphabetLength) / (totalCounts[i] + pseudocount)
-    );
+    return column.map((value, i) => {
+      const denominator = numSequences ?? totalCounts[i] + pseudocount;
+      return (value + pseudocount / alphabetLength) / denominator;
+    });
   });
 
   // Convert the PPM to likelihood scores based on the given mode

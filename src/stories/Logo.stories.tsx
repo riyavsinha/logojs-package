@@ -4,7 +4,7 @@ import { fn } from "@storybook/test";
 
 import { Logo } from "../components/logo/Logo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
-import { SPI1_MOTIF_PFM } from "./motifs";
+import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
   title: "Logo",
@@ -86,5 +86,14 @@ export const UsingPFM: Story = {
     ...Basic.args,
     ppm: undefined,
     pfm: SPI1_MOTIF_PFM,
+  },
+};
+
+export const UsingFasta: Story = {
+  args: {
+    ...Basic.args,
+    ppm: undefined,
+    pfm: undefined,
+    fasta: SPI1_MOTIF_FASTA,
   },
 };

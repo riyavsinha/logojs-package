@@ -203,11 +203,9 @@ export const Logo = ({
 
 type Logov2Props = {
   /** Data matrix to render. The type of data must be specified using `dataType`. */
-  data: number[][];
+  data: number[][] | string;
   /** The type of data provided. Either a PPM, PFM, FASTA or already-processed values. */
   dataType: DataType;
-  /** If provided, renders the logo from the given FASTA sequence. Only used if both ppm and pfm are not set. */
-  fasta?: string;
   /** Determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT. */
   mode?: "INFORMATION_CONTENT" | "FREQUENCY";
   /** The height of the logo relative to the containing SVG. */
@@ -238,8 +236,6 @@ type Logov2Props = {
   onSymbolMouseOut?: (symbol: any) => void;
   /** Callback for handling click events on a glyph */
   onSymbolClick?: (symbol: any) => void;
-  /** If set and if FASTA is used to compute letter heights, specifies that the FASTA data contains one sequence per line without sequence names. */
-  noFastaNames?: boolean;
   /** If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
   countUnaligned?: boolean;
   /** Degrees to rotate the x-axis. Default is -90. */
@@ -264,12 +260,23 @@ export const Logov2 = ({
   yAxisMax,
   useSmallSampleCorrection,
   constantPseudocount,
+  countUnaligned,
 }: Logov2Props) => {
   const alphabetSize = alphabet.length;
   const _backgroundFrequencies =
     backgroundFrequencies ?? generateDefaultBackgroundFrequencies(alphabetSize);
   let values: number[][];
-  if (dataType === DataType.VALUES) {
+  if (typeof data === "string") {
+    const pfmResult = sequencesToPFM(alphabet, data);
+    console.log(pfmResult);
+    const [ppm, totalCounts] = pfmToPpm(
+      pfmResult.pfm,
+      constantPseudocount,
+      useSmallSampleCorrection,
+      countUnaligned ? pfmResult.count : undefined
+    );
+    values = ppmToLikelihood(ppm, mode, totalCounts);
+  } else if (dataType === DataType.VALUES) {
     values = data;
   } else if (dataType === DataType.PPM) {
     values = ppmToLikelihood(data, mode);

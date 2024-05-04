@@ -15,6 +15,7 @@ export const sequencesToPFM = (
   const sequences = sequenceText.includes(">")
     ? parseFASTA(sequenceText)
     : sequenceText.split("\n").map((x) => x.trim());
+  console.log(sequences);
   const pfm: number[][] = [];
   const maxLength = Math.max(...sequences.map((s) => s.length));
   // Initialize the PFM with zeros
@@ -31,7 +32,7 @@ export const sequencesToPFM = (
 export const parseFASTA = (fastaText: string) => {
   const sequences: string[] = [];
   fastaText.split("\n").forEach((line) => {
-    if (line[0] === ">") sequences.push("");
+    if (line.trim().startsWith(">")) sequences.push("");
     else sequences[sequences.length - 1] += line.trim();
   });
   return sequences;

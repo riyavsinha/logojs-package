@@ -5,7 +5,7 @@ import { fn } from "@storybook/test";
 import { Logov2 } from "../components/logo/Logo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
 import { DataType } from "../types";
-import { SPI1_MOTIF_PFM } from "./motifs";
+import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
   title: "Logov2",
@@ -89,5 +89,13 @@ export const UsingPFM: Story = {
     ...Basic.args,
     data: SPI1_MOTIF_PFM,
     dataType: DataType.PFM,
+  },
+};
+
+export const UsingFasta: Story = {
+  args: {
+    ...Basic.args,
+    data: SPI1_MOTIF_FASTA,
+    dataType: DataType.FASTA,
   },
 };
