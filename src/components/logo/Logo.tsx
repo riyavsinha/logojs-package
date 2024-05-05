@@ -12,6 +12,13 @@ import {
   ppmToLikelihood,
 } from "../../common/valueConversions";
 import { DataType, UserDefinedAlphabet } from "../../types";
+import {
+  frequencyRange,
+  getBounds,
+  informationContentRange,
+  xAxisLabelHeight,
+  yAxisWidth,
+} from "../../common/renderUtils";
 
 type LogoProps = {
   /** Position probability matrix. Rows are positions and should sum to 1; columns are symbols. If this is provided, it takes precedence over PFM in computing symbol heights. */
@@ -214,8 +221,8 @@ type Logov2Props = {
   width: number;
   /** Symbol list mapping columns to colored glyphs. */
   alphabet: UserDefinedAlphabet;
-  /** The width of a single glyph, relative to the containing SVG. Defaults to 100. */
-  glyphwidth?: number;
+  /** The width of a single glyph, relative to the containing SVG. Defaults to 1. */
+  glyphWidthScaler?: number;
   /** Number clipping width or height(?) */
   scale?: number;
   /** Number to assign the first position in the logo; defaults to 1. */
@@ -246,7 +253,7 @@ export const Logov2 = ({
   alphabet,
   dataType,
   startpos = 1,
-  glyphwidth,
+  glyphWidthScaler = 1,
   backgroundFrequencies,
   scale,
   width,
@@ -268,7 +275,6 @@ export const Logov2 = ({
   let values: number[][];
   if (typeof data === "string") {
     const pfmResult = sequencesToPFM(alphabet, data);
-    console.log(pfmResult);
     const [ppm, totalCounts] = pfmToPpm(
       pfmResult.pfm,
       constantPseudocount,
@@ -291,27 +297,24 @@ export const Logov2 = ({
     throw new Error("Invalid data type");
   }
 
-  const theights =
+  const { max, min } =
     mode === FREQUENCY
-      ? [Math.log2(alphabetSize)]
-      : _backgroundFrequencies.map((x) => Math.log2(1.0 / (x || 0.01)));
-  const max = yAxisMax || Math.max(...theights),
-    min = Math.min(...theights);
-  const zeroPoint = min < 0 ? max / (max - min) : 1.0;
+      ? frequencyRange(alphabetSize)
+      : informationContentRange(_backgroundFrequencies);
+  const _max = yAxisMax || max;
 
-  /* compute scaling factors */
-  let maxHeight = 100.0 * max;
-  let glyphWidth = (maxHeight / 6.0) * (glyphwidth || 1.0);
-
-  /* compute viewBox and padding for the x-axis labels */
-  let viewBoxW = values.length * glyphWidth + 80;
-  let viewBoxH = maxHeight + 18 * (maxLabelLength(startpos, values.length) + 1);
-  if (scale) viewBoxW > viewBoxH ? (width = scale) : (height = scale);
+  const { maxHeight, glyphWidth, viewBoxW } = getBounds(
+    values,
+    _max,
+    glyphWidthScaler
+  );
+  const adjustedViewBoxH = maxHeight + xAxisLabelHeight(values, startpos);
+  const adjustedViewBoxW = viewBoxW + yAxisWidth();
   return (
     <svg
       width={width}
       height={height}
-      viewBox={"0 0 " + viewBoxW + " " + viewBoxH}
+      viewBox={`0 0 ${adjustedViewBoxW} ${adjustedViewBoxH}`}
     >
       {showGridLines && (
         <YGridlines
@@ -322,7 +325,7 @@ export const Logov2 = ({
         />
       )}
       <XAxis
-        transform={"translate(80," + (maxHeight + 20) + ")"}
+        transform={`translate(80,${maxHeight + 20})`}
         n={values.length}
         glyphWidth={glyphWidth}
         startPos={startpos}
@@ -332,8 +335,8 @@ export const Logov2 = ({
         transform="translate(0,10)"
         width={65}
         height={maxHeight}
-        max={mode === FREQUENCY ? 1 : max}
-        zeroPoint={zeroPoint}
+        max={mode === FREQUENCY ? 1 : _max}
+        min={min}
         numTicks={2}
         label={mode === FREQUENCY ? "frequency" : "bits"}
       />
@@ -343,7 +346,7 @@ export const Logov2 = ({
           glyphWidth={glyphWidth}
           // sum subarrays
           stackHeights={values.map((x) => x.reduce((a, c) => a + c, 0.0))}
-          stackMaxHeight={max}
+          stackMaxHeight={_max}
           height={maxHeight}
           alphabet={alphabet}
           onSymbolMouseOver={onSymbolMouseOver}

@@ -35,6 +35,7 @@ export const YAxis = ({
   label = "bits",
 }: YAxisProps) => {
   // const ticks = xrange(max + 1);
+  min = min < 0 ? min : 0;
   const _numTicks = numTicks || max - min;
   const ticks = xrange(_numTicks + 1).map(
     (x) => (x / _numTicks) * (max - min) + min

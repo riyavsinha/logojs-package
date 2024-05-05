@@ -40,3 +40,5 @@ export enum DataType {
   VALUES = "VALUES",
   FASTA = "FASTA",
 }
+
+export type LogoMode = "INFORMATION_CONTENT" | "FREQUENCY";
