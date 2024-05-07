@@ -1,6 +1,6 @@
 import React from "react";
 import { loadGlyphComponents } from "../../common/loadGlyph";
-import { sortedIndices } from "../../common/utils";
+import { negsum, possum, sortedIndices } from "../../common/utils";
 import {
   Alphabet,
   GlyphEventInfo,
@@ -17,13 +17,15 @@ type RawLogoProps = {
   /** The total height of the Logo. */
   height: number;
   /** The height of each position. These are normalized such that the tallest value will be the same height as the total logo, and others are smaller based on that reference. If not provided, these are calculated by summing over the values in each position. */
-  stackHeights?: number[];
+  // stackHeights?: number[];
   /** The maximum height value a stack could have. If provided, `stackHeights` will be normalized relative to this value. */
-  stackMaxHeight?: number;
+  maxValue?: number;
+  minValue?: number;
   /** The width of a single glyph, relative to the containing SVG. Defaults to 100. */
   glyphWidth?: number;
   /** Value between 0 and 1 indicating how much to scale down multi-character glyphs in the x-dimension. Defaults to 0.8. */
   multiGlyphBufferRatio?: number;
+  invertedGlyphsRightSideUp?: boolean;
   /** Callback for when a symbol is moused over */
   onSymbolMouseOver?: (eventInfo: PositionalGlyphEventInfo) => void;
   /** Callback for when a symbol is moused out from */
@@ -44,9 +46,11 @@ export const RawLogo = ({
   alphabet,
   glyphWidth = 100,
   height,
-  stackHeights,
-  stackMaxHeight,
+  // stackHeights,
+  maxValue,
+  minValue,
   multiGlyphBufferRatio = 0.8,
+  invertedGlyphsRightSideUp = false,
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
@@ -60,23 +64,47 @@ export const RawLogo = ({
   }
 
   // Check dimensions match
-  if (stackHeights && stackHeights.length !== values.length) {
-    throw new Error(
-      "RawLogo: `stackHeights` must have the same length as `values`."
-    );
-  }
+  // if (stackHeights && stackHeights.length !== values.length) {
+  //   throw new Error(
+  //     "RawLogo: `stackHeights` must have the same length as `values`."
+  //   );
+  // }
 
-  const _stackHeights =
-    stackHeights || values.map((v) => v.reduce((a, b) => a + b, 0));
-  const maxStackHeight = stackMaxHeight || Math.max(..._stackHeights);
-  const heights = _stackHeights.map((h) => (h / maxStackHeight) * height);
+  // const maxes = values.map(possum);
+  // const mins = values.map((x) => -negsum(x));
+  // // const mvalue = Math.max(...maxes, ...mins);
+
+  const posStackValueSums = values.map(possum);
+  const negStackValueSums = values.map((x) => -negsum(x));
+  const maxStackValue = maxValue || Math.max(...posStackValueSums);
+  const minStackValue = minValue || Math.min(...negStackValueSums);
+
+  // const heights = _stackHeights.map((h) => (h / maxStackHeight) * height);
+
+  const addGlyphStackFn = addGlyphStack({
+    alphabet: alphabet as Alphabet,
+    onSymbolMouseOver,
+    onSymbolClick,
+    onSymbolMouseOut,
+    width: glyphWidth,
+    multiGlyphBufferRatio,
+  });
+
   const stacks = values.map((lv, i) => {
-    const translateTransform = `translate(${glyphWidth * i},${height - heights[i]})`;
-    const indices = sortedIndices(lv);
+    const posValues = lv.map((v) => Math.max(v, 0));
+    // console.log(posValues);
+    const posIndices = sortedIndices(posValues);
+    const posTranslateTransform = `translate(${glyphWidth * i},0)`;
 
+    const negValues = lv.map((v) => Math.min(v, 0));
+    const negIndices = sortedIndices(negValues);
+
+    // const indices = sortedIndices(lv);
+
+    // return [
     return (
       <GlyphStack
-        indices={indices}
+        // indices={sortedIndices(lv)}
         alphabet={alphabet as Alphabet}
         onSymbolMouseOver={
           onSymbolMouseOver
@@ -94,17 +122,111 @@ export const RawLogo = ({
             : undefined
         }
         values={lv}
-        transform={translateTransform}
+        maxValue={maxStackValue}
+        minValue={minStackValue}
+        transform={posTranslateTransform}
         width={glyphWidth}
-        height={heights[i]}
+        height={height}
         multiGlyphBufferRatio={multiGlyphBufferRatio}
         key={i}
       />
     );
+    // addGlyphStackFn({
+    //   indices: posIndices,
+    //   position: i,
+    //   values: posValues,
+    //   transform: posTranslateTransform,
+    //   height,
+    //   maxValue: maxStackValue,
+    // }),
+    // addGlyphStackFn({
+    //   indices: negIndices,
+    //   position: i,
+    //   values: negValues,
+    //   transform: posTranslateTransform,
+    //   height,
+    //   maxValue: maxStackValue,
+    //   inverted: true,
+    //   // invertedGlyphsRightSideUp: true
+    // }),
+    // ];
   });
   // TODO: Not sure why storybook docs won't work without this instead of just returning the map
   return <>{stacks}</>;
 };
+
+type AddGlyphStackArgs = {
+  alphabet: Alphabet;
+  onSymbolMouseOver:
+    | ((eventInfo: PositionalGlyphEventInfo) => void)
+    | undefined;
+  onSymbolClick: ((eventInfo: PositionalGlyphEventInfo) => void) | undefined;
+  onSymbolMouseOut: ((eventInfo: PositionalGlyphEventInfo) => void) | undefined;
+  width: number;
+  // height: number;
+  multiGlyphBufferRatio: number;
+  // maxValue: number;
+};
+type AddGlyphStackInnerArgs = {
+  indices: number[];
+  position: number;
+  height: number;
+  maxValue: number;
+  values: number[];
+  transform: string;
+  inverted?: boolean;
+  invertedGlyphsRightSideUp?: boolean;
+};
+const addGlyphStack =
+  ({
+    alphabet,
+    onSymbolMouseOver,
+    onSymbolClick,
+    onSymbolMouseOut,
+    width,
+    // height,
+    multiGlyphBufferRatio,
+    // maxValue,
+  }: AddGlyphStackArgs) =>
+  ({
+    indices,
+    position,
+    values,
+    transform,
+    height,
+    inverted = false,
+    maxValue,
+    invertedGlyphsRightSideUp = false,
+  }: AddGlyphStackInnerArgs) => (
+    <GlyphStack
+      indices={indices}
+      alphabet={alphabet as Alphabet}
+      onSymbolMouseOver={
+        onSymbolMouseOver
+          ? (s) => onSymbolMouseOver(constructEventInfo(position, s))
+          : undefined
+      }
+      onSymbolClick={
+        onSymbolClick
+          ? (s) => onSymbolClick(constructEventInfo(position, s))
+          : undefined
+      }
+      onSymbolMouseOut={
+        onSymbolMouseOut
+          ? (s) => onSymbolMouseOut(constructEventInfo(position, s))
+          : undefined
+      }
+      values={values}
+      maxValue={maxValue}
+      transform={transform}
+      width={width}
+      height={height}
+      multiGlyphBufferRatio={multiGlyphBufferRatio}
+      key={position}
+      inverted={inverted}
+      invertedGlyphsRightSideUp={invertedGlyphsRightSideUp}
+    />
+  );
 
 const constructEventInfo = (
   i: number,

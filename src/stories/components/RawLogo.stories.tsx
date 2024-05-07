@@ -44,14 +44,6 @@ export const Basic: Story = {
   },
 };
 
-export const CustomStackHeights: Story = {
-  render: Basic.render,
-  args: {
-    ...Basic.args,
-    stackHeights: [0.5, 0.5],
-  },
-};
-
 export const Dinucleotide: Story = {
   render: Basic.render,
   args: {
@@ -80,5 +72,24 @@ export const CTCF: Story = {
     values: CTCF_MOTIF_PPM,
     glyphWidth: 100,
     height: 100,
+  },
+};
+
+export const WithNegatives: Story = {
+  render: Basic.render,
+  args: {
+    ...Basic.args,
+    values: [
+      [1, 0, 0, -1],
+      [-2, -0.7, -1, 4.1],
+      [-2, -0.5, -1.5, 5],
+      [1, -2.5, 2, 0.5],
+      [-0.5, 1, -0.5, 0],
+      [0, -1, 1.5, -1],
+      [0.3, 1.5, -3, 1.5],
+      [5, -1, -2, -1.5],
+      [4.5, -2, -1, -2.5],
+      [-1, 0, 0, 1],
+    ],
   },
 };

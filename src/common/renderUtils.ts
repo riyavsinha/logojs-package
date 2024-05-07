@@ -3,7 +3,7 @@
  * related to rendering.
  */
 
-import { maxLabelLength } from "./utils";
+import { maxLabelLength, negsum, possum } from "./utils";
 
 export const getBounds = (
   values: number[][],
@@ -39,6 +39,13 @@ export const informationContentRange = (backgroundFrequencies: number[]) => {
   };
 };
 
+export const rawRange = (values: number[][]) => {
+  return {
+    max: Math.max(...values.map(possum)),
+    min: Math.min(...values.map(negsum)),
+  };
+};
+
 export const xAxisLabelHeight = (
   values: number[][],
   startPos: number,
@@ -47,3 +54,6 @@ export const xAxisLabelHeight = (
 
 // Add parameters if 80 is not a good default
 export const yAxisWidth = () => 80;
+
+export const calculateZeroPoint = (min: number, max: number) =>
+  min < 0 ? 1 - -min / (max - min) : 1.0;

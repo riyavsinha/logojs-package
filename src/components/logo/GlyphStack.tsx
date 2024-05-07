@@ -2,6 +2,14 @@ import React from "react";
 
 import Glyph from "../glyphs/glyph";
 import { Alphabet, GlyphEventInfo } from "../../types";
+import { calculateZeroPoint } from "../../common/renderUtils";
+import _ from "lodash";
+import {
+  negsum,
+  possum,
+  sortedIndices,
+  sortedIndicesByMagnitude,
+} from "../../common/utils";
 
 type GlyphStackProps = {
   /** The total height of the glyph stack */
@@ -9,19 +17,23 @@ type GlyphStackProps = {
   /** The total width of the glyph stack */
   width: number;
   /** The indices corresponding to `Alphabet` entries to render. These are recommended to be in ascending order corresponding to `values`. */
-  indices: number[];
+  indices?: number[];
   /** The alphabet containing entries to render in the stack */
   alphabet: Alphabet;
   /** A list of values corresponding to the `Alphabet` order of `indices`. The relative values determines the glyph heights within the stack. */
   values: number[];
+  maxValue?: number;
+  minValue?: number;
   /** An SVG Transform string to apply to the stack. */
   transform?: string;
   /** Opacity of the glyphs. Defaults to 1 (opaque). */
   alpha?: number;
+  negativeAlpha?: number;
   /** Whether to invert the stack. Defaults to false. */
   inverted?: boolean;
   /** Value between 0 and 1 indicating how much to scale down multi-character glyphs. Defaults to 0.8. */
   multiGlyphBufferRatio?: number;
+  invertedGlyphsRightSideUp?: boolean;
   /** Callback for when a symbol is moused over. */
   onSymbolMouseOver?: (symbol: GlyphEventInfo) => void;
   /** Callback for when a symbol is moused out. */
@@ -41,26 +53,52 @@ export const GlyphStack = ({
   indices,
   alphabet,
   values,
+  maxValue,
+  minValue,
   transform,
-  alpha = 1,
+  alpha,
+  negativeAlpha,
   multiGlyphBufferRatio = 0.8,
   inverted = false,
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
+  invertedGlyphsRightSideUp = false,
 }: GlyphStackProps) => {
-  if (values.length !== indices.length || values.length !== alphabet.length) {
+  if (values.length !== alphabet.length) {
     throw new Error(
-      "GlyphStack: `values`, `indices`, and `alphabet` must have the same length."
+      "GlyphStack: `values` and `alphabet` must have the same length."
     );
   }
 
-  const valuesSum = values.reduce((a, b) => a + b, 0);
+  if (indices && indices.length !== values.length) {
+    throw new Error(
+      "GlyphStack: `indices` must have the same length as `values`."
+    );
+  }
+
+  const _indices = indices || sortedIndicesByMagnitude(values);
+  console.log(values);
+  console.log(_indices);
+
+  let _maxValue = maxValue || possum(values);
+  let _minValue = minValue || negsum(values);
+  if (_minValue > _maxValue) {
+    [_minValue, _maxValue] = [_maxValue, _minValue];
+  }
+  // console.log(values);
+  // console.log("maxValue: ", _maxValue, "minValue: ", _minValue);
+  const range = _maxValue - _minValue;
+  // console.log(range);
 
   // This tracks the next y position to render a glyph in the stack
-  let curYStart = height;
-  const indicesOrder = inverted ? indices.slice().reverse() : indices;
-  const glyphs = indicesOrder.map((index) => {
+  // minValue = minValue || 0;
+  // const zeroPoint =
+  let posYStart = height * calculateZeroPoint(_minValue, _maxValue);
+  let negYStart = posYStart;
+  // console.log(curYStart);
+  // const indicesOrder = inverted ? indices.slice().reverse() : indices;
+  const glyphs = _indices.map((index) => {
     // Skip if the alphabet entry is missing or has no rendering component
     if (!alphabet[index] || !alphabet[index].component) {
       return null;
@@ -70,9 +108,14 @@ export const GlyphStack = ({
       return null;
     }
 
-    const curGlyphHeight = (values[index] / valuesSum) * height;
-    curYStart -= curGlyphHeight;
-    const ccy = inverted ? curYStart + curGlyphHeight : curYStart;
+    const curGlyphHeight = (values[index] / range) * height;
+    if (values[index] < 0) {
+      negYStart -= curGlyphHeight;
+    } else {
+      posYStart -= curGlyphHeight;
+    }
+    // const ccy = inverted ? curYStart + curGlyphHeight : curYStart;
+    const ccy = values[index] < 0 ? negYStart : posYStart;
 
     const component = alphabet[index].component;
     const color = alphabet[index].color;
@@ -105,7 +148,9 @@ export const GlyphStack = ({
             width * multiGlyphBufferTransformRatio
           : 0;
       const tranlateTransform = `translate(${xTranslation},${ccy})`;
-      const yScale = (values[index] / valuesSum) * (height / 100);
+      const yScale = (values[index] / range) * (height / 100);
+      const opacity =
+        values[index] < 0 ? negativeAlpha || alpha || 0.5 : alpha || 1;
       return (
         <g
           transform={tranlateTransform}
@@ -114,8 +159,12 @@ export const GlyphStack = ({
           onMouseOut={mouseoutFn}
           onClick={clickFn}
         >
-          <Glyph xscale={xScale} yscale={yScale} inverted={inverted}>
-            <G fill={colors[i]} fillOpacity={alpha} color={colors[i]} />
+          <Glyph
+            xscale={xScale}
+            yscale={yScale}
+            // inverted={invertGlyphOrientation}
+          >
+            <G fill={colors[i]} fillOpacity={opacity} color={colors[i]} />
           </Glyph>
         </g>
       );

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <body>
+    <script src="./old-bundle.js" type="text/javascript"></script>
+    <div id="logo" style="width: 500px"></div>
+    <script type="text/javascript">
+      const DNA_PPM = [
+        [0, 0, 0, 0],
+        [-0, 0.5, -0.5, 0.5],
+        [0.5, -2, -2, 3],
+        [2.5, -2, 0.5, -0.5],
+        [4, -1, -2, -2.5],
+        [-1, -1, 0, 2],
+        [-1.5, -0.5, 0.5, 1.5],
+        [1.5, -1.5, 1, -0.5],
+        [-1, 1, 0, 0],
+        [0, 0, 0, 0],
+      ];
+      logojs.embedLogoWithNegatives(document.getElementById("logo"), {
+        values: DNA_PPM,
+        alphabet: logojs.DNAAlphabet,
+        negativealpha: 101,
+      });
+    </script>
+  </body>
+</html>

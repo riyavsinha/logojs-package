@@ -77,12 +77,29 @@ export const calculateLogLikelihood =
 /**
  * For an array of numbers, returns the indices sorted in ascending order.
  *
- * @param x Array of numberic values
+ * @param x Array of numeric values
  * @returns Array of indices sorted in ascending order
  */
 export const sortedIndices = (x: number[]): number[] => {
   let indices = x.map((_, i) => i);
   return indices.sort((a, b) => (x[a] < x[b] ? -1 : x[a] === x[b] ? 0 : 1));
+};
+
+/**
+ * For an array of numbers, returns the indices sorted in order of ascending magnitude (absolute value).
+ *
+ * @param x Array of numeric values
+ * @returns Array of indices sorted in ascending order
+ */
+export const sortedIndicesByMagnitude = (x: number[]): number[] => {
+  let indices = x.map((_, i) => i);
+  return indices.sort((a, b) =>
+    Math.abs(x[a]) < Math.abs(x[b])
+      ? -1
+      : Math.abs(x[a]) === Math.abs(x[b])
+        ? 0
+        : 1
+  );
 };
 
 export const sortedIndicesNegative = (x: number[]) => {

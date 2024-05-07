@@ -99,3 +99,23 @@ export const UsingFasta: Story = {
     dataType: DataType.FASTA,
   },
 };
+
+export const WithNegatives: Story = {
+  args: {
+    ...Basic.args,
+    data: [
+      [1, 0, 0, -1],
+      [-2, -0.7, -1, 4.1],
+      [-2, -0.5, -1.5, 5],
+      [1, -2.5, 2, 0.5],
+      [-0.5, 1, -0.5, 0],
+      [0, -1, 1.5, -1],
+      [0.3, 1.5, -3, 1.5],
+      [5, -1, -2, -1.5],
+      [4.5, -2, -1, -2.5],
+      [-1, 0, 0, 1],
+    ],
+    mode: "RAW",
+    dataType: DataType.VALUES,
+  },
+};

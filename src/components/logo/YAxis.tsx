@@ -1,6 +1,7 @@
 import React from "react";
 
 import { xrange } from "../../common/utils";
+import { calculateZeroPoint } from "../../common/renderUtils";
 
 type YAxisProps = {
   /** The maximum number on the axis */
@@ -36,25 +37,40 @@ export const YAxis = ({
 }: YAxisProps) => {
   // const ticks = xrange(max + 1);
   min = min < 0 ? min : 0;
-  const _numTicks = numTicks || max - min;
+  const intMin = Math.ceil(min);
+  const intMax = Math.floor(max);
+  const _numTicks = numTicks || intMax - intMin;
   const ticks = xrange(_numTicks + 1).map(
-    (x) => (x / _numTicks) * (max - min) + min
+    (x) => (x / _numTicks) * (intMax - intMin) + intMin
   );
-  const zeroPoint = min < 0 ? 1 - -min / (max - min) : 1.0;
+  if (max !== intMax) {
+    ticks.push(max);
+  }
+  if (min !== intMin) {
+    ticks.unshift(min);
+  }
+  const zeroPoint = calculateZeroPoint(min, max);
   return (
     <g transform={transform}>
       <rect height={height} width={4} x={width + 1} y={0} fill="#000000" />
-      {ticks.map((i) => {
+      {ticks.map((value, i) => {
         const yTranslate =
           // height * zeroPoint - Math.floor((i * (height * zeroPoint)) / max);
-          (height - (i / max) * height) * zeroPoint;
+          (height - (value / max) * height) * zeroPoint;
         const tranlateTransform = `translate(0,${yTranslate})`;
+        const rectWidth = [0, ticks.length - 1].includes(i) ? 30 : 15;
         return (
-          <g key={i} transform={tranlateTransform}>
-            <text x={width - 15} textAnchor="end" y="4" fontSize="18">
-              {i.toString().substring(0, 4)}
+          <g key={value} transform={tranlateTransform}>
+            <text x={width - rectWidth} textAnchor="end" y="4" fontSize="18">
+              {value.toString().substring(0, 4)}
             </text>
-            <rect x={width - 10} width="15" height="4" y="-2" fill="#000000" />
+            <rect
+              x={width - rectWidth + 5}
+              width={rectWidth}
+              height="4"
+              y="-2"
+              fill="#000000"
+            />
           </g>
         );
       })}

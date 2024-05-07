@@ -23,14 +23,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: (args) => (
-    <DynamicSVGComponent>
+    <svg height="100" width="100" style={{ border: "1px solid black" }}>
       <GlyphStack {...args} />
-    </DynamicSVGComponent>
+    </svg>
   ),
   args: {
     height: 100,
     width: 100,
-    indices: [0, 1, 2, 3],
     alphabet: DNAAlphabet,
     values: [0.1, 0.2, 0.3, 0.4],
     onSymbolMouseOver: fn(),
@@ -39,12 +38,73 @@ export const Basic: Story = {
   },
 };
 
-export const Inverted: Story = {
+export const HigherMaxValue: Story = {
   render: Basic.render,
   args: {
     ...Basic.args,
-    inverted: true,
+    maxValue: 2,
+  },
+};
+
+export const LowerMinValue: Story = {
+  render: Basic.render,
+  args: {
+    ...Basic.args,
+    minValue: -1,
+  },
+};
+
+export const Negatives: Story = {
+  render: Basic.render,
+  args: {
+    ...Basic.args,
+    values: [-0.1, -0.2, -0.3, -0.4],
+    // inverted: true,
     alpha: 0.5,
+  },
+};
+
+export const NegativesHigherMaxValue: Story = {
+  render: Negatives.render,
+  args: {
+    ...Negatives.args,
+    alpha: 0.5,
+    maxValue: 1,
+  },
+};
+
+export const NegativesLowerMinValue: Story = {
+  render: Negatives.render,
+  args: {
+    ...Negatives.args,
+    alpha: 0.5,
+    minValue: -2,
+  },
+};
+
+export const NegativesGlyphsRightSideUp: Story = {
+  render: Negatives.render,
+  args: {
+    ...Negatives.args,
+    invertedGlyphsRightSideUp: true,
+  },
+};
+
+export const MixedPositiveNegative: Story = {
+  render: Basic.render,
+  args: {
+    ...Basic.args,
+    values: [0.1, -0.2, 0.3, -0.4],
+  },
+};
+
+export const MixedPositiveNegativeHigherMaxMin: Story = {
+  render: Basic.render,
+  args: {
+    ...Basic.args,
+    values: [0.1, -0.2, 0.3, -0.4],
+    maxValue: 1,
+    minValue: -1,
   },
 };
 

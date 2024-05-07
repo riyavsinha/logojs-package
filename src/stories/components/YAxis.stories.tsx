@@ -48,6 +48,17 @@ export const WithNegatives: Story = {
   },
 };
 
+export const DecimalMaxMin: Story = {
+  render: DNABits.render,
+  args: {
+    ...DNABits.args,
+    min: -3.5,
+    max: 3.5,
+    height: 250,
+    label: "value",
+  },
+};
+
 export const Frequency: Story = {
   render: DNABits.render,
   args: {

@@ -11,11 +11,12 @@ import {
   pfmToPpm,
   ppmToLikelihood,
 } from "../../common/valueConversions";
-import { DataType, UserDefinedAlphabet } from "../../types";
+import { DataType, LogoMode, UserDefinedAlphabet } from "../../types";
 import {
   frequencyRange,
   getBounds,
   informationContentRange,
+  rawRange,
   xAxisLabelHeight,
   yAxisWidth,
 } from "../../common/renderUtils";
@@ -213,8 +214,8 @@ type Logov2Props = {
   data: number[][] | string;
   /** The type of data provided. Either a PPM, PFM, FASTA or already-processed values. */
   dataType: DataType;
-  /** Determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT. */
-  mode?: "INFORMATION_CONTENT" | "FREQUENCY";
+  /** Determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT or RAW. */
+  mode?: LogoMode;
   /** The height of the logo relative to the containing SVG. */
   height: number;
   /** The width of the logo relative to the containing SVG. */
@@ -297,10 +298,17 @@ export const Logov2 = ({
     throw new Error("Invalid data type");
   }
 
-  const { max, min } =
-    mode === FREQUENCY
-      ? frequencyRange(alphabetSize)
-      : informationContentRange(_backgroundFrequencies);
+  const { max, min } = (() => {
+    switch (mode) {
+      case "FREQUENCY":
+        return frequencyRange(alphabetSize);
+      case "INFORMATION_CONTENT":
+        return informationContentRange(_backgroundFrequencies);
+      default:
+        return rawRange(values);
+    }
+  })();
+  console.log("max", max, "min", min);
   const _max = yAxisMax || max;
 
   const { maxHeight, glyphWidth, viewBoxW } = getBounds(
@@ -337,7 +345,7 @@ export const Logov2 = ({
         height={maxHeight}
         max={mode === FREQUENCY ? 1 : _max}
         min={min}
-        numTicks={2}
+        // numTicks={2}
         label={mode === FREQUENCY ? "frequency" : "bits"}
       />
       <g transform="translate(80,10)">
@@ -345,8 +353,9 @@ export const Logov2 = ({
           values={values}
           glyphWidth={glyphWidth}
           // sum subarrays
-          stackHeights={values.map((x) => x.reduce((a, c) => a + c, 0.0))}
-          stackMaxHeight={_max}
+          // stackHeights={values.map((x) => x.reduce((a, c) => a + c, 0.0))}
+          maxValue={_max}
+          minValue={min}
           height={maxHeight}
           alphabet={alphabet}
           onSymbolMouseOver={onSymbolMouseOver}
