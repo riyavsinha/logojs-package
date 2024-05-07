@@ -20,6 +20,7 @@ import {
   xAxisLabelHeight,
   yAxisWidth,
 } from "../../common/renderUtils";
+import { XAxisLine } from "./XAxisLine";
 
 type LogoProps = {
   /** Position probability matrix. Rows are positions and should sum to 1; columns are symbols. If this is provided, it takes precedence over PFM in computing symbol heights. */
@@ -332,6 +333,13 @@ export const Logov2 = ({
           transform={"translate(80,10)"}
         />
       )}
+      <XAxisLine 
+        max={_max}
+        min={min}
+        height={maxHeight}
+        width={viewBoxW}
+        transform="translate(80,10)"
+      />
       <XAxis
         transform={`translate(80,${maxHeight + 20})`}
         n={values.length}
