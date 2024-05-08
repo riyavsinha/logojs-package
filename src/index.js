@@ -1,7 +1,7 @@
 import { Logo } from "./components/logo/Logo";
 import { RawLogo } from "./components/logo/RawLogo";
-import {LogoWithNegatives} from "./components/logo/logowithnegatives";
-import ProteinLogo, { ProteinAlphabet } from "./components/logo/proteinlogo";
+import { LogoWithNegatives } from "./components/logo/logowithnegatives";
+import ProteinLogo, { ProteinAlphabet } from "./components/logo/ProteinLogo";
 import DNALogo, { DNAAlphabet } from "./components/logo/DNALogo";
 import RNALogo, { RNAAlphabet } from "./components/logo/rnalogo";
 import CompleteLogo from "./components/logo/completelogo";

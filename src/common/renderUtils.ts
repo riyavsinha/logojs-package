@@ -8,10 +8,11 @@ import { maxLabelLength, negSum, posSum } from "./utils";
 export const getBounds = (
   values: number[][],
   max: number,
+  logoZoomFactor = 1,
   glyphWidthScaler = 1
 ) => {
   /* compute scaling factors */
-  const maxHeight = 100.0 * max;
+  const maxHeight = 100.0 * max * (1 / logoZoomFactor);
   const glyphWidth = (maxHeight / 6.0) * glyphWidthScaler;
 
   /* compute viewBox and padding for the x-axis labels */

@@ -210,17 +210,17 @@ export const Logo = ({
   );
 };
 
-type Logov2Props = {
+export type Logov2Props = {
   /** Data matrix to render. The type of data must be specified using `dataType`. */
   data: number[][] | string;
   /** The type of data provided. Either a PPM, PFM, FASTA or VALUES. This determines how the data is processed to reach the liklihood scores. Type VALUES is not processed and used as-is. */
   dataType: DataType;
   /** Optional, Recommended. Determines how symbol heights are computed: FREQUENCY, INFORMATION_CONTENT, or RAW. Default is INFORMATION_CONTENT. */
   mode?: LogoMode;
-  /** The height of the logo relative to the containing SVG. */
-  height: number;
-  /** The width of the logo relative to the containing SVG. */
-  width: number;
+  /** Optional, Recommended. The height of the logo relative to the containing SVG. If this is not specified, `width` must be specified. */
+  height?: number;
+  /** Optional, Recommended. The width of the logo relative to the containing SVG. If this is not specified, `height` must be specified. */
+  width?: number;
   /** Symbol list mapping columns to colored glyphs. */
   alphabet: UserDefinedAlphabet;
   /** Optional. The width of a single glyph, relative to the containing SVG. Defaults to 1. */
@@ -247,16 +247,18 @@ type Logov2Props = {
   onSymbolClick?: (symbol: any) => void;
   /** Optional (DataTypes: [`FASTA`]). If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
   countUnaligned?: boolean;
+  /** Optional. For long sequence logos, you may want to increase this value in order to increase the size of the axes proportional to the logo. Defaults to 1. */
+  logoZoomFactor?: number;
   /** Optional. Any extra props modifying the `RawLogo` component can be passed here. */
-  RawLogoProps?: RawLogoProps;
+  RawLogoProps?: Partial<RawLogoProps>;
   /** Optional. Any extra props modifying the `YAxisProps` component can be passed here. */
-  YAxisProps?: YAxisProps;
+  YAxisProps?: Partial<YAxisProps>;
   /** Optional. Any extra props modifying the `YGridlinesProps` component can be passed here. */
-  YGridlinesProps?: YGridlinesProps;
+  YGridlinesProps?: Partial<YGridlinesProps>;
   /** Optional. Any extra props modifying the `XAxisProps` component can be passed here. */
-  XAxisProps?: XAxisProps;
+  XAxisProps?: Partial<XAxisProps>;
   /** Optional. Any extra props modifying the `XAxisLineProps` component can be passed here. */
-  XAxisLineProps?: XAxisLineProps;
+  XAxisLineProps?: Partial<XAxisLineProps>;
 };
 export const Logov2 = ({
   data,
@@ -277,6 +279,7 @@ export const Logov2 = ({
   useSmallSampleCorrection,
   constantPseudocount,
   countUnaligned,
+  logoZoomFactor,
   RawLogoProps,
   YAxisProps,
   YGridlinesProps,
@@ -346,6 +349,7 @@ export const Logov2 = ({
   const { maxHeight, glyphWidth, viewBoxW } = getBounds(
     values,
     _max,
+    logoZoomFactor,
     glyphWidthScaler
   );
   const adjustedViewBoxH = maxHeight + xAxisLabelHeight(values, startPos);
