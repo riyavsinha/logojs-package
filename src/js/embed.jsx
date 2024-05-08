@@ -4,7 +4,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import DNALogo from "../components/logo/DNALogo";
 import RNALogo from "../components/logo/rnalogo";
 import ProteinLogo from "../components/logo/ProteinLogo";
-import { LogoWithNegatives } from "../components/logo/logowithnegatives";
 import { Logo } from "../components/logo/Logo";
 import { RawLogo } from "../components/logo/RawLogo";
 
@@ -58,13 +57,3 @@ export const embedRawLogo = (container, props) => {
   container.innerHTML = renderToStaticMarkup(<RawLogo {...props} />);
 };
 
-/**
- * Imperatively embeds a logo with negative symbols in a div;
- * intended for use outside of a React application.
- *
- * @param div the div element in which to embed the logo.
- * @param props object containing the logo's properties.
- */
-export const embedLogoWithNegatives = (container, props) => {
-  container.innerHTML = renderToStaticMarkup(<LogoWithNegatives {...props} />);
-};

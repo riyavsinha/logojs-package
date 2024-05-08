@@ -1,6 +1,5 @@
 import { Logo } from "./components/logo/Logo";
 import { RawLogo } from "./components/logo/RawLogo";
-import { LogoWithNegatives } from "./components/logo/logowithnegatives";
 import ProteinLogo, { ProteinAlphabet } from "./components/logo/ProteinLogo";
 import DNALogo, { DNAAlphabet } from "./components/logo/DNALogo";
 import RNALogo, { RNAAlphabet } from "./components/logo/rnalogo";
@@ -14,7 +13,6 @@ import {
   embedRNALogo,
   embedProteinLogo,
   embedLogo,
-  embedLogoWithNegatives,
   embedRawLogo,
 } from "./js/embed";
 import { INFORMATION_CONTENT, FREQUENCY } from "./common/utils";
@@ -109,12 +107,10 @@ export {
   INFORMATION_CONTENT,
   FREQUENCY,
   xrange,
-  LogoWithNegatives,
   embedDNALogo,
   disymbolAlphabet,
   RawLogo,
   embedRNALogo,
-  embedLogoWithNegatives,
   embedProteinLogo,
   embedLogo,
   embedRawLogo,

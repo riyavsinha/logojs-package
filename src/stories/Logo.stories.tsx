@@ -4,6 +4,7 @@ import { fn } from "@storybook/test";
 
 import { Logo } from "../components/logo/Logo";
 import { DNAAlphabet, disymbolAlphabet } from "..";
+import { DataType } from "../types";
 import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
@@ -21,9 +22,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  // render: (args) => <Logo {...args} />,
   args: {
-    ppm: [
+    data: [
       [0.37, 0.08, 0.18, 0.37],
       [0, 0.16, 0.04, 0.8],
       [0.04, 0.02, 0.82, 0.12],
@@ -44,9 +44,10 @@ export const Basic: Story = {
       [0.24, 0.18, 0.14, 0.43],
       [0.37, 0.02, 0, 0.61],
     ],
+    dataType: DataType.PPM,
     mode: "INFORMATION_CONTENT",
-    width: 900,
-    height: 500,
+    width: 700,
+    height: 400,
     alphabet: DNAAlphabet,
     onSymbolClick: fn(),
     onSymbolMouseOut: fn(),
@@ -63,7 +64,7 @@ export const Frequency: Story = {
 
 export const Dinucleotide: Story = {
   args: {
-    ppm: [
+    data: [
       [0, 0, 0.25, 0, 0, 0, 0, 0.25, 0.25, 0, 0, 0, 0, 0, 0.25, 0],
       [0, 0, 0, 0.4, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0.2, 0],
       [0, 0, 0, 0.3, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0.5, 0],
@@ -71,6 +72,7 @@ export const Dinucleotide: Story = {
       [0, 0, 0.5, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0.25, 0, 0.25, 0, 0.2, 0, 0, 0.1, 0, 0, 0.1, 0.1, 0, 0],
     ],
+    dataType: DataType.PPM,
     mode: "INFORMATION_CONTENT",
     width: 700,
     height: 400,
@@ -84,16 +86,38 @@ export const Dinucleotide: Story = {
 export const UsingPFM: Story = {
   args: {
     ...Basic.args,
-    ppm: undefined,
-    pfm: SPI1_MOTIF_PFM,
+    data: SPI1_MOTIF_PFM,
+    dataType: DataType.PFM,
   },
 };
 
 export const UsingFasta: Story = {
   args: {
     ...Basic.args,
-    ppm: undefined,
-    pfm: undefined,
-    fasta: SPI1_MOTIF_FASTA,
+    data: SPI1_MOTIF_FASTA,
+    dataType: DataType.FASTA,
+  },
+};
+
+export const WithNegatives: Story = {
+  args: {
+    ...Basic.args,
+    data: [
+      [1, 0, 0, -1],
+      [-2, -0.7, -1, 4.1],
+      [-2, -0.5, -1.5, 5],
+      [1, -2.5, 2, 0.5],
+      [-0.5, 1, -0.5, 0],
+      [0, -1, 1.5, -1],
+      [0.3, 1.5, -3, 1.5],
+      [5, -1, -2, -1.5],
+      [4.5, -2, -1, -2.5],
+      [-1, 0, 0, 1],
+    ],
+    mode: "RAW",
+    dataType: DataType.VALUES,
+    RawLogoProps: {
+      negativeAlpha: 0.2,
+    },
   },
 };

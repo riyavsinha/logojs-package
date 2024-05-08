@@ -24,7 +24,7 @@ import {
   Y,
   Z,
 } from "../glyphs";
-import { Logov2, Logov2Props } from "./Logo";
+import { Logo, LogoProps } from "./Logo";
 
 /**
  * Represents the protein alphabet, with 22 amino acids plus B and Z
@@ -57,7 +57,7 @@ export const ProteinAlphabet = [
   { component: Z, regex: "Z", color: "#aaaa00" },
 ];
 
-export type ProteinLogoProps = Omit<Logov2Props, "alphabet">;
+export type ProteinLogoProps = Omit<LogoProps, "alphabet">;
 
 /**
  * Renders a logo with the protein alphabet, with amino acids colored according
@@ -65,5 +65,5 @@ export type ProteinLogoProps = Omit<Logov2Props, "alphabet">;
  * shades, respectively).
  */
 export const ProteinLogo = (props: ProteinLogoProps) => (
-  <Logov2 alphabet={ProteinAlphabet} {...props} />
+  <Logo alphabet={ProteinAlphabet} {...props} />
 );
