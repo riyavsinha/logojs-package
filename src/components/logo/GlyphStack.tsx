@@ -155,7 +155,7 @@ export const GlyphStack = ({
           <Glyph
             xscale={xScale}
             yscale={yScale}
-            inverted={invertedGlyphsRightSideUp}
+            inverted={values[index] < 0 && invertedGlyphsRightSideUp}
           >
             <G fill={colors[i]} fillOpacity={opacity} color={colors[i]} />
           </Glyph>

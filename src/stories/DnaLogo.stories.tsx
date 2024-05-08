@@ -42,11 +42,14 @@ export const CAPMotifIC: Story = {
       [0.24, 0.18, 0.14, 0.43],
       [0.37, 0.02, 0, 0.61],
     ],
+    dataType: DataType.PPM,
+    width: 700,
   },
 };
 
 export const CTCFMotifFrequency: Story = {
   args: {
+    ...CAPMotifIC.args,
     data: CTCF_MOTIF_PPM,
     mode: "FREQUENCY",
   },
@@ -54,6 +57,7 @@ export const CTCFMotifFrequency: Story = {
 
 export const CustomStartingBase: Story = {
   args: {
+    ...CAPMotifIC.args,
     data: [
       [0.06, 0.46, 0.11, 0.37],
       [0.16, 0.22, 0.22, 0.4],
@@ -75,12 +79,13 @@ export const CustomStartingBase: Story = {
       [0, 0, 1, 0],
       [0.16, 0.23, 0.56, 0.05],
     ],
-    startpos: -18,
+    startPos: -18,
   },
 };
 
 export const CustomGlyphs: Story = {
   args: {
+    ...CAPMotifIC.args,
     alphabet: [
       { color: "#880000", regex: "a" },
       { color: "#008800", regex: "c" },
@@ -93,8 +98,55 @@ export const CustomGlyphs: Story = {
 
 export const SPI1MotifPFM: Story = {
   args: {
+    ...CAPMotifIC.args,
     data: SPI1_MOTIF_PFM,
     dataType: DataType.PFM,
     mode: "INFORMATION_CONTENT",
+  },
+};
+
+export const WithNegativeAlphaModified: Story = {
+  args: {
+    ...CAPMotifIC.args,
+    data: [
+      [1, 0, 0, -1],
+      [-2, -0.7, -1, 4.1],
+      [-2, -0.5, -1.5, 5],
+      [1, -2.5, 2, 0.5],
+      [-0.5, 1, -0.5, 0],
+      [0, -1, 1.5, -1],
+      [0.3, 1.5, -3, 1.5],
+      [5, -1, -2, -1.5],
+      [4.5, -2, -1, -2.5],
+      [-1, 0, 0, 1],
+    ],
+    mode: "RAW",
+    dataType: DataType.VALUES,
+    RawLogoProps: {
+      negativeAlpha: 0.2,
+    },
+  },
+};
+
+export const WithNegativesRightSideUp: Story = {
+  args: {
+    ...CTCFMotifFrequency.args,
+    data: [
+      [1, 0, 0, -1],
+      [-2, -0.7, -1, 4.1],
+      [-2, -0.5, -1.5, 5],
+      [1, -2.5, 2, 0.5],
+      [-0.5, 1, -0.5, 0],
+      [0, -1, 1.5, -1],
+      [0.3, 1.5, -3, 1.5],
+      [5, -1, -2, -1.5],
+      [4.5, -2, -1, -2.5],
+      [-1, 0, 0, 1],
+    ],
+    mode: "RAW",
+    dataType: DataType.VALUES,
+    RawLogoProps: {
+      invertedGlyphsRightSideUp: true,
+    },
   },
 };

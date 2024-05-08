@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as ProteinLogos from "../ProteinLogo.stories";
+import * as DNALogos from "../DnaLogo.stories";
+
+<Meta title="Gallery/Negative Values" />
+
+# Negative Values
+
+This gallery illustrates the use of both negative and positive symbol heights. Logos with negatives are built in to LogoJS and may be rendered automatically alongside positive values. Various customizations are built in, including the ability to shade negative letters and render them right side up or upside down.
+
+## Negative Heights
+
+**A logo can render both positive and negative letter heights.**
+
+A logo can by rendered with both positive and negative symbol heights. Here a protein logo with negative heights is shown. By default, negative symbols are rendered upside down and a dashed line is drawn at the x-axis.
+
+To aid in distinguishing positive and negative letters quickly by eye, negative letters are automatically rendered with a lighter shade by modifying the opacity.
+
+<Canvas of={ProteinLogos.WithNegativeValues} />
+
+## Negative Value Opacity
+
+**Negative values can be shaded with a lighter shade using opacity.**
+
+The `negativeAlpha` property ranges from 0 (completely transparent) to 1 (fully opaque). Here, the negativeAlpha is set to 0.2, which renders negative letters with 20% opacity.
+
+<Canvas of={DNALogos.WithNegativeAlphaModified} />
+
+## Negatives Right Side Up
+
+**A logo can render negative letters right side up.**
+
+LogoJS can render negative letters right side up instead of upside down if that makes the logo easier to read.
+
+<Canvas of={DNALogos.WithNegativesRightSideUp} />
