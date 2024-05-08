@@ -121,3 +121,85 @@ export const WithNegatives: Story = {
     },
   },
 };
+
+export const CpgMethylationExample: Story = {
+  args: {
+    ...Basic.args,
+    data: [
+      [0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 1, 0, 0],
+      [0.3, 0, 0.3, 0.4, 0, 0],
+      [0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 1],
+      [0, 0.6, 0, 0.4, 0, 0],
+      [1, 0, 0, 0, 0, 0],
+    ],
+    dataType: DataType.PPM,
+    alphabet: [
+      { color: "#880088", regex: "A" },
+      { color: "#880000", regex: "C" },
+      { color: "#000088", regex: "G" },
+      { color: "#888800", regex: "T" },
+      { color: "#ff0000", regex: "M" },
+      { color: "#008888", regex: "W" },
+    ],
+  },
+};
+
+export const CustomSymbolsExample: Story = {
+  args: {
+    ...Basic.args,
+    data: [
+      [0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0.5],
+    ],
+    dataType: DataType.PPM,
+    alphabet: [
+      { color: "#880000", regex: "a" },
+      { color: "#880000", regex: "b" },
+      { color: "#880000", regex: "c" },
+      { color: "#880000", regex: "d" },
+      { color: "#880000", regex: "e" },
+      { color: "#880000", regex: "f" },
+      { color: "#000088", regex: "1" },
+      { color: "#000088", regex: "2" },
+      { color: "#000088", regex: "3" },
+      { color: "#000088", regex: "4" },
+      { color: "#000088", regex: "5" },
+      { color: "#000088", regex: "6" },
+      { color: "#000088", regex: "7" },
+      { color: "#000088", regex: "8" },
+      { color: "#000088", regex: "9" },
+      { color: "#000088", regex: "0" },
+    ],
+  },
+};
+
+export const RepeatedSymbolsExample: Story = {
+  args: {
+    ...Basic.args,
+    data: [
+      [1, 0, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0],
+      [0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0],
+      [0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 1],
+    ],
+    dataType: DataType.PPM,
+    alphabet: [
+      { regex: "A", color: "#ff0000" },
+      { regex: "A", color: "#ffa500" },
+      { regex: "A", color: "#ffcc00" },
+      { regex: "A", color: "#008800" },
+      { regex: "A", color: "#0000aa" },
+      { regex: "A", color: "#aa00aa" },
+    ],
+  },
+};

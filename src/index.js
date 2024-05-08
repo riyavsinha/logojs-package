@@ -3,7 +3,7 @@ import { RawLogo } from "./components/logo/RawLogo";
 import { ProteinLogo, ProteinAlphabet } from "./components/logo/ProteinLogo";
 import { DNALogo, DNAAlphabet } from "./components/logo/DNALogo";
 import { RNALogo, RNAAlphabet } from "./components/logo/RNALogo";
-import CompleteLogo from "./components/logo/completelogo";
+import { CompleteLogo } from "./components/logo/CompleteLogo";
 import { CompleteAlphabet } from "./common/alphabet";
 import { xrange } from "./common/utils";
 import { disymbolAlphabet } from "./common/disymbol";
