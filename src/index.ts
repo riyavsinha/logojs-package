@@ -1,10 +1,15 @@
 import { Logo } from "./components/logo/Logo";
 import { RawLogo } from "./components/logo/RawLogo";
-import { ProteinLogo, ProteinAlphabet } from "./components/logo/ProteinLogo";
-import { DNALogo, DNAAlphabet } from "./components/logo/DNALogo";
-import { RNALogo, RNAAlphabet } from "./components/logo/RNALogo";
+import { ProteinLogo } from "./components/logo/ProteinLogo";
+import { DNALogo } from "./components/logo/DNALogo";
+import { RNALogo } from "./components/logo/RNALogo";
 import { CompleteLogo } from "./components/logo/CompleteLogo";
-import { CompleteAlphabet } from "./common/alphabet";
+import {
+  CompleteAlphabet,
+  ProteinAlphabet,
+  DNAAlphabet,
+  RNAAlphabet,
+} from "./common/alphabet";
 import { xrange } from "./common/utils";
 import { disymbolAlphabet } from "./common/disymbol";
 import { loadGlyphComponents } from "./common/loadGlyph";

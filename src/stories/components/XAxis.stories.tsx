@@ -4,7 +4,7 @@ import React from "react";
 import { XAxis } from "../../components/logo/XAxis";
 import DynamicSVGComponent from "../../components/logo/DynamicSvg";
 import { RawLogo } from "../../components/logo/RawLogo";
-import { DNAAlphabet } from "../../components/logo/DNALogo";
+import { DNAAlphabet } from "../../common/alphabet";
 
 const meta = {
   title: "Components/XAxis",

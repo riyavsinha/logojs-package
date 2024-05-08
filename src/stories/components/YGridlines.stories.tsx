@@ -3,7 +3,7 @@ import React from "react";
 
 import { YGridlines } from "../../components/logo/YGridlines";
 import DynamicSVGComponent from "../../components/logo/DynamicSvg";
-import { DNAAlphabet } from "../../components/logo/DNALogo";
+import { DNAAlphabet } from "../../common/alphabet";
 import { RawLogo } from "../..";
 
 const meta = {
