@@ -83,6 +83,27 @@ export const CustomStartingBase: Story = {
   },
 };
 
+export const Bigwig: Story = {
+  args: {
+    ...CAPMotifIC.args,
+    data: [
+      [0, 0, 1.3, 0],
+      [0, 0, 1, 0],
+      [0.8, 0, 0, 0],
+      [0, -0.3, 0, 0],
+      [-0.5, 0, 0, 0],
+      [0, 0, 0, 0.8],
+      [0.7, 0, 0, 0],
+      [0, 0, 0, 1.3],
+    ],
+    mode: "RAW",
+    dataType: DataType.VALUES,
+    RawLogoProps: {
+      negativeAlpha: 1,
+    },
+  },
+};
+
 export const CustomGlyphs: Story = {
   args: {
     ...CAPMotifIC.args,
