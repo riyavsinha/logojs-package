@@ -5,13 +5,15 @@ import { xrange } from "../../common/utils";
 export type XAxisProps = {
   /** The total number of positions in the logo. */
   n: number;
-  /** SVG transform to apply to the axis. */
+  /** Optional. SVG transform to apply to the axis. */
   transform?: string;
-  /** The width of each glyph in the containing logo. */
+  /** Optional. The width of each glyph in the containing logo. */
   glyphWidth: number;
-  /** The number of the first position in the logo. Defaults to 1. */
+  /** Optional. The number of the first position in the logo. Defaults to 1. */
   startPos?: number;
-  /** The rotation of the axis. */
+  /** Optional. Labels to use for each position instead of the number. Length must match number of positions `n` parameter. */
+  labels?: string[];
+  /** Optional. The rotation of the axis. Default is -90 (horizontal, left-to-right). */
   rotation?: number;
 };
 
@@ -22,9 +24,15 @@ export const XAxis = ({
   n,
   transform,
   glyphWidth,
+  labels,
   startPos = 1,
   rotation = -90,
 }: XAxisProps) => {
+  if (labels && labels.length !== n) {
+    throw new Error(
+      `Length of labels (${labels.length}) must match the number of positions (${n}).`
+    );
+  }
   const numbers = xrange(n);
   const rotationTransform = `rotate(${rotation})`;
   return (
@@ -39,7 +47,7 @@ export const XAxis = ({
           transform={rotationTransform}
           style={{ transformBox: "fill-box", transformOrigin: "right" }}
         >
-          {n + startPos}
+          {labels ? labels[n] : n + startPos}
         </text>
       ))}
     </g>

@@ -67,3 +67,12 @@ export const LargePositions: Story = {
     startPos: 1847933,
   },
 };
+
+export const CustomLabels: Story = {
+  render: VerticalLabels.render,
+  args: {
+    ...VerticalLabels.args,
+    labels: ["E77", "R90", "M101", "K299", "Y401"],
+    rotation: -45,
+  },
+};
