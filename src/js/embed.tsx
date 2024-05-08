@@ -1,11 +1,11 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { DNALogo } from "../components/logo/DNALogo";
-import { RNALogo } from "../components/logo/RNALogo";
-import { ProteinLogo } from "../components/logo/ProteinLogo";
-import { Logo } from "../components/logo/Logo";
-import { RawLogo } from "../components/logo/RawLogo";
+import { DNALogo, DNALogoProps } from "../components/logo/DNALogo";
+import { RNALogo, RNALogoProps } from "../components/logo/RNALogo";
+import { ProteinLogo, ProteinLogoProps } from "../components/logo/ProteinLogo";
+import { Logo, LogoProps } from "../components/logo/Logo";
+import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
 
 /**
  * Imperatively embeds a DNA logo in a div; intended for use outside of a React application.
@@ -13,7 +13,7 @@ import { RawLogo } from "../components/logo/RawLogo";
  * @param div the div element in which to embed the DNA logo.
  * @param props object containing the logo's properties.
  */
-export const embedDNALogo = (div, props) => {
+export const embedDNALogo = (div: HTMLDivElement, props: DNALogoProps) => {
   div.innerHTML = renderToStaticMarkup(<DNALogo {...props} />);
 };
 
@@ -23,7 +23,7 @@ export const embedDNALogo = (div, props) => {
  * @param div the div element in which to embed the RNA logo.
  * @param props object containing the logo's properties.
  */
-export const embedRNALogo = (div, props) => {
+export const embedRNALogo = (div: HTMLDivElement, props: RNALogoProps) => {
   div.innerHTML = renderToStaticMarkup(<RNALogo {...props} />);
 };
 
@@ -33,7 +33,10 @@ export const embedRNALogo = (div, props) => {
  * @param div the div element in which to embed the protein logo.
  * @param props object containing the logo's properties.
  */
-export const embedProteinLogo = (div, props) => {
+export const embedProteinLogo = (
+  div: HTMLDivElement,
+  props: ProteinLogoProps
+) => {
   div.innerHTML = renderToStaticMarkup(<ProteinLogo {...props} />);
 };
 
@@ -43,7 +46,7 @@ export const embedProteinLogo = (div, props) => {
  * @param div the div element in which to embed the logo.
  * @param props object containing the logo's properties.
  */
-export const embedLogo = (div, props) => {
+export const embedLogo = (div: HTMLDivElement, props: LogoProps) => {
   div.innerHTML = renderToStaticMarkup(<Logo {...props} />);
 };
 
@@ -53,6 +56,6 @@ export const embedLogo = (div, props) => {
  * @param div the div element in which to embed the raw logo.
  * @param props object containing the logo's properties.
  */
-export const embedRawLogo = (container, props) => {
+export const embedRawLogo = (container: HTMLElement, props: RawLogoProps) => {
   container.innerHTML = renderToStaticMarkup(<RawLogo {...props} />);
 };
