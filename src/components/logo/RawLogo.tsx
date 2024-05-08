@@ -1,6 +1,6 @@
 import React from "react";
 import { loadGlyphComponents } from "../../common/loadGlyph";
-import { negsum, possum, sortedIndices } from "../../common/utils";
+import { negSum, posSum, sortedIndices } from "../../common/utils";
 import {
   Alphabet,
   GlyphEventInfo,
@@ -74,8 +74,8 @@ export const RawLogo = ({
   // const mins = values.map((x) => -negsum(x));
   // // const mvalue = Math.max(...maxes, ...mins);
 
-  const posStackValueSums = values.map(possum);
-  const negStackValueSums = values.map((x) => -negsum(x));
+  const posStackValueSums = values.map(posSum);
+  const negStackValueSums = values.map((x) => -negSum(x));
   const maxStackValue = maxValue || Math.max(...posStackValueSums);
   const minStackValue = minValue || Math.min(...negStackValueSums);
 

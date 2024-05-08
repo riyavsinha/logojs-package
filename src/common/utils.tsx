@@ -112,7 +112,13 @@ export const xrange = (n: number) => [...Array(Math.floor(n)).keys()];
 export const onehot = (l: number) => (x: number) =>
   xrange(l).map((_, i) => (i === x ? 1 : 0));
 
-export const possum = (x: number[]) => {
+/**
+ * For an array of numbers, returns the sum of all positive values.
+ *
+ * @param x Array of numeric values
+ * @returns Sum of all positive values
+ */
+export const posSum = (x: number[]) => {
   let s = 0.0;
   x.filter((x) => x > 0.0).forEach((x) => {
     s += x;
@@ -120,7 +126,13 @@ export const possum = (x: number[]) => {
   return s;
 };
 
-export const negsum = (x: number[]) => {
+/**
+ * For an array of numbers, returns the sum of all negative values.
+ *
+ * @param x Array of numeric values
+ * @returns Sum of all negative values
+ */
+export const negSum = (x: number[]) => {
   let s = 0.0;
   x.filter((x) => x < 0.0).forEach((x) => {
     s += x;

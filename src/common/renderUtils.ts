@@ -3,7 +3,7 @@
  * related to rendering.
  */
 
-import { maxLabelLength, negsum, possum } from "./utils";
+import { maxLabelLength, negSum, posSum } from "./utils";
 
 export const getBounds = (
   values: number[][],
@@ -41,8 +41,8 @@ export const informationContentRange = (backgroundFrequencies: number[]) => {
 
 export const rawRange = (values: number[][]) => {
   return {
-    max: Math.max(...values.map(possum)),
-    min: Math.min(...values.map(negsum)),
+    max: Math.max(...values.map(posSum)),
+    min: Math.min(...values.map(negSum)),
   };
 };
 

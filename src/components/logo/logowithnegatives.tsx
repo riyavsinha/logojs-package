@@ -3,8 +3,8 @@ import React from "react";
 import {
   sortedIndices,
   sortedIndicesNegative,
-  possum,
-  negsum,
+  posSum,
+  negSum,
   maxLabelLength,
 } from "../../common/utils";
 import { loadGlyphComponents } from "../../common/loadGlyph";
@@ -102,8 +102,8 @@ export const LogoWithNegatives = ({
   negativealpha = negativealpha > 255 ? 255 : negativealpha;
 
   /* compute scaling factors */
-  let maxes = values.map(possum);
-  let mins = values.map((x) => -negsum(x));
+  let maxes = values.map(posSum);
+  let mins = values.map((x) => -negSum(x));
   let mvalue = Math.max(...maxes, ...mins);
   let maxHeight = 200.0;
   let glyphWidth = maxHeight / 6.0;

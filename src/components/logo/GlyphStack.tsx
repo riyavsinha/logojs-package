@@ -4,41 +4,38 @@ import Glyph from "../glyphs/glyph";
 import { Alphabet, GlyphEventInfo } from "../../types";
 import { calculateZeroPoint } from "../../common/renderUtils";
 import _ from "lodash";
-import {
-  negsum,
-  possum,
-  sortedIndices,
-  sortedIndicesByMagnitude,
-} from "../../common/utils";
+import { negSum, posSum, sortedIndicesByMagnitude } from "../../common/utils";
 
 type GlyphStackProps = {
   /** The total height of the glyph stack */
   height: number;
   /** The total width of the glyph stack */
   width: number;
-  /** The indices corresponding to `Alphabet` entries to render. These are recommended to be in ascending order corresponding to `values`. */
-  indices?: number[];
   /** The alphabet containing entries to render in the stack */
   alphabet: Alphabet;
-  /** A list of values corresponding to the `Alphabet` order of `indices`. The relative values determines the glyph heights within the stack. */
+  /** A list of values. The relative values determines the glyph heights within the stack. */
   values: number[];
+  /** Optional. The maximum value that the top of the `GlyphStack` should represent. If not provided, the maximum value is the sum of all positive entries. */
   maxValue?: number;
+  /** Optional. The minimum value that the bottom of the `GlyphStack` should represent. If not provided, the minimum value is the sum of all negative entries.  */
   minValue?: number;
-  /** An SVG Transform string to apply to the stack. */
+  /** Optional. The indices corresponding to `Alphabet` entries to render in order. By default, renders the smallest magnitude elements (both positive and negative) outwards from the zero, with the largest magnitude elements last. */
+  indices?: number[];
+  /** Optional. An SVG Transform string to apply to the stack. */
   transform?: string;
-  /** Opacity of the glyphs. Defaults to 1 (opaque). */
+  /** Optional. Opacity of the glyphs. Defaults to 1 (opaque). */
   alpha?: number;
+  /** Optional. An opacity to apply to negative values. Takes precedence over `alpha`. Defaults to 0.5. */
   negativeAlpha?: number;
-  /** Whether to invert the stack. Defaults to false. */
-  inverted?: boolean;
-  /** Value between 0 and 1 indicating how much to scale down multi-character glyphs. Defaults to 0.8. */
+  /** Optional. Value between 0 and 1 indicating how much to scale down multi-character glyphs, to give a buffer between different groups of characters. Defaults to 0.8. */
   multiGlyphBufferRatio?: number;
+  /** Optional. Boolean value that keeps negative values right-side-up. */
   invertedGlyphsRightSideUp?: boolean;
-  /** Callback for when a symbol is moused over. */
+  /** Optional. Callback for when a symbol is moused over. */
   onSymbolMouseOver?: (symbol: GlyphEventInfo) => void;
-  /** Callback for when a symbol is moused out. */
+  /** Optional. Callback for when a symbol is moused out. */
   onSymbolMouseOut?: (symbol: GlyphEventInfo) => void;
-  /** Callback for when a symbol is clicked. */
+  /** Optional. Callback for when a symbol is clicked. */
   onSymbolClick?: (symbol: GlyphEventInfo) => void;
 };
 
@@ -46,6 +43,12 @@ type GlyphStackProps = {
  * Renders glyphs from an `Alphabet` in a vertical stack.
  *
  * For rendering, single-character glyphs are rendered at full width, while multi-character glyphs are scaled down by `multiGlyphBufferRatio` in order to help distinguish them when placed next to other `GlyphStack`s.
+ *
+ * In the case of negative values, the glyphs are rendered upside-down by default. This can be changed by setting `invertedGlyphsRightSideUp` to `true`.
+ *
+ * The `maxValue` and `minValue` props can be used to set the maximum and minimum values that the top and bottom of the stack should represent. If not provided, the maximum value is the sum of all positive entries, and the minimum value is the sum of all negative entries.
+ *
+ * The stack renders outwards from the zero point, with the smallest magnitude elements (both positive and negative) rendered first, and the largest magnitude elements rendered last.
  */
 export const GlyphStack = ({
   height,
@@ -59,11 +62,10 @@ export const GlyphStack = ({
   alpha,
   negativeAlpha,
   multiGlyphBufferRatio = 0.8,
-  inverted = false,
+  invertedGlyphsRightSideUp = false,
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
-  invertedGlyphsRightSideUp = false,
 }: GlyphStackProps) => {
   if (values.length !== alphabet.length) {
     throw new Error(
@@ -78,26 +80,15 @@ export const GlyphStack = ({
   }
 
   const _indices = indices || sortedIndicesByMagnitude(values);
-  console.log(values);
-  console.log(_indices);
 
-  let _maxValue = maxValue || possum(values);
-  let _minValue = minValue || negsum(values);
-  if (_minValue > _maxValue) {
-    [_minValue, _maxValue] = [_maxValue, _minValue];
-  }
-  // console.log(values);
-  // console.log("maxValue: ", _maxValue, "minValue: ", _minValue);
+  let _maxValue = maxValue || posSum(values);
+  let _minValue = minValue || negSum(values);
+
   const range = _maxValue - _minValue;
-  // console.log(range);
 
   // This tracks the next y position to render a glyph in the stack
-  // minValue = minValue || 0;
-  // const zeroPoint =
   let posYStart = height * calculateZeroPoint(_minValue, _maxValue);
   let negYStart = posYStart;
-  // console.log(curYStart);
-  // const indicesOrder = inverted ? indices.slice().reverse() : indices;
   const glyphs = _indices.map((index) => {
     // Skip if the alphabet entry is missing or has no rendering component
     if (!alphabet[index] || !alphabet[index].component) {
@@ -114,8 +105,10 @@ export const GlyphStack = ({
     } else {
       posYStart -= curGlyphHeight;
     }
-    // const ccy = inverted ? curYStart + curGlyphHeight : curYStart;
-    const ccy = values[index] < 0 ? negYStart : posYStart;
+    let ccy = values[index] < 0 ? negYStart : posYStart;
+    if (values[index] < 0 && invertedGlyphsRightSideUp) {
+      ccy += curGlyphHeight;
+    }
 
     const component = alphabet[index].component;
     const color = alphabet[index].color;
@@ -162,7 +155,7 @@ export const GlyphStack = ({
           <Glyph
             xscale={xScale}
             yscale={yScale}
-            // inverted={invertGlyphOrientation}
+            inverted={invertedGlyphsRightSideUp}
           >
             <G fill={colors[i]} fillOpacity={opacity} color={colors[i]} />
           </Glyph>
