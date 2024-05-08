@@ -1,9 +1,9 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import DNALogo from "../components/logo/DNALogo";
-import RNALogo from "../components/logo/rnalogo";
-import ProteinLogo from "../components/logo/ProteinLogo";
+import { DNALogo } from "../components/logo/DNALogo";
+import { RNALogo } from "../components/logo/RNALogo";
+import { ProteinLogo } from "../components/logo/ProteinLogo";
 import { Logo } from "../components/logo/Logo";
 import { RawLogo } from "../components/logo/RawLogo";
 
@@ -56,4 +56,3 @@ export const embedLogo = (div, props) => {
 export const embedRawLogo = (container, props) => {
   container.innerHTML = renderToStaticMarkup(<RawLogo {...props} />);
 };
-
