@@ -66,7 +66,6 @@ export const CTCF: Story = {
       </svg>
     );
   },
-  // render: Basic.render,
   args: {
     ...Basic.args,
     values: CTCF_MOTIF_PPM,
@@ -91,5 +90,6 @@ export const WithNegatives: Story = {
       [4.5, -2, -1, -2.5],
       [-1, 0, 0, 1],
     ],
+    height: 75
   },
 };
