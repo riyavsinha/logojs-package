@@ -25,7 +25,7 @@ export const loadGlyphComponents = (
       return {
         ...regexMap[g.regex],
         ...(overwrite ? {} : g),
-      };
+      } as AlphabetLetter;
     }
 
     // Multiglyph
@@ -62,5 +62,5 @@ export const loadGlyphComponents = (
       component: components,
       color: colors,
       regex: r,
-    };
+    } as AlphabetLetter;
   });
