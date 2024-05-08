@@ -3,8 +3,6 @@ import { fn } from "@storybook/test";
 import React from "react";
 
 import { GlyphStack } from "../../components/logo/GlyphStack";
-import DynamicSVGComponent from "../../components/logo/DynamicSvg";
-import { CompleteAlphabet } from "../../components/logo/completelogo";
 import { DNAAlphabet, disymbolAlphabet } from "../..";
 
 const meta = {

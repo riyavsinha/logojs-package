@@ -1,6 +1,6 @@
 import React from "react";
 
-import Glyph from "../glyphs/glyph";
+import { Glyph } from "./Glyph";
 import { Alphabet, GlyphEventInfo } from "../../types";
 import { calculateZeroPoint } from "../../common/renderUtils";
 import _ from "lodash";

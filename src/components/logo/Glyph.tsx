@@ -14,9 +14,8 @@ type GlyphProps = {
 /**
  * Container component which scales a square glyph to the required dimensions.
  */
-const Glyph = ({ yscale, inverted, xscale, children }: GlyphProps) => {
+export const Glyph = ({ yscale, inverted, xscale, children }: GlyphProps) => {
   const _yscale = yscale * (inverted ? -1 : 1);
   const transform = `scale(${xscale}, ${_yscale})`;
   return <g transform={transform} height={yscale}>{children}</g>;
 };
-export default Glyph;
