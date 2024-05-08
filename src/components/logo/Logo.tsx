@@ -2,10 +2,10 @@ import React from "react";
 
 import { maxLabelLength, logLikelihood, FREQUENCY } from "../../common/utils";
 import { sequencesToPFM } from "../../common/fasta";
-import XAxis from "./XAxis";
-import YAxis from "./YAxis";
-import { YGridlines } from "./YGridlines";
-import { RawLogo } from "./RawLogo";
+import XAxis, { XAxisProps } from "./XAxis";
+import YAxis, { YAxisProps } from "./YAxis";
+import { YGridlines, YGridlinesProps } from "./YGridlines";
+import { RawLogo, RawLogoProps } from "./RawLogo";
 import {
   generateDefaultBackgroundFrequencies,
   pfmToPpm,
@@ -20,7 +20,7 @@ import {
   xAxisLabelHeight,
   yAxisWidth,
 } from "../../common/renderUtils";
-import { XAxisLine } from "./XAxisLine";
+import { XAxisLine, XAxisLineProps } from "./XAxisLine";
 
 type LogoProps = {
   /** Position probability matrix. Rows are positions and should sum to 1; columns are symbols. If this is provided, it takes precedence over PFM in computing symbol heights. */
@@ -213,9 +213,9 @@ export const Logo = ({
 type Logov2Props = {
   /** Data matrix to render. The type of data must be specified using `dataType`. */
   data: number[][] | string;
-  /** The type of data provided. Either a PPM, PFM, FASTA or already-processed values. */
+  /** The type of data provided. Either a PPM, PFM, FASTA or VALUES. This determines how the data is processed to reach the liklihood scores. Type VALUES is not processed and used as-is. */
   dataType: DataType;
-  /** Determines how symbol heights are computed; either FREQUENCY or INFORMATION_CONTENT or RAW. */
+  /** Optional, Recommended. Determines how symbol heights are computed: FREQUENCY, INFORMATION_CONTENT, or RAW. Default is INFORMATION_CONTENT. */
   mode?: LogoMode;
   /** The height of the logo relative to the containing SVG. */
   height: number;
@@ -223,57 +223,71 @@ type Logov2Props = {
   width: number;
   /** Symbol list mapping columns to colored glyphs. */
   alphabet: UserDefinedAlphabet;
-  /** The width of a single glyph, relative to the containing SVG. Defaults to 1. */
+  /** Optional. The width of a single glyph, relative to the containing SVG. Defaults to 1. */
   glyphWidthScaler?: number;
-  /** Number clipping width or height(?) */
-  scale?: number;
-  /** Number to assign the first position in the logo; defaults to 1. */
-  startpos?: number;
-  /** If set, shows vertical grid lines. */
+  /** Optional. Number to assign the first position in the logo. Defaults to 1. */
+  startPos?: number;
+  /** Optional. If set, shows vertical grid lines. */
   showGridLines?: boolean;
-  /** Background frequencies for the alphabet. */
+  /** Optional. Background frequencies for the alphabet. By default, uses a uniform distribution across all alphabet members. */
   backgroundFrequencies?: number[];
-  /** If set, this value is used to adjust PFM/FASTA data types. */
+  /** Optional (DataTypes: [`PFM`, `FASTA`]). If set, this value is used to adjust PFM/FASTA data types. */
   constantPseudocount?: number;
-  /** If set, used to adjust PFM/FASTA data matrices */
+  /** Optional (DataTypes: [`PFM`, `FASTA`]). If set, used to adjust PFM/FASTA data matrices */
   useSmallSampleCorrection?: boolean;
-  /** If set, uses an explicit maximum value for the y-axis rather than the total number of bits possible. This is ignored in FREQUENCY mode. */
+  /** Optional. If set, uses an explicit maximum value for the y-axis. This is ignored in FREQUENCY mode. */
   yAxisMax?: number;
-  /** Callback for handling events when a glyph is moused over */
+  /** Optional. If set, uses an explicit minimum value for the y-axis. This is ignored in FREQUENCY mode */
+  yAxisMin?: number;
+  /** Optional. Callback for handling events when a glyph is moused over */
   onSymbolMouseOver?: (symbol: any) => void;
-  /** Callback for handling events when a glyph is moused out from */
+  /** Optional. Callback for handling events when a glyph is moused out from */
   onSymbolMouseOut?: (symbol: any) => void;
-  /** Callback for handling click events on a glyph */
+  /** Optional. Callback for handling click events on a glyph */
   onSymbolClick?: (symbol: any) => void;
-  /** If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
+  /** Optional (DataTypes: [`FASTA`]). If set and if FASTA is used to compute letter heights, specifies that unaligned positions (dashes) should contribute to information content. */
   countUnaligned?: boolean;
-  /** Degrees to rotate the x-axis. Default is -90. */
-  xAxisRotation?: number;
+  /** Optional. Any extra props modifying the `RawLogo` component can be passed here. */
+  RawLogoProps?: RawLogoProps;
+  /** Optional. Any extra props modifying the `YAxisProps` component can be passed here. */
+  YAxisProps?: YAxisProps;
+  /** Optional. Any extra props modifying the `YGridlinesProps` component can be passed here. */
+  YGridlinesProps?: YGridlinesProps;
+  /** Optional. Any extra props modifying the `XAxisProps` component can be passed here. */
+  XAxisProps?: XAxisProps;
+  /** Optional. Any extra props modifying the `XAxisLineProps` component can be passed here. */
+  XAxisLineProps?: XAxisLineProps;
 };
 export const Logov2 = ({
   data,
   alphabet,
   dataType,
-  startpos = 1,
+  startPos = 1,
   glyphWidthScaler = 1,
   backgroundFrequencies,
-  scale,
   width,
   height,
   showGridLines,
-  xAxisRotation,
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
   mode = "INFORMATION_CONTENT",
   yAxisMax,
+  yAxisMin,
   useSmallSampleCorrection,
   constantPseudocount,
   countUnaligned,
+  RawLogoProps,
+  YAxisProps,
+  YGridlinesProps,
+  XAxisProps,
+  XAxisLineProps,
 }: Logov2Props) => {
   const alphabetSize = alphabet.length;
   const _backgroundFrequencies =
     backgroundFrequencies ?? generateDefaultBackgroundFrequencies(alphabetSize);
+
+  // Convert data to rendering values based on the mode (only not processed if DataType `VALUES` is provided)
   let values: number[][];
   if (typeof data === "string") {
     const pfmResult = sequencesToPFM(alphabet, data);
@@ -299,26 +313,44 @@ export const Logov2 = ({
     throw new Error("Invalid data type");
   }
 
+  // Based on the mode, calculate the theoretical max and min values for the y-axis
   const { max, min } = (() => {
     switch (mode) {
       case "FREQUENCY":
         return frequencyRange(alphabetSize);
       case "INFORMATION_CONTENT":
         return informationContentRange(_backgroundFrequencies);
-      default:
+      case "RAW":
         return rawRange(values);
+      default:
+        throw new Error(`Invalid mode "${mode}" provided.`);
     }
   })();
-  console.log("max", max, "min", min);
   const _max = yAxisMax || max;
+  const _min = yAxisMin || min;
 
+  const label = (() => {
+    switch (mode) {
+      case "FREQUENCY":
+        return "frequency";
+      case "INFORMATION_CONTENT":
+        return "bits";
+      case "RAW":
+        return "value";
+      default:
+        throw new Error(`Invalid mode "${mode}" provided.`);
+    }
+  })();
+
+  // Calculate base bounds for logo, and adjust for axes
   const { maxHeight, glyphWidth, viewBoxW } = getBounds(
     values,
     _max,
     glyphWidthScaler
   );
-  const adjustedViewBoxH = maxHeight + xAxisLabelHeight(values, startpos);
+  const adjustedViewBoxH = maxHeight + xAxisLabelHeight(values, startPos);
   const adjustedViewBoxW = viewBoxW + yAxisWidth();
+
   return (
     <svg
       width={width}
@@ -331,37 +363,37 @@ export const Logov2 = ({
           yEnd={maxHeight}
           numGridlines={5 * values.length} // 5 grid lines per glyph
           transform={"translate(80,10)"}
+          {...YGridlinesProps}
         />
       )}
-      <XAxisLine 
+      <XAxisLine
         max={_max}
         min={min}
         height={maxHeight}
         width={viewBoxW}
         transform="translate(80,10)"
+        {...XAxisLineProps}
       />
       <XAxis
         transform={`translate(80,${maxHeight + 20})`}
         n={values.length}
         glyphWidth={glyphWidth}
-        startPos={startpos}
-        rotation={xAxisRotation}
+        startPos={startPos}
+        {...XAxisProps}
       />
       <YAxis
         transform="translate(0,10)"
         width={65}
         height={maxHeight}
         max={mode === FREQUENCY ? 1 : _max}
-        min={min}
-        // numTicks={2}
-        label={mode === FREQUENCY ? "frequency" : "bits"}
+        min={mode === FREQUENCY ? 0 : _min}
+        label={label}
+        {...YAxisProps}
       />
       <g transform="translate(80,10)">
         <RawLogo
           values={values}
           glyphWidth={glyphWidth}
-          // sum subarrays
-          // stackHeights={values.map((x) => x.reduce((a, c) => a + c, 0.0))}
           maxValue={_max}
           minValue={min}
           height={maxHeight}
@@ -369,6 +401,7 @@ export const Logov2 = ({
           onSymbolMouseOver={onSymbolMouseOver}
           onSymbolMouseOut={onSymbolMouseOut}
           onSymbolClick={onSymbolClick}
+          {...RawLogoProps}
         />
       </g>
     </svg>

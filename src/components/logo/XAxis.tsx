@@ -2,7 +2,7 @@ import React from "react";
 
 import { xrange } from "../../common/utils";
 
-type XAxisProps = {
+export type XAxisProps = {
   /** The total number of positions in the logo. */
   n: number;
   /** SVG transform to apply to the axis. */

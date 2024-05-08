@@ -3,7 +3,7 @@ import React from "react";
 import { xrange } from "../../common/utils";
 import { calculateZeroPoint } from "../../common/renderUtils";
 
-type YAxisProps = {
+export type YAxisProps = {
   /** The maximum number on the axis */
   max: number;
   /** The minimum number on the axis */

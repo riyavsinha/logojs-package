@@ -1,6 +1,6 @@
 import React from "react";
 
-type YGridlinesProps = {
+export type YGridlinesProps = {
   /** The x-coordinate of the start of the gridlines. Defaults to 0  */
   xStart?: number;
   /** The x-coordinate of the end of the gridlines. This generally corresponds to the width of your container. */

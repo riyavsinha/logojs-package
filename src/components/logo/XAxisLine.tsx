@@ -1,7 +1,7 @@
 import React from "react";
 import { calculateZeroPoint } from "../../common/renderUtils";
 
-type XAxisLineProps = {
+export type XAxisLineProps = {
   min: number;
   max: number;
   height: number;

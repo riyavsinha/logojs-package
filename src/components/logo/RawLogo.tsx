@@ -9,7 +9,7 @@ import {
 } from "../../types";
 import { GlyphStack } from "./GlyphStack";
 
-type RawLogoProps = {
+export type RawLogoProps = {
   /** A matrix containing symbol values ready for rendering as-is. For a logo of length `N` with `D` letters in the alphabet, this should be shape `(N, D)`. */
   values: number[][];
   /** The alphabet containing entries to render at each position */
