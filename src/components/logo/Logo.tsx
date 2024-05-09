@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-import { maxLabelLength, logLikelihood, FREQUENCY } from "../../common/utils";
+import { FREQUENCY } from "../../common/utils";
 import { sequencesToPFM } from "../../common/fasta";
 import XAxis, { XAxisProps } from "./XAxis";
 import YAxis, { YAxisProps } from "./YAxis";
@@ -21,6 +21,7 @@ import {
   yAxisWidth,
 } from "../../common/renderUtils";
 import { XAxisLine, XAxisLineProps } from "./XAxisLine";
+import { LogoContext } from "../../contexts/LogoContext";
 
 export type LogoProps = {
   /** Data matrix to render. The type of data must be specified using `dataType`. */
@@ -71,6 +72,8 @@ export type LogoProps = {
   XAxisProps?: Partial<XAxisProps>;
   /** Optional. Any extra props modifying the `XAxisLineProps` component can be passed here. */
   XAxisLineProps?: Partial<XAxisLineProps>;
+  /** Optional. Annotations to place on the logo. */
+  annotations?: ReactNode[];
 };
 export const Logo = ({
   data,
@@ -91,6 +94,7 @@ export const Logo = ({
   useSmallSampleCorrection,
   constantPseudocount,
   countUnaligned,
+  annotations,
   logoZoomFactor,
   RawLogoProps,
   YAxisProps,
@@ -206,6 +210,15 @@ export const Logo = ({
         label={label}
         {...YAxisProps}
       />
+      <LogoContext.Provider
+        value={{
+          glyphWidth,
+          height: maxHeight,
+          transform: "translate(80, 10)",
+        }}
+      >
+        {annotations}
+      </LogoContext.Provider>
       <g transform="translate(80,10)">
         <RawLogo
           values={values}
