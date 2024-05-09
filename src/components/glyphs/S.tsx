@@ -6,7 +6,7 @@ export const S = (props: React.SVGProps<SVGPathElement>) => (
   <path
     fill="#ffffff"
     strokeWidth="18"
-    stroke={props.fill}
+    stroke={props.fill || "#000000"}
     strokeOpacity={props.fillOpacity}
     d={_path}
   />

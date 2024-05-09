@@ -153,8 +153,8 @@ export const GlyphStack = ({
           onClick={clickFn}
         >
           <Glyph
-            xscale={xScale}
-            yscale={yScale}
+            xScale={xScale}
+            yScale={yScale}
             inverted={values[index] < 0 && invertedGlyphsRightSideUp}
           >
             <G fill={colors[i]} fillOpacity={opacity} color={colors[i]} />
