@@ -57,6 +57,7 @@ import {
   N7,
   N8,
   N9,
+  Dash,
 } from "../../components/glyphs";
 
 type GlyphRenderArgs = React.SVGProps<SVGPathElement> & {
@@ -905,6 +906,21 @@ export const Number0Glyph: Story = {
 
 export const Number0GlyphFilled = {
   render: GlyphRender(O),
+  args: {
+    ...AGlyph.args,
+    fill: "red",
+  },
+};
+
+export const DashGlyph: Story = {
+  render: GlyphRender(Dash),
+  args: {
+    ...AGlyph.args,
+  },
+};
+
+export const DashGlyphFilled = {
+  render: GlyphRender(Dash),
   args: {
     ...AGlyph.args,
     fill: "red",

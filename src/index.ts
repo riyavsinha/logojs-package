@@ -68,6 +68,7 @@ import {
   t,
   u,
   y,
+  Dash,
 } from "./components/glyphs";
 import { N1, N2, N3, N4, N5, N6, N7, N8, N9 } from "./components/glyphs";
 
@@ -185,4 +186,5 @@ export {
   N7,
   N8,
   N9,
+  Dash,
 };
