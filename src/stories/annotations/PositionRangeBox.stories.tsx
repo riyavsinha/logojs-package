@@ -55,6 +55,14 @@ export const Default: Story = {
   },
 };
 
+export const FitToValues: Story = {
+  render: Default.render,
+  args: {
+    ...Default.args,
+    heightType: "fit",
+  },
+};
+
 export const WithBorder: Story = {
   render: Default.render,
   args: {

@@ -215,6 +215,9 @@ export const Logo = ({
           glyphWidth,
           height: maxHeight,
           transform: "translate(80, 10)",
+          values: values,
+          maxValue: _max,
+          minValue: _min,
         }}
       >
         {annotations}
