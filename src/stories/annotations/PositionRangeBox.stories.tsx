@@ -63,6 +63,14 @@ export const FitToValues: Story = {
   },
 };
 
+export const FitToValuesSymmetric: Story = {
+  render: Default.render,
+  args: {
+    ...Default.args,
+    heightType: "fitSymmetric",
+  },
+};
+
 export const WithBorder: Story = {
   render: Default.render,
   args: {
