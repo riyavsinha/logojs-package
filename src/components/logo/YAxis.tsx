@@ -20,6 +20,8 @@ export type YAxisProps = {
   zeroPoint?: number;
   /** The y-axis label. Default is "bits". */
   label?: string;
+  /** Whether the y-axis should show symmetric values in the positive and negative range. Defaults to true. */
+  symmetric?: boolean;
 };
 
 /**
@@ -32,11 +34,14 @@ export const YAxis = ({
   height,
   numTicks,
   width,
-  // zeroPoint = 1.0,
+  symmetric = true,
   label = "bits",
 }: YAxisProps) => {
-  // const ticks = xrange(max + 1);
   min = min < 0 ? min : 0;
+  if (symmetric && min < 0) {
+    min = Math.min(-max, min);
+    max = Math.max(-min, max);
+  }
   const intMin = Math.ceil(min);
   const intMax = Math.floor(max);
   const _numTicks = numTicks || intMax - intMin;
