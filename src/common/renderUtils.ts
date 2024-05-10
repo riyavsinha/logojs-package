@@ -54,7 +54,7 @@ export const xAxisLabelHeight = (
 ) => labelFontSize * (maxLabelLength(startPos, values.length) + 1);
 
 // Add parameters if 80 is not a good default
-export const yAxisWidth = () => 80;
+export const yAxisWidth = () => 65;
 
 export const calculateZeroPoint = (min: number, max: number) =>
   min < 0 ? 1 - -min / (max - min) : 1.0;
