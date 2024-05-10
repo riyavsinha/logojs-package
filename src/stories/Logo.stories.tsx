@@ -122,6 +122,14 @@ export const WithNegatives: Story = {
   },
 };
 
+export const WithSetMaxMinValues: Story = {
+  args: {
+    ...WithNegatives.args,
+    yAxisMax: 7,
+    yAxisMin: -7,
+  },
+};
+
 export const CpgMethylationExample: Story = {
   args: {
     ...Basic.args,

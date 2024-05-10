@@ -188,7 +188,7 @@ export const Logo = ({
       )}
       <XAxisLine
         max={_max}
-        min={min}
+        min={_min}
         height={maxHeight}
         width={viewBoxW}
         transform="translate(80,10)"
@@ -227,7 +227,7 @@ export const Logo = ({
           values={values}
           glyphWidth={glyphWidth}
           maxValue={_max}
-          minValue={min}
+          minValue={_min}
           height={maxHeight}
           alphabet={alphabet}
           onSymbolMouseOver={onSymbolMouseOver}
