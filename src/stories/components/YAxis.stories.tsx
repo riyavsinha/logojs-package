@@ -31,14 +31,6 @@ export const DNABits: Story = {
   },
 };
 
-// export const ZeroPoint: Story = {
-//   render: DNABits.render,
-//   args: {
-//     ...DNABits.args,
-//     zeroPoint: 0.5,
-//   },
-// };
-
 export const WithNegatives: Story = {
   render: DNABits.render,
   args: {
@@ -67,5 +59,17 @@ export const Frequency: Story = {
     height: 100,
     width: 75,
     label: "frequency",
+  },
+};
+
+export const NonSymmetricPositiveNegative: Story = {
+  render: DNABits.render,
+  args: {
+    max: 3,
+    min: -1,
+    height: 100,
+    width: 75,
+    label: "values",
+    symmetric: false,
   },
 };
