@@ -78,6 +78,7 @@ export type LogoProps = {
   countUnaligned?: boolean;
   /** Optional. For long sequence logos, you may want to increase this value in order to increase the size of the axes proportional to the logo. Defaults to 1. */
   logoZoomFactor?: number;
+  symmetricYAxis?: boolean;
   /** Optional. Any extra props modifying the `RawLogo` component can be passed here. */
   RawLogoProps?: Partial<RawLogoProps>;
   /** Optional. Any extra props modifying the `YAxisProps` component can be passed here. */
@@ -117,6 +118,7 @@ export const Logo = ({
   RawLogoProps,
   showXAxis = true,
   showYAxis = true,
+  symmetricYAxis = false,
   yAxisToLogoPadding = 15,
   topPadding = 10,
   bottomPadding = 0,
@@ -172,8 +174,12 @@ export const Logo = ({
         throw new Error(`Invalid mode "${mode}" provided.`);
     }
   })();
-  const _max = yAxisMax || max;
-  const _min = yAxisMin || min;
+  let _max = yAxisMax || max;
+  let _min = yAxisMin || min;
+  if (symmetricYAxis) {
+    _max = Math.max(Math.abs(_max), Math.abs(_min));
+    _min = -_max;
+  }
 
   const label = (() => {
     switch (mode) {
@@ -250,6 +256,7 @@ export const Logo = ({
           max={mode === FREQUENCY ? 1 : _max}
           min={mode === FREQUENCY ? 0 : _min}
           label={label}
+          symmetric={symmetricYAxis}
           {...YAxisProps}
         />
       )}
