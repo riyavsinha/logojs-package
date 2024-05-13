@@ -36,25 +36,23 @@ export const VerticalLabels: Story = {
   render: (args) => (
     <DynamicSVGComponent>
       <XAxis {...args} />
-      <g transform="scale(1, 1)">
-        <RawLogo
-          values={[
-            [0.37, 0.08, 0.18, 0.37],
-            [0, 0.16, 0.04, 0.8],
-            [0.04, 0.02, 0.82, 0.12],
-            [0.02, 0.16, 0, 0.82],
-            [0.08, 0, 0.84, 0.08],
-          ]}
-          height={100}
-          alphabet={DNAAlphabet}
-        />
-      </g>
+      <RawLogo
+        values={[
+          [0.37, 0.08, 0.18, 0.37],
+          [0, 0.16, 0.04, 0.8],
+          [0.04, 0.02, 0.82, 0.12],
+          [0.02, 0.16, 0, 0.82],
+          [0.08, 0, 0.84, 0.08],
+        ]}
+        height={100}
+        alphabet={DNAAlphabet}
+      />
     </DynamicSVGComponent>
   ),
   args: {
     n: 5,
     glyphWidth: 100,
-    transform: "translate(-10, 120)",
+    transform: "translate(0, 120)",
     rotation: 0,
   },
 };
