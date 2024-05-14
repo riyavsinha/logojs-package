@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import { sequencesToPFM } from "../common/fasta";
-import { XAxis, XAxisProps } from "../components/axes/XAxis";
+import { XAxisLabels, XAxisLabelsProps } from "../components/axes/XAxisLabels";
 import YAxis, { YAxisProps } from "../components/axes/YAxis";
 import { YGridlines, YGridlinesProps } from "../components/axes/YGridlines";
 import { PlainLogo, PlainLogoProps } from "../components/logo/PlainLogo";
@@ -85,7 +85,7 @@ export type LogoProps = {
   /** Optional. Any extra props modifying the `YGridlinesProps` component can be passed here. */
   YGridlinesProps?: Partial<YGridlinesProps>;
   /** Optional. Any extra props modifying the `XAxisProps` component can be passed here. */
-  XAxisProps?: Partial<XAxisProps>;
+  XAxisProps?: Partial<XAxisLabelsProps>;
   /** Optional. Any extra props modifying the `XAxisLineProps` component can be passed here. */
   XAxisLineProps?: Partial<XAxisLineProps>;
   /** Optional. Any extra props modifying the `SVG` component can be passed here. */
@@ -239,7 +239,7 @@ export const Logo = ({
         />
       )}
       {showXAxis && (
-        <XAxis
+        <XAxisLabels
           transform={`translate(${baseXTransform},${maxHeight + 20 + topPadding})`}
           n={values.length}
           glyphWidth={glyphWidth}

@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { XAxis } from "../../src/components/axes/XAxis";
+import { XAxisLabels } from "../../src/components/axes/XAxisLabels";
 import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
 import { PlainLogo } from "../../src/components/logo/PlainLogo";
 import { DNAAlphabet } from "../../src/common/alphabet";
 
 const meta = {
-  title: "Components/XAxis",
-  component: XAxis,
+  title: "Components/XAxisLabels",
+  component: XAxisLabels,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
   },
-} satisfies Meta<typeof XAxis>;
+} satisfies Meta<typeof XAxisLabels>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <DynamicSVGComponent>
-      <XAxis {...args} />
+      <XAxisLabels {...args} />
     </DynamicSVGComponent>
   ),
   args: {
@@ -35,7 +35,7 @@ export const Basic: Story = {
 export const VerticalLabels: Story = {
   render: (args) => (
     <DynamicSVGComponent>
-      <XAxis {...args} />
+      <XAxisLabels {...args} />
       <PlainLogo
         values={[
           [0.37, 0.08, 0.18, 0.37],

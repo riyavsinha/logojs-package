@@ -2,7 +2,7 @@ import React from "react";
 
 import { xrange } from "../../common/utils";
 
-export type XAxisProps = {
+export type XAxisLabelsProps = {
   /** The total number of positions in the logo. */
   n: number;
   /** Optional. SVG transform to apply to the axis. */
@@ -22,7 +22,7 @@ export type XAxisProps = {
 /**
  * Renders an x-axis with logo position numbers.
  */
-export const XAxis = ({
+export const XAxisLabels = ({
   n,
   transform,
   glyphWidth,
@@ -30,7 +30,7 @@ export const XAxis = ({
   startPos = 1,
   rotation = -90,
   labelAlignment = "end",
-}: XAxisProps) => {
+}: XAxisLabelsProps) => {
   if (labels && labels.length !== n) {
     throw new Error(
       `Length of labels (${labels.length}) must match the number of positions (${n}).`
