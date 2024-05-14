@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { YAxis } from "../../src/components/logo/YAxis";
+import { YAxis } from "../../src/components/axes/YAxis";
 import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
 
 const meta = {

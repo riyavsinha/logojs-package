@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 
 import { sequencesToPFM } from "../common/fasta";
-import { XAxis, XAxisProps } from "../components/logo/XAxis";
-import YAxis, { YAxisProps } from "../components/logo/YAxis";
-import { YGridlines, YGridlinesProps } from "../components/logo/YGridlines";
+import { XAxis, XAxisProps } from "../components/axes/XAxis";
+import YAxis, { YAxisProps } from "../components/axes/YAxis";
+import { YGridlines, YGridlinesProps } from "../components/axes/YGridlines";
 import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
 import {
   generateDefaultBackgroundFrequencies,
@@ -19,7 +19,7 @@ import {
   xAxisLabelHeight,
   yAxisWidth,
 } from "../common/renderUtils";
-import { XAxisLine, XAxisLineProps } from "../components/logo/XAxisLine";
+import { XAxisLine, XAxisLineProps } from "../components/axes/XAxisLine";
 import { LogoContext } from "../contexts/LogoContext";
 
 export type LogoProps = {
