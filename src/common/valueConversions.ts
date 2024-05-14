@@ -1,4 +1,4 @@
-import { FREQUENCY, calculateLogLikelihood, xrange } from "./utils";
+import { calculateLogLikelihood, xrange } from "./utils";
 
 /**
  * Converts position probability matrices (PPM) into likelihood scores.
@@ -32,7 +32,7 @@ export const ppmToLikelihood = (
     _backgroundFrequencies,
     alphabetSize
   );
-  return mode !== FREQUENCY
+  return mode !== "FREQUENCY"
     ? ppm.map((x, i) => logLikelihoodFn(x, positionCounts?.[i]))
     : ppm.map((x) => x.map((v) => v * Math.log2(alphabetSize)));
 };

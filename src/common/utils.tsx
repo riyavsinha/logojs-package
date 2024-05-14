@@ -1,8 +1,5 @@
 import { SymbolMap, UserDefinedAlphabet } from "../types";
 
-export const INFORMATION_CONTENT = "INFORMATION_CONTENT";
-export const FREQUENCY = "FREQUENCY";
-
 export const maxLabelLength = (startpos: number, length: number) => {
   let max = ("" + startpos).length;
   for (let i = startpos + 1; i < startpos + length; ++i)

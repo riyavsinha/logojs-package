@@ -20,7 +20,6 @@ import {
   embedLogo,
   embedRawLogo,
 } from "./js/embed";
-import { INFORMATION_CONTENT, FREQUENCY } from "./common/utils";
 
 import {
   A,
@@ -110,8 +109,6 @@ export {
   RNAAlphabet,
   CompleteLogo,
   CompleteAlphabet,
-  INFORMATION_CONTENT,
-  FREQUENCY,
   xrange,
   embedDNALogo,
   disymbolAlphabet,

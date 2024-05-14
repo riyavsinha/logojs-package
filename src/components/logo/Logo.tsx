@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 
-import { FREQUENCY } from "../../common/utils";
 import { sequencesToPFM } from "../../common/fasta";
-import XAxis, { XAxisProps } from "./XAxis";
+import { XAxis, XAxisProps } from "./XAxis";
 import YAxis, { YAxisProps } from "./YAxis";
 import { YGridlines, YGridlinesProps } from "./YGridlines";
 import { RawLogo, RawLogoProps } from "./RawLogo";
@@ -253,8 +252,8 @@ export const Logo = ({
           transform={`translate(${leftPadding},${topPadding})`}
           width={65}
           height={maxHeight}
-          max={mode === FREQUENCY ? 1 : _max}
-          min={mode === FREQUENCY ? 0 : _min}
+          max={mode === "FREQUENCY" ? 1 : _max}
+          min={mode === "FREQUENCY" ? 0 : _min}
           label={label}
           symmetric={symmetricYAxis}
           {...YAxisProps}

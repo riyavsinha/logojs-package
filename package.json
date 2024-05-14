@@ -3,7 +3,8 @@
   "license": "MIT",
   "version": "2.1.1",
   "description": "React Components for rendering sequence logos",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Henry Pratt",
   "dependencies": {
     "react": "^18.3.1",

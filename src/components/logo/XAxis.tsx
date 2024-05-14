@@ -85,4 +85,3 @@ export const XAxis = ({
     </g>
   );
 };
-export default XAxis;
