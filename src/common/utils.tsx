@@ -8,26 +8,6 @@ export const maxLabelLength = (startpos: number, length: number) => {
 };
 
 /**
- * @deprecated
- */
-export const logLikelihood =
-  (backgroundFrequencies: number[]) =>
-  (r: number[], e: number = 0.0) => {
-    if (backgroundFrequencies.length !== r.length)
-      throw new Error(
-        "Background frequencies and input vector must be the same length"
-      );
-    let sum = 0.0;
-    r.forEach((x, i) => {
-      if (x !== 0) {
-        const frequency = backgroundFrequencies[i] || 0.01;
-        sum += x * Math.log2(x / frequency);
-      }
-    });
-    return r.map((x) => Math.max(0.0, x * (sum - e)));
-  };
-
-/**
  * Calculate log likelihood scores for a probability vector relative to background frequencies.
  *
  * The observed count total can be provided to apply an entropy adjustment influenced by the size of the alphabet.
@@ -72,17 +52,6 @@ export const calculateLogLikelihood =
   };
 
 /**
- * For an array of numbers, returns the indices sorted in ascending order.
- *
- * @param x Array of numeric values
- * @returns Array of indices sorted in ascending order
- */
-export const sortedIndices = (x: number[]): number[] => {
-  let indices = x.map((_, i) => i);
-  return indices.sort((a, b) => (x[a] < x[b] ? -1 : x[a] === x[b] ? 0 : 1));
-};
-
-/**
  * For an array of numbers, returns the indices sorted in order of ascending magnitude (absolute value).
  *
  * @param x Array of numeric values
@@ -97,11 +66,6 @@ export const sortedIndicesByMagnitude = (x: number[]): number[] => {
         ? 0
         : 1
   );
-};
-
-export const sortedIndicesNegative = (x: number[]) => {
-  let indices = x.map((_, i) => i);
-  return indices.sort((a, b) => (x[a] < x[b] ? 1 : x[a] === x[b] ? 0 : -1));
 };
 
 export const xrange = (n: number) => [...Array(Math.floor(n)).keys()];
