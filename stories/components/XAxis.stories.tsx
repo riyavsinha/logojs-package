@@ -3,7 +3,7 @@ import React from "react";
 
 import { XAxis } from "../../src/components/axes/XAxis";
 import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
-import { RawLogo } from "../../src/components/logo/RawLogo";
+import { PlainLogo } from "../../src/components/logo/PlainLogo";
 import { DNAAlphabet } from "../../src/common/alphabet";
 
 const meta = {
@@ -36,7 +36,7 @@ export const VerticalLabels: Story = {
   render: (args) => (
     <DynamicSVGComponent>
       <XAxis {...args} />
-      <RawLogo
+      <PlainLogo
         values={[
           [0.37, 0.08, 0.18, 0.37],
           [0, 0.16, 0.04, 0.8],

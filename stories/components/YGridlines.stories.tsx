@@ -4,7 +4,7 @@ import React from "react";
 import { YGridlines } from "../../src/components/axes/YGridlines";
 import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
 import { DNAAlphabet } from "../../src/common/alphabet";
-import { RawLogo } from "../../src";
+import { PlainLogo } from "../../src";
 
 const meta = {
   title: "Components/YGridlines",
@@ -48,7 +48,7 @@ export const OnLogo: Story = {
   render: (args) => (
     <DynamicSVGComponent>
       <YGridlines {...args} />
-      <RawLogo
+      <PlainLogo
         values={[
           [0.37, 0.08, 0.18, 0.37],
           [0, 0.16, 0.04, 0.8],

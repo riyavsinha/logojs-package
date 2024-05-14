@@ -5,7 +5,7 @@ import { DNALogo, DNALogoProps } from "../logos/DNALogo";
 import { RNALogo, RNALogoProps } from "../logos/RNALogo";
 import { ProteinLogo, ProteinLogoProps } from "../logos/ProteinLogo";
 import { Logo, LogoProps } from "../logos/Logo";
-import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
+import { PlainLogo, PlainLogoProps } from "../components/logo/PlainLogo";
 
 /**
  * Imperatively embeds a DNA logo in a div; intended for use outside of a React application.
@@ -56,6 +56,9 @@ export const embedLogo = (div: HTMLDivElement, props: LogoProps) => {
  * @param div the div element in which to embed the raw logo.
  * @param props object containing the logo's properties.
  */
-export const embedRawLogo = (container: HTMLElement, props: RawLogoProps) => {
-  container.innerHTML = renderToStaticMarkup(<RawLogo {...props} />);
+export const embedPlainLogo = (
+  container: HTMLElement,
+  props: PlainLogoProps
+) => {
+  container.innerHTML = renderToStaticMarkup(<PlainLogo {...props} />);
 };

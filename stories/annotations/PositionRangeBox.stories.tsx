@@ -43,7 +43,7 @@ export const Default: Story = {
         height={400}
         alphabet={DNAAlphabet}
         annotations={[annotation]}
-        RawLogoProps={{
+        PlainLogoProps={{
           negativeAlpha: 1,
         }}
       ></Logo>

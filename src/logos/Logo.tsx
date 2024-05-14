@@ -4,7 +4,7 @@ import { sequencesToPFM } from "../common/fasta";
 import { XAxis, XAxisProps } from "../components/axes/XAxis";
 import YAxis, { YAxisProps } from "../components/axes/YAxis";
 import { YGridlines, YGridlinesProps } from "../components/axes/YGridlines";
-import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
+import { PlainLogo, PlainLogoProps } from "../components/logo/PlainLogo";
 import {
   generateDefaultBackgroundFrequencies,
   pfmToPpm,
@@ -78,8 +78,8 @@ export type LogoProps = {
   /** Optional. For long sequence logos, you may want to increase this value in order to increase the size of the axes proportional to the logo. Defaults to 1. */
   logoZoomFactor?: number;
   symmetricYAxis?: boolean;
-  /** Optional. Any extra props modifying the `RawLogo` component can be passed here. */
-  RawLogoProps?: Partial<RawLogoProps>;
+  /** Optional. Any extra props modifying the `PlainLogo` component can be passed here. */
+  PlainLogoProps?: Partial<PlainLogoProps>;
   /** Optional. Any extra props modifying the `YAxisProps` component can be passed here. */
   YAxisProps?: Partial<YAxisProps>;
   /** Optional. Any extra props modifying the `YGridlinesProps` component can be passed here. */
@@ -114,7 +114,7 @@ export const Logo = ({
   countUnaligned,
   annotations,
   logoZoomFactor,
-  RawLogoProps,
+  PlainLogoProps,
   showXAxis = true,
   showYAxis = true,
   symmetricYAxis = false,
@@ -272,7 +272,7 @@ export const Logo = ({
         {annotations}
       </LogoContext.Provider>
       <g transform={`translate(${baseXTransform},${baseYTransform})`}>
-        <RawLogo
+        <PlainLogo
           values={values}
           glyphWidth={glyphWidth}
           maxValue={_max}
@@ -282,7 +282,7 @@ export const Logo = ({
           onSymbolMouseOver={onSymbolMouseOver}
           onSymbolMouseOut={onSymbolMouseOut}
           onSymbolClick={onSymbolClick}
-          {...RawLogoProps}
+          {...PlainLogoProps}
         />
       </g>
     </svg>

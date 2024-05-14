@@ -9,12 +9,12 @@ import {
 } from "../../types";
 import { GlyphStack } from "./GlyphStack";
 
-export type RawLogoProps = {
+export type PlainLogoProps = {
   /** A matrix containing symbol values ready for rendering as-is. For a logo of length `N` with `D` letters in the alphabet, this should be shape `(N, D)`. */
   values: number[][];
   /** The alphabet containing entries to render at each position */
   alphabet: UserDefinedAlphabet;
-  /** The total height of the `RawLogo`. */
+  /** The total height of the `PlainLogo`. */
   height: number;
   /** Optional. The maximum height value a stack could theoretically have (e.g. maximum information content or frequency). If not provided, the maximum of the sum of positive values at each position is used. */
   maxValue?: number;
@@ -45,7 +45,7 @@ export type RawLogoProps = {
  *
  * This assumes that your matrix values are already prepared for plotting, representing relative heights of each symbol at each position.  Please consult the utility functions for help in preparing your data if no premade components fit your needs.
  */
-export const RawLogo = ({
+export const PlainLogo = ({
   values,
   alphabet,
   glyphWidth = 100,
@@ -59,7 +59,7 @@ export const RawLogo = ({
   onSymbolMouseOver,
   onSymbolMouseOut,
   onSymbolClick,
-}: RawLogoProps) => {
+}: PlainLogoProps) => {
   // Load default glyph components if not provided
   for (const symbol of alphabet) {
     if (!symbol.component) {

@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import React from "react";
 
-import { RawLogo } from "../../src/components/logo/RawLogo";
+import { PlainLogo } from "../../src/components/logo/PlainLogo";
 import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
 import { DNAAlphabet, disymbolAlphabet } from "../../src";
 import { CTCF_MOTIF_PPM } from "../motifs";
 
 const meta = {
-  title: "Components/RawLogo",
-  component: RawLogo,
+  title: "Components/PlainLogo",
+  component: PlainLogo,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   parameters: {
@@ -19,7 +19,7 @@ const meta = {
       sort: "requiredFirst",
     },
   },
-} satisfies Meta<typeof RawLogo>;
+} satisfies Meta<typeof PlainLogo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <DynamicSVGComponent>
-      <RawLogo {...args} />
+      <PlainLogo {...args} />
     </DynamicSVGComponent>
   ),
   args: {
@@ -62,7 +62,7 @@ export const CTCF: Story = {
   render: (args) => {
     return (
       <svg viewBox="0 0 1900 100" width={400} height={100}>
-        <RawLogo {...args} />
+        <PlainLogo {...args} />
       </svg>
     );
   },

@@ -98,7 +98,7 @@ export const Bigwig: Story = {
     ],
     mode: "RAW",
     dataType: DataType.VALUES,
-    RawLogoProps: {
+    PlainLogoProps: {
       negativeAlpha: 1,
     },
   },
@@ -143,7 +143,7 @@ export const WithNegativeAlphaModified: Story = {
     ],
     mode: "RAW",
     dataType: DataType.VALUES,
-    RawLogoProps: {
+    PlainLogoProps: {
       negativeAlpha: 0.2,
     },
   },
@@ -166,7 +166,7 @@ export const WithNegativesRightSideUp: Story = {
     ],
     mode: "RAW",
     dataType: DataType.VALUES,
-    RawLogoProps: {
+    PlainLogoProps: {
       invertedGlyphsRightSideUp: true,
     },
   },

@@ -116,7 +116,7 @@ export const WithNegatives: Story = {
     ],
     mode: "RAW",
     dataType: DataType.VALUES,
-    RawLogoProps: {
+    PlainLogoProps: {
       negativeAlpha: 0.2,
     },
   },

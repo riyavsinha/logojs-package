@@ -1,5 +1,5 @@
 import { Logo } from "./logos/Logo";
-import { RawLogo } from "./components/logo/RawLogo";
+import { PlainLogo } from "./components/logo/PlainLogo";
 import { ProteinLogo } from "./logos/ProteinLogo";
 import { DNALogo } from "./logos/DNALogo";
 import { RNALogo } from "./logos/RNALogo";
@@ -18,7 +18,7 @@ import {
   embedRNALogo,
   embedProteinLogo,
   embedLogo,
-  embedRawLogo,
+  embedPlainLogo,
 } from "./js/embed";
 
 import {
@@ -112,11 +112,11 @@ export {
   xrange,
   embedDNALogo,
   disymbolAlphabet,
-  RawLogo,
+  PlainLogo,
   embedRNALogo,
   embedProteinLogo,
   embedLogo,
-  embedRawLogo,
+  embedPlainLogo,
   loadGlyphComponents,
 };
 
