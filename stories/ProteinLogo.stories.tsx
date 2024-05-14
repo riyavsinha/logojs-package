@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { ProteinLogo } from "../src/components/logo/ProteinLogo";
+import { ProteinLogo } from "../src/logos/ProteinLogo";
 import { DataType } from "../src/types";
 
 const meta = {

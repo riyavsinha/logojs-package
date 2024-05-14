@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Logo, LogoProps } from "./Logo";
-import { UserDefinedAlphabet } from "../../types";
-import { CompleteAlphabet } from "../../common/alphabet";
+import { UserDefinedAlphabet } from "../types";
+import { CompleteAlphabet } from "../common/alphabet";
 
 export type CompleteLogoProps = Omit<LogoProps, "alphabet"> & {
   /** The Complete alphabet to use for the logo. */

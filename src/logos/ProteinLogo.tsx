@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Logo, LogoProps } from "./Logo";
-import { ProteinAlphabet } from "../../common/alphabet";
+import { ProteinAlphabet } from "../common/alphabet";
 
 export type ProteinLogoProps = Omit<LogoProps, "alphabet">;
 

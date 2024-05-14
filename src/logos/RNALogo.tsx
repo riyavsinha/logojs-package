@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Logo, LogoProps } from "./Logo";
-import { UserDefinedAlphabet } from "../../types";
-import { RNAAlphabet } from "../../common/alphabet";
+import { UserDefinedAlphabet } from "../types";
+import { RNAAlphabet } from "../common/alphabet";
 
 export type RNALogoProps = Omit<LogoProps, "alphabet"> & {
   /** The DNA alphabet to use for the logo. */

@@ -1,9 +1,9 @@
-import { Logo } from "./components/logo/Logo";
+import { Logo } from "./logos/Logo";
 import { RawLogo } from "./components/logo/RawLogo";
-import { ProteinLogo } from "./components/logo/ProteinLogo";
-import { DNALogo } from "./components/logo/DNALogo";
-import { RNALogo } from "./components/logo/RNALogo";
-import { CompleteLogo } from "./components/logo/CompleteLogo";
+import { ProteinLogo } from "./logos/ProteinLogo";
+import { DNALogo } from "./logos/DNALogo";
+import { RNALogo } from "./logos/RNALogo";
+import { CompleteLogo } from "./logos/CompleteLogo";
 import {
   CompleteAlphabet,
   ProteinAlphabet,

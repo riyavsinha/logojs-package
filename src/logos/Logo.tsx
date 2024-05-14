@@ -1,16 +1,16 @@
 import React, { ReactNode } from "react";
 
-import { sequencesToPFM } from "../../common/fasta";
-import { XAxis, XAxisProps } from "./XAxis";
-import YAxis, { YAxisProps } from "./YAxis";
-import { YGridlines, YGridlinesProps } from "./YGridlines";
-import { RawLogo, RawLogoProps } from "./RawLogo";
+import { sequencesToPFM } from "../common/fasta";
+import { XAxis, XAxisProps } from "../components/logo/XAxis";
+import YAxis, { YAxisProps } from "../components/logo/YAxis";
+import { YGridlines, YGridlinesProps } from "../components/logo/YGridlines";
+import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
 import {
   generateDefaultBackgroundFrequencies,
   pfmToPpm,
   ppmToLikelihood,
-} from "../../common/valueConversions";
-import { DataType, LogoMode, UserDefinedAlphabet } from "../../types";
+} from "../common/valueConversions";
+import { DataType, LogoMode, UserDefinedAlphabet } from "../types";
 import {
   frequencyRange,
   getBounds,
@@ -18,9 +18,9 @@ import {
   rawRange,
   xAxisLabelHeight,
   yAxisWidth,
-} from "../../common/renderUtils";
-import { XAxisLine, XAxisLineProps } from "./XAxisLine";
-import { LogoContext } from "../../contexts/LogoContext";
+} from "../common/renderUtils";
+import { XAxisLine, XAxisLineProps } from "../components/logo/XAxisLine";
+import { LogoContext } from "../contexts/LogoContext";
 
 export type LogoProps = {
   /** Data matrix to render. The type of data must be specified using `dataType`. */

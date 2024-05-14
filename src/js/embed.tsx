@@ -1,10 +1,10 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { DNALogo, DNALogoProps } from "../components/logo/DNALogo";
-import { RNALogo, RNALogoProps } from "../components/logo/RNALogo";
-import { ProteinLogo, ProteinLogoProps } from "../components/logo/ProteinLogo";
-import { Logo, LogoProps } from "../components/logo/Logo";
+import { DNALogo, DNALogoProps } from "../logos/DNALogo";
+import { RNALogo, RNALogoProps } from "../logos/RNALogo";
+import { ProteinLogo, ProteinLogoProps } from "../logos/ProteinLogo";
+import { Logo, LogoProps } from "../logos/Logo";
 import { RawLogo, RawLogoProps } from "../components/logo/RawLogo";
 
 /**

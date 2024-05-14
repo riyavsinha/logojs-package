@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Logo, LogoProps } from "./Logo";
-import { UserDefinedAlphabet } from "../../types";
-import { DNAAlphabet } from "../../common/alphabet";
+import { UserDefinedAlphabet } from "../types";
+import { DNAAlphabet } from "../common/alphabet";
 
 export type DNALogoProps = Omit<LogoProps, "alphabet"> & {
   /** The DNA alphabet to use for the logo. */

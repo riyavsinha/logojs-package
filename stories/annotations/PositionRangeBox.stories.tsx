@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
 import { PositionRangeBox } from "../../src/components/annotations/PositionRangeBox";
-import { Logo } from "../../src/components/logo/Logo";
+import { Logo } from "../../src/logos/Logo";
 import { DNAAlphabet } from "../../src/common/alphabet";
 import { DataType } from "../../src/types";
 

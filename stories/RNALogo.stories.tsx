@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { RNALogo } from "../src/components/logo/RNALogo";
+import { RNALogo } from "../src/logos/RNALogo";
 import { DataType } from "../src/types";
 
 const meta = {

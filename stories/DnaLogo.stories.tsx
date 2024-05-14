@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { DNALogo } from "../src/components/logo/DNALogo";
+import { DNALogo } from "../src/logos/DNALogo";
 import { CTCF_MOTIF_PPM, SPI1_MOTIF_PFM } from "./motifs";
 import { DataType } from "../src/types";
 
