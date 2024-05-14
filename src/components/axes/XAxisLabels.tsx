@@ -45,7 +45,6 @@ export const XAxisLabels = ({
     labelAlignment === "middle"
       ? 0.075 * Math.sin(rotationRadians)
       : 0.05 * Math.cos(rotationRadians);
-  console.log("inGlyphOffset", inGlyphOffset);
 
   return (
     <g transform={transform}>
