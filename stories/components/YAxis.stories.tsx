@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { YAxis } from "../../components/logo/YAxis";
-import DynamicSVGComponent from "../../components/logo/DynamicSvg";
+import { YAxis } from "../../src/components/logo/YAxis";
+import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
 
 const meta = {
   title: "Components/YAxis",

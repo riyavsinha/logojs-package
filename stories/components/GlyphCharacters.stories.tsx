@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { Glyph } from "../../components/logo/Glyph";
+import { Glyph } from "../../src/components/logo/Glyph";
 import {
   A,
   B,
@@ -58,7 +58,7 @@ import {
   N8,
   N9,
   Dash,
-} from "../../components/glyphs";
+} from "../../src/components/glyphs";
 
 type GlyphRenderArgs = React.SVGProps<SVGPathElement> & {
   boundHeight?: number;

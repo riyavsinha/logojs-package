@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { ProteinLogo } from "../components/logo/ProteinLogo";
-import { DataType } from "../types";
+import { ProteinLogo } from "../src/components/logo/ProteinLogo";
+import { DataType } from "../src/types";
 
 const meta = {
   title: "ProteinLogo",
@@ -314,6 +314,6 @@ export const WithNegativeValues: Story = {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ],
     dataType: DataType.VALUES,
-    mode: "RAW"
+    mode: "RAW",
   },
 };

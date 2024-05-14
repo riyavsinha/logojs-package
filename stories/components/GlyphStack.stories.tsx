@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import React from "react";
 
-import { GlyphStack } from "../../components/logo/GlyphStack";
-import { DNAAlphabet, disymbolAlphabet } from "../..";
+import { GlyphStack } from "../../src/components/logo/GlyphStack";
+import { DNAAlphabet, disymbolAlphabet } from "../../src";
 
 const meta = {
   title: "Components/GlyphStack",

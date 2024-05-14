@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { XAxis } from "../../components/logo/XAxis";
-import DynamicSVGComponent from "../../components/logo/DynamicSvg";
-import { RawLogo } from "../../components/logo/RawLogo";
-import { DNAAlphabet } from "../../common/alphabet";
+import { XAxis } from "../../src/components/logo/XAxis";
+import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import { RawLogo } from "../../src/components/logo/RawLogo";
+import { DNAAlphabet } from "../../src/common/alphabet";
 
 const meta = {
   title: "Components/XAxis",

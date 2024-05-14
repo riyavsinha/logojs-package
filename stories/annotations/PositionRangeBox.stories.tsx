@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { PositionRangeBox } from "../../components/annotations/PositionRangeBox";
-import { Logo } from "../../components/logo/Logo";
-import { DNAAlphabet } from "../../common/alphabet";
-import { DataType } from "../../types";
+import { PositionRangeBox } from "../../src/components/annotations/PositionRangeBox";
+import { Logo } from "../../src/components/logo/Logo";
+import { DNAAlphabet } from "../../src/common/alphabet";
+import { DataType } from "../../src/types";
 
 const meta = {
   title: "Annotations/PositionRangeBox",

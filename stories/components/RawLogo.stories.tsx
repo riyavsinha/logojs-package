@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import React from "react";
 
-import { RawLogo } from "../../components/logo/RawLogo";
-import DynamicSVGComponent from "../../components/logo/DynamicSvg";
-import { DNAAlphabet, disymbolAlphabet } from "../..";
+import { RawLogo } from "../../src/components/logo/RawLogo";
+import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import { DNAAlphabet, disymbolAlphabet } from "../../src";
 import { CTCF_MOTIF_PPM } from "../motifs";
 
 const meta = {
@@ -90,6 +90,6 @@ export const WithNegatives: Story = {
       [4.5, -2, -1, -2.5],
       [-1, 0, 0, 1],
     ],
-    height: 75
+    height: 75,
   },
 };

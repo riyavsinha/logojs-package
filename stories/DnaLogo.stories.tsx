@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { DNALogo } from "../components/logo/DNALogo";
+import { DNALogo } from "../src/components/logo/DNALogo";
 import { CTCF_MOTIF_PPM, SPI1_MOTIF_PFM } from "./motifs";
-import { DataType } from "../types";
+import { DataType } from "../src/types";
 
 const meta = {
   title: "DNALogo",

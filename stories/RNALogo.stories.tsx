@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { RNALogo } from "../components/logo/RNALogo";
-import { DataType } from "../types";
+import { RNALogo } from "../src/components/logo/RNALogo";
+import { DataType } from "../src/types";
 
 const meta = {
   title: "RNALogo",

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { YGridlines } from "../../components/logo/YGridlines";
-import DynamicSVGComponent from "../../components/logo/DynamicSvg";
-import { DNAAlphabet } from "../../common/alphabet";
-import { RawLogo } from "../..";
+import { YGridlines } from "../../src/components/logo/YGridlines";
+import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import { DNAAlphabet } from "../../src/common/alphabet";
+import { RawLogo } from "../../src";
 
 const meta = {
   title: "Components/YGridlines",

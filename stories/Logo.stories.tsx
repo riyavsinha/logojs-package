@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 // import React from "react";
 
-import { Logo } from "../components/logo/Logo";
-import { DNAAlphabet, disymbolAlphabet } from "..";
-import { DataType } from "../types";
+import { Logo } from "../src/components/logo/Logo";
+import { DNAAlphabet, disymbolAlphabet } from "../src";
+import { DataType } from "../src/types";
 import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "./motifs";
 
 const meta = {
