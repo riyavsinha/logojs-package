@@ -1,187 +1,39 @@
-import { Logo } from "./logos/Logo";
-import { PlainLogo } from "./components/logo/PlainLogo";
-import { ProteinLogo } from "./logos/ProteinLogo";
-import { DNALogo } from "./logos/DNALogo";
-import { RNALogo } from "./logos/RNALogo";
-import { CompleteLogo } from "./logos/CompleteLogo";
-import {
-  CompleteAlphabet,
-  ProteinAlphabet,
-  DNAAlphabet,
-  RNAAlphabet,
-} from "./common/alphabet";
-import { xrange } from "./common/utils";
-import { disymbolAlphabet } from "./common/disymbol";
-import { loadGlyphComponents } from "./common/loadGlyph";
-import {
-  embedDNALogo,
-  embedRNALogo,
-  embedProteinLogo,
-  embedLogo,
-  embedPlainLogo,
-} from "./js/embed";
+// common
+export * from "./common/alphabet";
+export * from "./common/disymbol";
+export * from "./common/utils";
+export * from "./common/fasta";
+export * from "./common/loadGlyph";
+export * from "./common/renderUtils";
+export * from "./common/valueConversions";
 
-import {
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  G,
-  H,
-  I,
-  J,
-  K,
-  L,
-  M,
-  N,
-  O,
-  P,
-  Q,
-  R,
-  S,
-  T,
-  U,
-  V,
-  W,
-  X,
-  Y,
-  Z,
-  a,
-  b,
-  d,
-  e,
-  f,
-  g,
-  h,
-  i,
-  j,
-  k,
-  l,
-  m,
-  n,
-  p,
-  q,
-  r,
-  t,
-  u,
-  y,
-  Dash,
-} from "./components/glyphs";
-import { N1, N2, N3, N4, N5, N6, N7, N8, N9 } from "./components/glyphs";
+// components/axes
+export * from "./components/axes/XAxisLabels";
+export * from "./components/axes/YAxis";
+export * from "./components/axes/YGridlines";
+export * from "./components/axes/XAxisLine";
 
-const LC_a = a,
-  LC_b = b,
-  LC_c = C,
-  LC_d = d,
-  LC_e = e,
-  LC_f = f,
-  LC_g = g,
-  LC_h = h,
-  LC_i = i,
-  LC_j = j,
-  LC_k = k,
-  LC_l = l,
-  LC_m = m,
-  LC_n = n,
-  LC_o = O,
-  LC_p = p,
-  LC_q = q,
-  LC_r = r,
-  LC_s = S,
-  LC_t = t,
-  LC_u = u,
-  LC_v = V,
-  LC_w = W,
-  LC_x = X,
-  LC_y = y,
-  LC_z = Z,
-  N0 = O;
+// components/logo
+export * from "./components/logo/DynamicSvg";
+export * from "./components/logo/PlainLogo";
+export * from "./components/logo/Glyph";
+export * from "./components/logo/GlyphStack";
 
-export {
-  Logo,
-  ProteinLogo,
-  DNALogo,
-  RNALogo,
-  ProteinAlphabet,
-  DNAAlphabet,
-  RNAAlphabet,
-  CompleteLogo,
-  CompleteAlphabet,
-  xrange,
-  embedDNALogo,
-  disymbolAlphabet,
-  PlainLogo,
-  embedRNALogo,
-  embedProteinLogo,
-  embedLogo,
-  embedPlainLogo,
-  loadGlyphComponents,
-};
+// components/annotations
+export * from "./components/annotations/PositionRangeBox";
 
-export {
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  G,
-  H,
-  I,
-  J,
-  K,
-  L,
-  M,
-  N,
-  O,
-  P,
-  Q,
-  R,
-  S,
-  T,
-  U,
-  V,
-  W,
-  X,
-  Y,
-  Z,
-  LC_a,
-  LC_b,
-  LC_c,
-  LC_d,
-  LC_e,
-  LC_f,
-  LC_g,
-  LC_h,
-  LC_i,
-  LC_j,
-  LC_k,
-  LC_l,
-  LC_m,
-  LC_n,
-  LC_o,
-  LC_p,
-  LC_q,
-  LC_r,
-  LC_s,
-  LC_t,
-  LC_u,
-  LC_v,
-  LC_w,
-  LC_x,
-  LC_y,
-  LC_z,
-  N0,
-  N1,
-  N2,
-  N3,
-  N4,
-  N5,
-  N6,
-  N7,
-  N8,
-  N9,
-  Dash,
-};
+// components/glyphs
+export * from "./components/glyphs";
+
+// logos
+export * from "./logos/DNALogo";
+export * from "./logos/RNALogo";
+export * from "./logos/ProteinLogo";
+export * from "./logos/Logo";
+export * from "./logos/CompleteLogo";
+
+// embed
+export * from "./js/embed";
+
+// contexts
+export * from "./contexts/LogoContext";
