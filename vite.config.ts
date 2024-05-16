@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      formats: ["es", "cjs", "umd", "iife"],
+      formats: ["es", "umd"],
       name: "logomakerjs",
       fileName: (format) => {
         if (format === "umd") {
