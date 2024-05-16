@@ -1,0 +1,127 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "./DnaLogo.stories";
+
+<Meta title="Getting Started" />
+
+# LogoMakerJS: Highly customizable sequence logos in JS and React
+
+LogoMakerJS is a React component that renders sequence logos. It is highly customizable, allowing you to change colors, axes, labels to render logos for DNA, RNA or proteins. Logos are rendered as Scalable Vector Graphics (SVG) for high quality display on any device.
+
+## Using React
+
+LogoMakerJS is available as an npm package. It has minimal dependencies, only requiring React.
+
+### Installation
+
+```
+npm install logomakerjs
+```
+
+### Usage
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+const CTCF_PPM = [
+  [0.09, 0.31, 0.08, 0.5],
+  [0.18, 0.15, 0.45, 0.2],
+  [0.3, 0.05, 0.49, 0.14],
+  [0.06, 0.87, 0.02, 0.03],
+  [0.0, 0.98, 0.0, 0.02],
+  [0.81, 0.01, 0.07, 0.09],
+  [0.04, 0.57, 0.36, 0.01],
+  [0.11, 0.47, 0.05, 0.35],
+  [0.93, 0.01, 0.03, 0.01],
+  [0.0, 0.0, 0.99, 0.01],
+  [0.36, 0.0, 0.64, 0.0],
+  [0.05, 0.01, 0.55, 0.37],
+  [0.03, 0.0, 0.97, 0.0],
+  [0.06, 0.0, 0.85, 0.07],
+  [0.11, 0.8, 0.0, 0.07],
+  [0.4, 0.01, 0.55, 0.01],
+  [0.09, 0.53, 0.33, 0.04],
+  [0.12, 0.35, 0.08, 0.43],
+  [0.44, 0.19, 0.29, 0.06],
+];
+
+export const CTCFLogo = (props) => (
+  <DNALogo data={CTCF_PPM} type="PPM" mode="FREQUENCY" />
+);
+```
+
+<Canvas of={DNALogos.CTCFMotifFrequency} />
+
+## Using plain JavaScript
+
+### Installation
+
+The LogoMakerJS library is also available as a standalone JavaScript file. You can include it in your HTML file using a script tag. You will need to include React and ReactDOM scripts earlier in the file.
+
+```html
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.production.min.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/logomakerjs@0.1.2/dist/index.js"
+  type="text/javascript"
+></script>
+```
+
+### Usage
+
+The library exposes a global object `logomakerjs` that you can use to render logos. The following code embeds the DNA logo in a `div` element:
+
+```html
+<!doctype html>
+<html>
+  <body>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/logomakerjs@latest/dist/index.umd.js"
+      type="text/javascript"
+    ></script>
+    <div id="logo" style="width: 500px"></div>
+    <script type="text/javascript">
+      const CTCF_PPM = [
+        [0.09, 0.31, 0.08, 0.5],
+        [0.18, 0.15, 0.45, 0.2],
+        [0.3, 0.05, 0.49, 0.14],
+        [0.06, 0.87, 0.02, 0.03],
+        [0.0, 0.98, 0.0, 0.02],
+        [0.81, 0.01, 0.07, 0.09],
+        [0.04, 0.57, 0.36, 0.01],
+        [0.11, 0.47, 0.05, 0.35],
+        [0.93, 0.01, 0.03, 0.01],
+        [0.0, 0.0, 0.99, 0.01],
+        [0.36, 0.0, 0.64, 0.0],
+        [0.05, 0.01, 0.55, 0.37],
+        [0.03, 0.0, 0.97, 0.0],
+        [0.06, 0.0, 0.85, 0.07],
+        [0.11, 0.8, 0.0, 0.07],
+        [0.4, 0.01, 0.55, 0.01],
+        [0.09, 0.53, 0.33, 0.04],
+        [0.12, 0.35, 0.08, 0.43],
+        [0.44, 0.19, 0.29, 0.06],
+      ];
+      logomakerjs.embedDNALogo(document.getElementById("logo"), {
+        data: CTCF_PPM,
+        dataType: "PPM",
+        mode: "FREQUENCY",
+      });
+    </script>
+  </body>
+</html>
+```

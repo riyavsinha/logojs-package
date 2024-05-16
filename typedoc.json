@@ -1,0 +1,8 @@
+{
+  "entryPoints": ["./src/{common,contexts,js}/*.{ts,tsx}"],
+  "out": "./stories/typedoc",
+  "plugin": ["typedoc-plugin-markdown"],
+  "hidePageHeader": true,
+  "hideBreadcrumbs": true,
+  "excludeGroups": true,
+}
