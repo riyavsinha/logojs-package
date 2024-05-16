@@ -31,7 +31,7 @@ static script tag, which will add LogoJS to the global namespace as `logomakerjs
 
 ```html
 <script
-  src="https://bundle.logojs.wenglab.org/bundle.js"
+  src="https://cdn.jsdelivr.net/npm/logomakerjs@0.1.2/dist/index.js"
   type="text/javascript"
 ></script>
 ```
@@ -45,7 +45,7 @@ The transcription factor CTCF binds a well-known consensus DNA sequence, rendere
 If you use ReactJS, the following code creates the CTCF consensus binding logo:
 
 ```jsx
-import { DNALogo } from "logojs-react";
+import { DNALogo } from "logomakerjs";
 
 const CTCF_PPM = [
   [0.09, 0.31, 0.08, 0.5],
@@ -69,7 +69,7 @@ const CTCF_PPM = [
   [0.44, 0.19, 0.29, 0.06],
 ];
 
-export const CTCFLogo = (props) => <DNALogo ppm={CTCF_PPM} />;
+export const CTCFLogo = (props) => <DNALogo data={CTCF_PPM} type="PPM" />;
 ```
 
 If you don't use React, the following code embeds the DNA logo in a `div` element:
@@ -79,7 +79,7 @@ If you don't use React, the following code embeds the DNA logo in a `div` elemen
 <html>
   <body>
     <script
-      src="https://bundle.logojs.wenglab.org/bundle.js"
+      src="https://cdn.jsdelivr.net/npm/logomakerjs@0.1.2/dist/index.js"
       type="text/javascript"
     ></script>
     <div id="logo" style="width:500px"></div>
@@ -105,7 +105,10 @@ If you don't use React, the following code embeds the DNA logo in a `div` elemen
         [0.12, 0.35, 0.08, 0.43],
         [0.44, 0.19, 0.29, 0.06],
       ];
-      logojs.embedDNALogo(document.getElementById("logo"), { ppm: CTCF_PPM });
+      logojs.embedDNALogo(document.getElementById("logo"), {
+        data: CTCF_PPM,
+        type: "PPM",
+      });
     </script>
   </body>
 </html>
