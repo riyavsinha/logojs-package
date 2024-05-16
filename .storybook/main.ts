@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { withoutVitePlugins } from "@storybook/builder-vite";
 
 const config: StorybookConfig = {
   stories: ["../**/*.mdx", "../**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -12,6 +13,12 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/react-vite",
     options: {},
+  },
+  async viteFinal(config) {
+    return {
+      ...config,
+      plugins: await withoutVitePlugins(config.plugins, ["vite:dts"]),
+    };
   },
 };
 export default config;
