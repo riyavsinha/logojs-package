@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@jest/globals";
+import { describe, expect, test } from "vitest";
 import { loadGlyphComponents } from "../../src/common/loadGlyph";
 import { regexMap } from "../../src/common/alphabet";
 import { C, G } from "../../src";
