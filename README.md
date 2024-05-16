@@ -1,6 +1,6 @@
 # LogoMakerJS: Embeddable SVG Sequence Logos
 
-**This is forked from and heavily based on https://github.com/weng-lab/logojs-package**
+**This is forked from and heavily based on https://github.com/weng-lab/logojs-package, and aims to add functionality akin to Python's [LogoMaker](https://logomaker.readthedocs.io/en/latest/index.html)**
 
 LogoMakerJS is a Javascipt package for creating SVG sequence logos.
 LogoMakerJS supports a wide range of biological use cases. This README provides a quick overview
@@ -26,10 +26,18 @@ or
 npm install logomakerjs
 ```
 
-If you want to use LogoMakerJS in a static web page, you can simply include the package with a
-static script tag, which will add LogoJS to the global namespace as `logomakerjs`:
+If you want to use LogoMakerJS in a static web page, you can simply include the package along with React with a few
+static script tag, which will add LogoMakerJS to the global namespace as `logomakerjs`:
 
 ```html
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.production.min.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+></script>
 <script
   src="https://cdn.jsdelivr.net/npm/logomakerjs@0.1.2/dist/index.js"
   type="text/javascript"
@@ -79,10 +87,18 @@ If you don't use React, the following code embeds the DNA logo in a `div` elemen
 <html>
   <body>
     <script
-      src="https://cdn.jsdelivr.net/npm/logomakerjs@0.1.2/dist/index.js"
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/logomakerjs@latest/dist/index.umd.js"
       type="text/javascript"
     ></script>
-    <div id="logo" style="width:500px"></div>
+    <div id="logo" style="width: 500px"></div>
     <script type="text/javascript">
       const CTCF_PPM = [
         [0.09, 0.31, 0.08, 0.5],
@@ -105,9 +121,9 @@ If you don't use React, the following code embeds the DNA logo in a `div` elemen
         [0.12, 0.35, 0.08, 0.43],
         [0.44, 0.19, 0.29, 0.06],
       ];
-      logojs.embedDNALogo(document.getElementById("logo"), {
+      logomakerjs.embedDNALogo(document.getElementById("logo"), {
         data: CTCF_PPM,
-        type: "PPM",
+        dataType: "PPM",
       });
     </script>
   </body>

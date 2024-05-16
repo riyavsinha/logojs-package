@@ -9,9 +9,27 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      formats: ["es", "cjs", "umd"],
+      formats: ["es", "cjs", "umd", "iife"],
       name: "logomakerjs",
-      fileName: "index"
+      fileName: (format) => {
+        if (format === "umd") {
+          return "index.umd.js";
+        }
+        return `index.${format}.js`;
+      },
     },
+    rollupOptions: {
+      external: ["react", "react-dom", "react/jsx-runtime"],
+      output: {
+        globals: {
+          react: "React",
+          "react/jsx-runtime": "react/jsx-runtime",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
   },
 });
