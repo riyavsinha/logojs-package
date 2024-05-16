@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Logo, LogoProps } from "./Logo";
 import { UserDefinedAlphabet } from "../types";
 import { RNAAlphabet } from "../common/alphabet";

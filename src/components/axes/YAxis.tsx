@@ -1,5 +1,3 @@
-import React from "react";
-
 import { xrange } from "../../common/utils";
 import { calculateZeroPoint } from "../../common/renderUtils";
 

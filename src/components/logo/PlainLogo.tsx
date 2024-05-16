@@ -1,4 +1,3 @@
-import React from "react";
 import { loadGlyphComponents } from "../../common/loadGlyph";
 import { negSum, posSum } from "../../common/utils";
 import {

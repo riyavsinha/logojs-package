@@ -1,4 +1,3 @@
-import React from "react";
 import { calculateZeroPoint } from "../../common/renderUtils";
 
 export type XAxisLineProps = {

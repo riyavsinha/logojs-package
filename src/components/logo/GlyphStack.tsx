@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Glyph } from "./Glyph";
 import { Alphabet, GlyphEventInfo } from "../../types";
 import { calculateZeroPoint } from "../../common/renderUtils";
