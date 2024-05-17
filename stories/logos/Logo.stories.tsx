@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-// import React from "react";
 
-import { Logo } from "../src/logos/Logo";
-import { DNAAlphabet, disymbolAlphabet } from "../src";
-import { DataType } from "../src/types";
-import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "./motifs";
+import { Logo } from "../../src/logos/Logo";
+import { DNAAlphabet, disymbolAlphabet } from "../../src";
+import { DataType } from "../../src/types";
+import { SPI1_MOTIF_FASTA, SPI1_MOTIF_PFM } from "../motifs";
 
 const meta = {
-  title: "Logo",
+  title: "Logos/Logo",
   component: Logo,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

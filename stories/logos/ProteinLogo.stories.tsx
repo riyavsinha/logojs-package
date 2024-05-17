@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
 
-import { ProteinLogo } from "../src/logos/ProteinLogo";
-import { DataType } from "../src/types";
+import { ProteinLogo } from "../../src/logos/ProteinLogo";
+import { DataType } from "../../src/types";
 
 const meta = {
-  title: "ProteinLogo",
+  title: "Logos/ProteinLogo",
   component: ProteinLogo,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

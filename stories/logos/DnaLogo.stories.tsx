@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { DNALogo } from "../src/logos/DNALogo";
-import { CTCF_MOTIF_PPM, SPI1_MOTIF_PFM } from "./motifs";
-import { DataType } from "../src/types";
+import { DNALogo } from "../../src/logos/DNALogo";
+import { CTCF_MOTIF_PPM, SPI1_MOTIF_PFM } from "../motifs";
+import { DataType } from "../../src/types";
 
 const meta = {
-  title: "DNALogo",
+  title: "Logos/DNALogo",
   component: DNALogo,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
