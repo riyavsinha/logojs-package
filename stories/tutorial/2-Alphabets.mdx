@@ -1,0 +1,83 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "../logos/DnaLogo.stories";
+import * as Alphabets from "../components/Alphabets.stories";
+
+<Meta title="Tutorial/2 - Alphabets" />
+
+# Alphabets
+
+An `Alphabet` is an ordered list of characters that can be used to represent a sequence. The order of the characters in the alphabet is important, as it determines the order of the columns in the logo. For example, if the alphabet is `['A', 'C', 'G', 'T']`, then the first column in the logo will represent the frequency of `A` at that position, the second column will represent the frequency of `C`, and so on.
+
+## Provided Alphabets
+
+LogoMakerJS provides a number of pre-defined alphabets for DNA, RNA, and proteins.
+
+### DNA
+
+```jsx
+import { DNAAlphabet } from "logomakerjs";
+```
+
+<Canvas of={Alphabets.DNAAlphabetDisplay} />
+
+### RNA
+
+```jsx
+import { RNAAlphabet } from "logomakerjs";
+```
+
+<Canvas of={Alphabets.RNAAlphabetDisplay} />
+
+### Proteins
+
+The standard protein alphabet contains the 22 amino acids plus B and Z
+for N/D and Q/E. Acidic amino acids are red shades, basic amino acids
+are blue shades, non-polar amino acids are black shades, and B and Z
+are gold shades.
+
+```jsx
+import { ProteinAlphabet } from "logomakerjs";
+```
+
+<Canvas of={Alphabets.ProteinAlphabetDisplay} />
+
+### Complete Alphabet
+
+The `CompleteAlphabet` includes all glyphs supported by LogoMakerJS.
+
+```jsx
+import { CompleteAlphabet } from "logomakerjs";
+```
+
+<Canvas of={Alphabets.CompleteAlphabetDisplay} />
+
+## Custom Alphabets
+
+You can also create custom alphabets by passing an array of characters to the `Alphabet` component.
+
+```tsx
+import { A, B } from "logomakerjs";
+
+const newAlphabet = [
+  { component: A, regex: "A", color: "green" },
+  { component: B, regex: "B", color: "red" },
+];
+```
+
+In this example, the `newAlphabet` array contains two objects, each with a `regex` property that specifies a regular expression that matches a supported glyph in the `CompleteAlphabet`. The `component` property is optional and can be used to specify a custom component to render the glyph. The `color` property is also optional and can be used to specify a custom color for the glyph.
+
+You may exclude the component if the regex matches a supported glyph in the `CompleteAlphabet`:
+
+```tsx
+const newAlphabet = [
+  { regex: "A", color: "green" },
+  { regex: "B", color: "red" },
+];
+```
+
+Or, if you also are ok with the default color:
+
+```tsx
+const newAlphabet = [{ regex: "A" }, { regex: "B" }];
+```

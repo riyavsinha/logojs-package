@@ -14,7 +14,7 @@ export * from "./components/axes/YGridlines";
 export * from "./components/axes/XAxisLine";
 
 // components/logo
-export * from "./components/logo/DynamicSvg";
+export * from "./components/helper/DynamicSvg";
 export * from "./components/logo/PlainLogo";
 export * from "./components/logo/Glyph";
 export * from "./components/logo/GlyphStack";

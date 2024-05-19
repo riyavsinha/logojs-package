@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
 import { XAxisLabels } from "../../src/components/axes/XAxisLabels";
-import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import DynamicSVGComponent from "../../src/components/helper/DynamicSvg";
 import { PlainLogo } from "../../src/components/logo/PlainLogo";
 import { DNAAlphabet } from "../../src/common/alphabet";
 

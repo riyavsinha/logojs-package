@@ -3,7 +3,7 @@ import { fn } from "@storybook/test";
 import React from "react";
 
 import { PlainLogo } from "../../src/components/logo/PlainLogo";
-import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import DynamicSVGComponent from "../../src/components/helper/DynamicSvg";
 import { DNAAlphabet, disymbolAlphabet } from "../../src";
 import { CTCF_MOTIF_PPM } from "../motifs";
 

@@ -3,6 +3,7 @@ import {
   B,
   C,
   D,
+  Dash,
   E,
   F,
   G,
@@ -48,11 +49,7 @@ import {
   y,
 } from "../components/glyphs";
 import { N1, N2, N3, N4, N5, N6, N7, N8, N9 } from "../components/glyphs";
-import {
-  Alphabet,
-  MonoglyphAlphbetLetter,
-  SymbolMap,
-} from "../types";
+import { Alphabet, MonoglyphAlphbetLetter, SymbolMap } from "../types";
 import { constructSymbolToAlphabetMap } from "./utils";
 
 /**
@@ -174,6 +171,7 @@ export const CompleteAlphabet: MonoglyphAlphbetLetter[] = [
   { component: N7, regex: "7", color: "olive" },
   { component: N8, regex: "8", color: "slate" },
   { component: N9, regex: "9", color: "firebrick" },
+  { component: Dash, regex: "-", color: "black" },
 ];
 
 export const regexMap: SymbolMap =

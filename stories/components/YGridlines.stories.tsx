@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
 import { YGridlines } from "../../src/components/axes/YGridlines";
-import DynamicSVGComponent from "../../src/components/logo/DynamicSvg";
+import DynamicSVGComponent from "../../src/components/helper/DynamicSvg";
 import { DNAAlphabet } from "../../src/common/alphabet";
 import { PlainLogo } from "../../src";
 

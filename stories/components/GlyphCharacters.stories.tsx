@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import { Glyph } from "../../src/components/logo/Glyph";
 import {
   A,
   B,

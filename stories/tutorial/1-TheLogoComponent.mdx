@@ -1,0 +1,85 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "../logos/DnaLogo.stories";
+import LogoAnatomyLogo from "../assets/logo-anatomy-logo.png";
+import LogoAnatomyYAxis from "../assets/logo-anatomy-yaxis.png";
+import LogoAnatomyXAxisLine from "../assets/logo-anatomy-xaxisline.png";
+import LogoAnatomyXAxisLabels from "../assets/logo-anatomy-xaxislabels.png";
+import LogoAnatomyAnnotations from "../assets/logo-anatomy-annotation.png";
+
+<Meta title="Tutorial/1 - The Logo Component" />
+
+# The Logo Component
+
+The Logo component is the core component of LogoMakerJS. It is intended to expose all subcomponents and features of the library in a single, easy-to-use component. In this way, all of the math and rendering logic is abstracted away, and the user can focus on the data and the appearance of the logo.
+
+## Required Arguments
+
+There are only three required arguments for the Logo component:
+
+- `data`: The data to be rendered. This is either a numeric array of arrays, where each subarray represents a column in the data matrix for a position in the logo, or a string for FASTA data.
+- `dataType`: This tells the Logo component what type of data is being passed in. The options are "PPM" (Position Probability Matrix), "PWM" (Position Weight Matrix), "FASTA", "VALUES".
+- `alphabet`: An list of characters in the alphabet corresponding to what each of the columns in the data matrix represent. It should be of the same length as each numeric subarray in the data.
+
+## Anatomy of a Logo
+
+The `Logo` component is a container for many subcomponents, and it is responsible for positioning them relative to each other. React Props for each subcomponent can be passed in as props to the `Logo` component, and the `Logo` component will pass them down to the appropriate subcomponent. This allows for a high degree of customization and control over the appearance of the logo.
+
+Everything besides the `PlainLogo` is optional, and can be turned on or off as needed.
+
+### PlainLogo
+
+Component Link: [PlainLogo](?path=/docs/components-plainlogo--docs)
+
+The PlainLogo component is the simplest logo component. It renders a logo with no annotations, no axes, and no labels. It is the most basic representation of the data. It only renders `GlyphStack`s at each position in the sequence at the appropriate heights.
+
+<p align="center">
+  <img src={LogoAnatomyLogo} height={400} />
+</p>
+
+For a deeper understanding of the internals of the `PlainLogo`, see:
+
+- [GlyphStack](?path=/docs/components-glyphstack--docs)
+- [Glyph](?path=/docs/components-glyph--docs)
+
+### Y-axis
+
+Component Link: [YAxis](?path=/docs/components-yaxis--docs)
+
+The Y-axis component is responsible for rendering the y-axis of the logo. Tick marks are by default placed at integer intervals along the y-axis, as well as the maximum and minimum values of the data. Custom labels, ranges, and tick marks can be set. A prop on `Logo` can also be used to make the y-axis symmetric between positive and negative values.
+
+<p align="center">
+  <img src={LogoAnatomyYAxis} height={400} />
+</p>
+
+### X-Axis Line
+
+The X-axis line is a simple horizontal line that is drawn at the zero value of the data. It is useful for distinguishing between positive and negative values in the logo.
+
+<p align="center">
+  <img src={LogoAnatomyXAxisLine} height={400} />
+</p>
+
+### X-Axis Labels
+
+Component Link: [XAxisLabels](?path=/docs/components-xaxislabels--docs)
+
+The X-Axis Labels component is responsible for rendering the labels at each position in the sequence. By default, the labels are the position number in the sequence, but custom labels can be set. The labels can be rotated.
+
+<p align="center">
+  <img src={LogoAnatomyXAxisLabels} height={400} />
+</p>
+
+### Annotations
+
+Component Link: [Annotations](?path=/docs/annotations-positionrangebox--docs)
+
+Annotations are a powerful feature of LogoMakerJS that allow you to highlight important features of the logo. Annotations can be added to the logo at specific positions, or over a range of positions.
+
+Currently, the only annotation type is the `PositionRangeBox`, which highlights a range of positions in the logo. The `PositionRangeBox` can be customized with a color, opacity, and border using normal SVG rectangle properties.
+
+Custom annotations can be added by creating a new annotation component and passing it to the `Annotations` component list in `Logo`. See the [Annotation Tutorial](TODO) for more information.
+
+<p align="center">
+  <img src={LogoAnatomyAnnotations} height={400} />
+</p>
