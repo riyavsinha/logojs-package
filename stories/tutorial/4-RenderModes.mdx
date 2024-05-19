@@ -1,0 +1,54 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "../logos/DnaLogo.stories";
+import * as Logos from "../logos/Logo.stories";
+
+<Meta title="Tutorial/4 - Render Modes" />
+
+# Render Modes
+
+The `Logo` component can render logos in a variety of modes.
+
+These are specified by the `mode` prop, which can be one of the following values: `INFORMATION_CONTENT`, `FREQUENCY` or `RAW`.
+
+The default mode is `INFORMATION_CONTENT`.
+
+## Information content
+
+In this mode, the height of each letter in the logo is proportional to the information content of that letter at that position in the sequence.
+
+The y-axis of the logo represents the information content in bits, which will go from 0 to log base 2 of the number of symbols in the alphabet.
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const CTCFLogo = (props) => <DNALogo data={...} type="PPM" mode="INFORMATION_CONTENT" />;
+```
+
+<Canvas of={DNALogos.CAPMotifIC} />
+
+## Frequency
+
+In this mode, the height of each letter in the logo is proportional to the frequency of that letter at that position in the sequence.
+
+The y-axis of the logo represents the frequency of the symbol at that position. This will range from 0 to 1.
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const CTCFLogo = (props) => <DNALogo data={...} type="PPM" mode="FREQUENCY" />;
+```
+
+<Canvas of={DNALogos.CTCFMotifFrequency} />
+
+## Raw
+
+In this mode, the height of each letter is displayed exactly as it is in the input data.
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const CTCFLogo = (props) => <DNALogo data={...} type="VALUES" mode="RAW" />;
+```
+
+<Canvas of={DNALogos.Bigwig} />
