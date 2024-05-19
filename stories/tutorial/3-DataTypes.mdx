@@ -1,0 +1,148 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "../logos/DnaLogo.stories";
+
+<Meta title="Tutorial/3 - Data Types" />
+
+# Data Types
+
+The `Logo` component can render logos for a variety of data types. In general, LogoMakerJS will perform operations to calculate liklihoods for each position in the sequence, and then render the logo based on the calculated values:
+
+## Position Probability Matrices (PPMs)
+
+PPMs are 2D arrays of numbers that represent the probability of each symbol at each position in the sequence. The numbers in the PPM should sum to 1 for each position. Here is an example of a PPM for a DNA sequence:
+
+```jsx
+const CTCF_PPM = [
+  [0.09, 0.31, 0.08, 0.5],
+  [0.18, 0.15, 0.45, 0.2],
+  [0.3, 0.05, 0.49, 0.14],
+  [0.06, 0.87, 0.02, 0.03],
+  [0.0, 0.98, 0.0, 0.02],
+  [0.81, 0.01, 0.07, 0.09],
+  [0.04, 0.57, 0.36, 0.01],
+  [0.11, 0.47, 0.05, 0.35],
+  [0.93, 0.01, 0.03, 0.01],
+  [0.0, 0.0, 0.99, 0.01],
+  [0.36, 0.0, 0.64, 0.0],
+  [0.05, 0.01, 0.55, 0.37],
+  [0.03, 0.0, 0.97, 0.0],
+  [0.06, 0.0, 0.85, 0.07],
+  [0.11, 0.8, 0.0, 0.07],
+  [0.4, 0.01, 0.55, 0.01],
+  [0.09, 0.53, 0.33, 0.04],
+  [0.12, 0.35, 0.08, 0.43],
+  [0.44, 0.19, 0.29, 0.06],
+];
+```
+
+In a `Logo` component, you can render a logo for this PPM like this:
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const CTCFLogo = (props) => <DNALogo data={CTCF_PPM} type="PPM" />;
+```
+
+## Position Frequency Matrices (PFMs)
+
+PFMs are 2D arrays of numbers that represent the frequency of each symbol at each position in the sequence. The numbers in the PFM should sum to the length of the sequence. Here is an example of a PFM for a DNA sequence:
+
+```jsx
+const DNA_PFM = [
+  [1, 3, 1, 5],
+  [2, 2, 6, 3],
+  [3, 1, 7, 2],
+  [1, 14, 0, 2],
+  [0, 49, 0, 1],
+  [17, 0, 3, 4],
+  [1, 11, 7, 0],
+  [2, 9, 1, 7],
+  [27, 0, 2, 1],
+  [0, 0, 49, 1],
+  [9, 0, 16, 0],
+  [1, 0, 11, 7],
+  [1, 0, 38, 0],
+  [1, 0, 34, 3],
+  [2, 15, 0, 1],
+  [8, 0, 11, 1],
+  [1, 12, 7, 1],
+  [2, 7, 2, 9],
+  [8, 4, 6, 1],
+];
+```
+
+In a `Logo` component, you can render a logo for this PFM like this:
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const DNALogo = (props) => <DNALogo data={DNA_PFM} type="PFM" />;
+```
+
+### Conversion from PFM to PPM
+
+LogoMakerJS will automatically convert a PFM to a PPM when rendering a logo. The conversion is done by dividing each element in the PFM by the sum of the elements in the same column. This is done to ensure that the numbers in the PPM sum to 1 for each position.
+
+## FASTA Sequences
+
+FASTA sequences are a set of strings that represent a sequence of symbols.
+
+LogoMakerJS accepts FASTA sequences in two forms. First, you can provide multi-line sequences demarcated by a `>` character. Here is an example of a FASTA sequence for a DNA sequence:
+
+```jsx
+const DNA_FASTA = `>seq1
+ACGTACGTACGTACGT
+>seq2
+ACGTACGTACGTACGT
+>seq3
+ACGTACGTACGTACGT
+>seq4
+ACGTACGTACGTACGT`;
+```
+
+Or you can provide sequences with one sequence per line. Here is an example of a FASTA sequence for a DNA sequence:
+
+```jsx
+const DNA_FASTA = `ACGTACGTACGTACGT
+ACGTACGTACGTACGT
+ACGTACGTACGTACGT
+ACGTACGTACGTACGT`;
+```
+
+In a `Logo` component, you can render a logo for this FASTA sequence like this:
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const DNALogo = (props) => <DNALogo data={DNA_FASTA} type="FASTA" />;
+```
+
+### Conversion from FASTA to PPM
+
+LogoMakerJS will automatically convert a FASTA sequence to a PPM when rendering a logo. The conversion is done by first creating a PFM by counting the frequency of each symbol at each position in the sequence among the set of sequences.
+
+The PFM is then converted to a PPM by dividing each element in the PFM by the sum of the elements in the same column to get the probability of each symbol at each position.
+
+## Custom Data
+
+You can also provide custom numeric data to the `Logo` component. The data should be a 2D array of numbers. This data will not be pre-processed by LogoMakerJS.
+
+```jsx
+const customData = [
+  [0.1, 0.2, 0.3, 0.4],
+  [0.2, 0.3, 0.4, 0.9],
+  [0.3, 0.4, 0.1, 0.2],
+  [0.4, 0.1, 1.0, 0.3],
+];
+```
+
+In a `Logo` component, you can render a logo for this custom data like this:
+
+```jsx
+import { DNALogo } from "logomakerjs";
+
+export const CustomLogo = (props) => (
+  <DNALogo data={customData} type="VALUES" />
+);
+```
