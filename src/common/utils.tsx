@@ -138,3 +138,9 @@ export const constructSymbolToAlphabetIndexMap = (
     },
     {} as { [key: string]: number }
   );
+
+export const is1DNumericArray = (data: any): data is number[] =>
+  Array.isArray(data) && data.every((x) => typeof x === "number");
+
+export const is2DNumericArray = (data: any): data is number[][] =>
+  Array.isArray(data) && data.every(is1DNumericArray);
