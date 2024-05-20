@@ -1,10 +1,11 @@
 {
   "name": "logomakerjs",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/riyavsinha/logomakerjs"
   },
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "types": "./dist/index.d.ts",
