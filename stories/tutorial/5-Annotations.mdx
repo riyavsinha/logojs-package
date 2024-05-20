@@ -1,0 +1,60 @@
+import { Canvas, Meta } from "@storybook/blocks";
+
+import * as DNALogos from "../logos/DnaLogo.stories";
+import * as Logos from "../logos/Logo.stories";
+import * as PositionRangeBox from "../annotations/PositionRangeBox.stories";
+
+<Meta title="Tutorial/5 - Annotations" />
+
+# Annotations
+
+The `Logo` component can render logos with annotations. Annotations are specified by the `annotations` prop, which takes in an array of Annotation components.
+
+## Built-In Annotations
+
+### Position Range Box
+
+Component Link: [PositionRangeBox](?path=/docs/annotations-positionrangebox--docs)
+
+The `PositionRangeBox` annotation is a box that spans a range of positions in the sequence. It is useful for highlighting regions of interest in the sequence.
+
+The only required props for `PositionRangeBox` are `startPos` and `endPos`, which specify the start and end positions of the box, respectively.
+
+```jsx
+import { DNALogo, PositionRangeBox } from "logomakerjs";
+
+export const DNALogo = (props) => (
+  <DNALogo
+    data={...}
+    type="PPM"
+    annotations={[
+      <PositionRangeBox startPos={1} endPos={4} />,
+    ]}
+  />
+);
+```
+
+<Canvas of={PositionRangeBox.Default} />
+
+## Custom Annotations
+
+Adding custom annotations can be complex due to the need to calculate the SVG position of the annotation, including taking into account the offset due to axes, and any user-added padding.
+
+LogoMakerJS exposes all the necessary information to calculate the position of the annotation in the `LogoContext` object, which can be accessed by any Annotation component.
+
+**If there is a specific annotation you would like to see implemented, please let us know by opening an issue on the [LogoMakerJS GitHub repository](https://github.com/riyavsinha/logomakerjs/issues)**. We would be happy to help implement use cases that are common to the community.
+
+### Logo Context
+
+The `LogoContext` object contains the following properties:
+
+- `glyphWidth`: The width of each glyph in the logo. This is useful for calculating the x-position of the annotation relative to the logo. In general, the x-position of the annotation should be calculated as `startPos * glyphWidth`.
+- `height`: The height of the logo. This is useful for calculating the y-position of the annotation relative to the logo.
+- `values`: The values used to render the logo. This is useful for calculating the y-position of the annotation relative to the actual heights in the logo.
+- `maxValue`: The maximum value in the logo
+- `minValue`: The minimum value in the logo
+- `transform`: The transform applied to the logo accounting for axes and padding. This is useful for moving to the correct start of the `PlainLogo` component that you may want to annotate.
+
+If you require additional information to calculate the position of your annotation, please let us know by opening an issue on the [LogoMakerJS GitHub repository](https://github.com/riyavsinha/logomakerjs/issues), or feel free to open a pull request with the necessary changes.
+
+For an example of how to use the `LogoContext` object, see the [PositionRangeBox](https://github.com/riyavsinha/logomakerjs/blob/main/src/components/annotations/PositionRangeBox.tsx#L29) annotation implementation.
