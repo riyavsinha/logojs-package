@@ -31,9 +31,13 @@ export * from "./logos/RNALogo";
 export * from "./logos/ProteinLogo";
 export * from "./logos/Logo";
 export * from "./logos/CompleteLogo";
+export * from "./logos/BigWigLogo";
 
 // embed
 export * from "./js/embed";
 
 // contexts
 export * from "./contexts/LogoContext";
+
+// types
+export * from "./types";
